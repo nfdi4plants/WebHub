@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 5.6
+  - 7.0
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+before_install: composer self-update
+
+install: composer install --prefer-dist --no-interaction
+
+script:
+  - mkdir -p build/logs
+  - vendor/bin/phpunit
+  - vendor/bin/phpcs -np --standard=vendor/hubzero/standards/Php/ruleset.xml src/
+  - vendor/bin/parallel-lint src/
+
+after_script:
+  - php vendor/bin/coveralls

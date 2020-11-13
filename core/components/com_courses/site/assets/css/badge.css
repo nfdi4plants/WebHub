@@ -1,0 +1,19 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+.main .badge-img {
+	margin: 0 20px 20px 0;
+	display: block;
+	float: left;
+}
+.main .badge-validation {
+	margin-top: 25px;
+}
+.main .badge-criteria {
+	clear: both;
+	border: 1px dotted #AAAAAA;
+	padding: 20px;
+}

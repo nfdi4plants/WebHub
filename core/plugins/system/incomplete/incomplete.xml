@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="system">
+	<name>System - Incomplete</name>
+	<creationDate>June 2012</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_SYSTEM_INCOMPLETE_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="incomplete">incomplete.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_incomplete.ini</language>
+		<language tag="en-GB">en-GB.plg_system_incomplete.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="exceptions" type="textarea" rows="15" cols="40" default="" label="PLG_SYSTEM_INCOMPLETE_EXCEPTIONS_LABEL" description="PLG_SYSTEM_INCOMPLETE_EXCEPTIONS_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# @package    hubzero-cms
+# @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+# @license    http://opensource.org/licenses/MIT MIT
+#
+
+cd /
+if [ -f /usr/bin/maxwell ] ; then
+exec /usr/bin/maxwell $*
+elif [ -f /usr/lib/hubzero/bin/maxwell ] ; then
+exec /usr/lib/hubzero/bin/maxwell $*
+elif [ -f /usr/lib/mw/bin/maxwell ] ; then
+exec /usr/lib/mw/bin/maxwell $*
+elif [ -f /opt/mw/bin/maxwell ] ; then
+exec /opt/mw/bin/maxwell $*
+else
+exec /opt/narwhal/narwhal $*
+fi

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         bootstrap="phpunit.php"
+>
+    <testsuites>
+        <testsuite name="HUBzero Framework Test Suite">
+            <directory suffix="Test.php">./src/Base/Tests</directory>
+            <directory suffix="Test.php">./src/Browser/Tests</directory>
+            <directory suffix="Test.php">./src/Config/Tests</directory>
+            <directory suffix="Test.php">./src/Console/Tests</directory>
+            <directory suffix="Test.php">./src/Container/Tests</directory>
+            <directory suffix="Test.php">./src/Database/Tests</directory>
+            <directory suffix="Test.php">./src/Debug/Tests</directory>
+            <directory suffix="Test.php">./src/Facades/Tests</directory>
+            <directory suffix="Test.php">./src/Notification/Tests</directory>
+            <directory suffix="Test.php">./src/Pathway/Tests</directory>
+            <directory suffix="Test.php">./src/Spam/Tests</directory>
+            <directory suffix="Test.php">./src/Template/Tests</directory>
+            <directory suffix="Test.php">./src/Utility/Tests</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+</phpunit>

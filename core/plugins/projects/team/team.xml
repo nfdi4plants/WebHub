@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="projects">
+	<name>Projects - Team</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_PROJECTS_TEAM_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="team">team.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_projects_team.ini</language>
+	</languages>
+</extension>

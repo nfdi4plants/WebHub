@@ -1,0 +1,57 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+//
+// Search
+// --------------------------------------------------
+
+.searchform {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	width: 20em;
+	background: #222;
+	background: rgba(0, 0, 0, 0.9);
+	border-top: 2px solid #ccc;
+
+	fieldset {
+		border: none;
+		background: transparent;
+		margin: 0;
+		padding: 1em;
+
+		legend,
+		label {
+			display: none;
+		}
+	}
+
+	input {
+		float: left;
+	}
+	input.searchsubmit {
+		width: 20%;
+		background-color: #D9D9D9;
+
+		&:hover,
+		&:focus {
+			background-color: #fff;
+			color: #222;
+		}
+	}
+	input.searchword {
+		width: 80%;
+		background-color: #ccc;
+		background-color: rgba(200, 200, 200, 0.3);
+
+		&:hover,
+		&:focus {
+			background-color: #ddd;
+			background-color: rgba(200, 200, 200, 0.5);
+			color: #fff;
+		}
+	}
+}

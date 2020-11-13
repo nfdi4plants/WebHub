@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Browse Events Calendar">
+		<message>
+			<![CDATA[Browse Events Calendar]]>
+		</message>
+	</layout>
+	<state>
+		<name>Browse Events Calendar</name>
+		<description>Browse Events Calendar</description>
+		<params>
+		</params>
+	</state>
+</metadata>

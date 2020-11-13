@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5" method="upgrade">
+	<name>com_cpanel</name>
+	<creationDate>February 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0.0</version>
+	<description>COM_CPANEL_XML_DESCRIPTION</description>
+	<administration>
+		<files folder="admin">
+			<filename>controller.php</filename>
+			<filename>cpanel.php</filename>
+			<filename>index.html</filename>
+			<folder>views</folder>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB.com_cpanel.ini</language>
+		</languages>
+	</administration>
+</extension>

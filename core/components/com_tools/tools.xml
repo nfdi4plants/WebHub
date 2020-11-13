@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.5">
+	<name>Tools</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<files>
+		<filename>router.php</filename>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>mw</filename>
+		<filename>mw.class.php</filename>
+		<filename>tools.css</filename>
+		<filename>mw.html.php</filename>
+		<filename>tools.php</filename>
+		<filename>tools.js</filename>
+		<filename>mw.utils.php</filename>
+		<filename>SignedVncViewer-20070502-01.jar</filename>
+		<filename>VncViewer-20070502-01.jar</filename>
+		<filename>images/close-light.gif</filename>
+		<filename>images/corner.png</filename>
+		<filename>images/folder.gif</filename>
+		<filename>images/trash.gif</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.com_tools.ini</language>
+	</languages>
+	<installfile>
+		<filename>install.tools.php</filename>
+	</installfile>
+	<uninstallfile>
+		<filename>uninstall.tools.php</filename>
+	</uninstallfile>
+	<administration>
+		<menu>Tools</menu>
+		<files>
+			<filename>index.html</filename>
+			<filename>admin.controller.php</filename>
+			<filename>admin.tools.html.php</filename>
+			<filename>admin.tools.php</filename>
+			<filename>config.xml</filename>
+			<filename>tools.config.php</filename>
+			<filename>toolbar.tools.html.php</filename>
+			<filename>toolbar.tools.php</filename>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">en-GB.com_tools.ini</language>
+		</languages>
+	</administration>
+</extension>

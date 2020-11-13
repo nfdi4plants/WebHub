@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="oaipmh">
+	<name>OAIPMH - Publications</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_OAIPMH_PUBLICATIONS</description>
+	<files>
+		<filename plugin="publications">publications.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_oaipmh_publications.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic" addfieldpath="/core/plugins/oaipmh/publications">
+				<field name="type" type="publicationcategory" default="0" label="PLG_OAIPMH_PUBLICATIONS_CATEGORY_LABEL" description="PLG_OAIPMH_PUBLICATIONS_CATEGORY_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

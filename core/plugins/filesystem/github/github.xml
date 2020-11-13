@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="filesystem">
+	<name>Filesystem - Github</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_FILESYSTEM_GITHUB_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="github">github.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_filesystem_github.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="credentials">
+				<field name="app_key" type="text" default="" label="PLG_FILESYSTEM_GITHUB_APP_KEY_LABEL" description="PLG_FILESYSTEM_GITHUB_APP_KEY_DESC" />
+				<field name="app_secret" type="text" default="" label="PLG_FILESYSTEM_GITHUB_APP_SECRET_LABEL" description="PLG_FILESYSTEM_GITHUB_APP_SECRET_DESC" />
+			</fieldset>
+			<fieldset name="user_credentials">
+				<field name="repository" type="text" default="" label="PLG_FILESYSTEM_GITHUB_REPOSITORY_LABEL" description="PLG_FILESYSTEM_GITHUB_REPOSITORY_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

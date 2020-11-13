@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.0" type="plugin" group="filesystem">
+	<name>Filesystem - Google Drive</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_FILESYSTEM_GOOGLEDRIVE_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="googledrive">googledrive.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_filesystem_googledrive.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="credentials">
+				<field name="app_id" type="text" default="" label="PLG_FILESYSTEM_GOOGLEDRIVE_APP_ID_LABEL" description="PLG_FILESYSTEM_GOOGLEDRIVE_APP_ID_DESC" />
+				<field name="app_secret" type="text" default="" label="PLG_FILESYSTEM_GOOGLEDRIVE_APP_SECRET_LABEL" description="PLG_FILESYSTEM_GOOGLEDRIVE_APP_SECRET_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

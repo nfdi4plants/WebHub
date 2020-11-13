@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Edit Post">
+		<message>
+			<![CDATA[Edit Post]]>
+		</message>
+	</layout>
+	<state>
+		<name>Edit Post</name>
+		<description>Edit Post</description>
+		<params>
+			<param name="section" type="text" label="Section alias" description="Enter a section alias" />
+			<param name="category" type="text" label="Category alias" description="Enter a category alias" />
+			<param name="thread" type="text" label="Thread alias" description="Enter a thread alias" />
+		</params>
+	</state>
+</metadata>

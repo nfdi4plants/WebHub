@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="members">
+	<name>plg_members_projects</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_MEMBERS_PROJECTS_DESCRIPTION</description>
+	<files>
+		<filename plugin="projects">projects.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_members_projects.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_tab" type="list" default="1" label="PLG_MEMBERS_PROJECTS_PARAM_DISPLAY_TAB_LABEL" description="PLG_MEMBERS_PROJECTS_PARAM_DISPLAY_TAB_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="display_limit" type="text" size="5" default="50" label="PLG_MEMBERS_PROJECTS_PARAM_LIMIT_LABEL" description="PLG_MEMBERS_PROJECTS_PARAM_LIMIT_DESC"/>
+				<field name="show" type="list" default="none" label="PLG_MEMBERS_PROJECTS_PARAM_SHOW_LABEL" description="PLG_MEMBERS_PROJECTS_PARAM_SHOW_DESC">
+					<option value="none">PLG_MEMBERS_PROJECTS_PARAM_SHOW_NONE</option>
+					<option value="public">PLG_MEMBERS_PROJECTS_PARAM_SHOW_PUBLIC</option>
+					<option value="all">PLG_MEMBERS_PROJECTS_PARAM_SHOW_ALL</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

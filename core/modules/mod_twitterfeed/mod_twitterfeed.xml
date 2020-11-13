@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_twitterfeed</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0.0</version>
+	<description>MOD_TWITTERFEED_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_twitterfeed">mod_twitterfeed.php</filename>
+		<filename>assets/css/mod_twitterfeed.css</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_twitterfeed.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="moduleTitle" type="text" default="" label="MOD_TWITTERFEED_PARAM_TITLE_LABEL" description="MOD_TWITTERFEED_PARAM_TITLE_DESC" />
+				<field name="twitterID" type="text" default="" label="MOD_TWITTERFEED_PARAM_TWITTERID_LABEL" description="MOD_TWITTERFEED_PARAM_TWITTERID_DESC" />
+				<field name="tweetcount" type="text" default="3" label="MOD_TWITTERFEED_PARAM_TWEETCOUNT_LABEL" description="MOD_TWITTERFEED_PARAM_TWEETCOUNT_DESC" />
+				<field name="displayHeader" type="list" default="yes" label="MOD_TWITTERFEED_PARAM_DISPLAYHEADER_LABEL" description="MOD_TWITTERFEED_PARAM_DISPLAYHEADER_DESC">
+					<option value="yes">JYes</option>
+					<option value="no">JNo</option>
+				</field>
+				<field name="displayFooter" type="list" default="yes" label="MOD_TWITTERFEED_PARAM_DISPLAYFOOTER_LABEL" description="MOD_TWITTERFEED_PARAM_DISPLAYFOOTER_DESC">
+					<option value="yes">JYes</option>
+					<option value="no">JNo</option>
+				</field>
+				<field name="moduleclass_sfx" type="text" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

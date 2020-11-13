@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="members">
+	<name>plg_members_collections</name>
+	<creationDate>December 2012</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.5</version>
+	<description>PLG_MEMBERS_COLLECTIONS_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="collections">collections.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_members_collections.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_tab" type="list" default="1" label="PLG_MEMBERS_COLLECTIONS_PARAM_DISPLAY_TAB_LABEL" description="PLG_MEMBERS_COLLECTIONS_PARAM_DISPLAY_TAB_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="maxWidth" type="text" menu="hide" default="290" label="PLG_MEMBERS_COLLECTIONS_PARAM_MAXWIDTH_LABEL" description="PLG_MEMBERS_COLLECTIONS_PARAM_MAXWIDTH_DESC" />
+				<field name="defaultView" type="list" default="0" label="PLG_MEMBERS_COLLECTIONS_PARAM_DEFAULTVIEW_LABEL" description="PLG_MEMBERS_COLLECTIONS_PARAM_DEFAULTVIEW_DESC">
+					<option value="feed">PLG_MEMBERS_COLLECTIONS_PARAM_DEFAULTVIEW_FEED</option>
+					<option value="collections">PLG_MEMBERS_COLLECTIONS_PARAM_DEFAULTVIEW_COLLECTIONS</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

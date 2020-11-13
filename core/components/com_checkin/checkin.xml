@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5" method="upgrade">
+	<name>com_checkin</name>
+	<creationDate>February 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0.0</version>
+	<description>COM_CHECKIN_XML_DESCRIPTION</description>
+	<files folder="models">
+		<filename>inspector.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<administration>
+		<files folder="admin">
+			<filename>checkin.php</filename>
+			<filename>config.xml</filename>
+			<filename>controllers/checkin.php</filename>
+			<filename>index.html</filename>
+			<folder>views</folder>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB.com_checkin.ini</language>
+		</languages>
+	</administration>
+</extension>

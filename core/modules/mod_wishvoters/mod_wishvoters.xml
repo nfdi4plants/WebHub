@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_wishvoters</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0.0</version>
+	<description>MOD_WISHVOTERS_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_wishvoters">mod_wishvoters.php</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<filename>tmpl/index.html</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>assets/css/mod_wishvoters.css</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="moduleclass" type="text" default="" label="MOD_WISHVOTERS_PARAM_CLASS_LABEL" description="MOD_WISHVOTERS_PARAM_CLASS_DESC" />
+				<field name="limit" type="text" default="5" label="MOD_WISHVOTERS_PARAM_LIMIT_LABEL" description="MOD_WISHVOTERS_PARAM_LIMIT_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+	<languages>
+		<language tag="en-GB">en-GB.mod_mywishvoters.ini</language>
+	</languages>
+</extension>

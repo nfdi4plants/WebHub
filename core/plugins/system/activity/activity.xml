@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="system">
+	<name>plg_system_activity</name>
+	<creationDate>April 2016</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_SYSTEM_ACTIVITY_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="activity">activity.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_activity.ini</language>
+		<language tag="en-GB">en-GB.plg_system_activity.sys.ini</language>
+	</languages>
+</extension>

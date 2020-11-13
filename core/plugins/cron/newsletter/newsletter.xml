@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="cron">
+	<name>Cron - Newsletter</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_CRON_NEWSLETTER_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="newsletter">newsletter.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_cron_newsletter.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset group="processmailings">
+				<field type="text" name="newsletter_queue_limit" default="25" label="PLG_CRON_NEWSLETTER_QUEUE_LIMIT_LABEL" description="PLG_CRON_NEWSLETTER_QUEUE_LIMIT_DESC" />
+			</fieldset>
+			<fieldset group="processips">
+				<field type="text" name="newsletter_ips_limit" default="100" label="PLG_CRON_NEWSLETTER_IPS_LIMIT_LABEL" description="PLG_CRON_NEWSLETTER_IPS_LIMIT_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+	<params group="processmailings">
+		<param type="text" name="newsletter_queue_limit" default="25" label="PLG_CRON_NEWSLETTER_QUEUE_LIMIT_LABEL" description="PLG_CRON_NEWSLETTER_QUEUE_LIMIT_DESC" />
+	</params>
+	<params group="processips">
+		<param type="text" name="newsletter_ips_limit" default="100" label="PLG_CRON_NEWSLETTER_QUEUE_IPS_LABEL" description="PLG_CRON_NEWSLETTER_IPS_LIMIT_DESC" />
+	</params>
+</extension>

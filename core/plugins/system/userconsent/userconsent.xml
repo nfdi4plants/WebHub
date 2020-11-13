@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="system">
+	<name>System - Userconsent</name>
+	<creationDate>June 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_SYSTEM_USERCONSENT_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="userconsent">userconsent.php</filename>
+	</files>
+	<config>
+	</config>
+</extension>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="authentication">
+	<name>Authentication - ORCID</name>
+	<creationDate>July 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.7</version>
+	<description>PLG_AUTHENTICATION_ORCID_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="orcid.php">orcid.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="client_id"     type="text" size="20" label="PLG_AUTHENTICATION_ORCID_PARAM_KEY_LABEL"    description="PLG_AUTHENTICATION_ORCID_PARAM_KEY_DESC" />
+				<field name="client_secret" type="text" size="32" label="PLG_AUTHENTICATION_ORCID_PARAM_SECRET_LABEL" description="PLG_AUTHENTICATION_ORCID_PARAM_SECRET_DESC" />
+				<field name="display_name"  type="text" size="32" label="PLG_AUTHENTICATION_ORCID_PARAM_NAME_LABEL"   description="PLG_AUTHENTICATION_ORCID_PARAM_NAME_DESC" default="ORCID" />
+				<field name="site_login"    type="radio" label="PLG_AUTHENTICATION_ORCID_PARAM_SITELOGIN_LABEL" default="1" description="PLG_AUTHENTICATION_ORCID_PARAM_SITELOGIN_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="admin_login"   type="radio" label="PLG_AUTHENTICATION_ORCID_PARAM_ADMINLOGIN_LABEL" default="0" description="PLG_AUTHENTICATION_ORCID_PARAM_ADMINLOGIN_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="auto_approve" type="radio" label="PLG_AUTHENTICATION_ORCID_PARAM_AUTO_APPROVE_LABEL" default="0" description="PLG_AUTHENTICATION_ORCID_PARAM_AUTO_APPROVE_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

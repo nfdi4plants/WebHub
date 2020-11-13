@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.5">
+	<name>Feedback</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Capture and manage user success stories.</description>
+	<files folder="config">
+		<filename>access.xml</filename>
+		<filename>config.xml</filename>
+	</files>
+	<files folder="helpers">
+		<filename>permissions.php</filename>
+	</files>
+	<files folder="models">
+		<filename>quote.php</filename>
+	</files>
+	<files folder="site">
+		<filename>assets/css/feedback.css</filename>
+		<filename>assets/js/feedback.js</filename>
+		<filename>assets/js/quotes.js</filename>
+		<filename>controllers/feedback.php</filename>
+		<filename>controllers/media.php</filename>
+		<filename>feedback.php</filename>
+		<filename>router.php</filename>
+		<filename>index.html</filename>
+		<filename>views/feedback/tmpl/display.php</filename>
+		<filename>views/feedback/tmpl/display.xml</filename>
+		<filename>views/feedback/tmpl/poll.php</filename>
+		<filename>views/feedback/tmpl/poll.xml</filename>
+		<filename>views/feedback/tmpl/quotes.php</filename>
+		<filename>views/feedback/tmpl/quotes.xml</filename>
+		<filename>views/feedback/tmpl/story.php</filename>
+		<filename>views/feedback/tmpl/story.xml</filename>
+		<filename>views/feedback/tmpl/thanks.php</filename>
+		<filename>views/feedback/tmpl/thanks.xml</filename>
+	</files>
+	<languages folder="site">
+		<language tag="en-GB">en-GB.com_feedback.ini</language>
+	</languages>
+	<administration>
+		<menu>Feedback</menu>
+		<files folder="admin">
+			<filename>controllers/quotes.php</filename>
+			<filename>index.html</filename>
+			<filename>feedback.php</filename>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">en-GB.com_feedback.ini</language>
+		</languages>
+	</administration>
+</extension>

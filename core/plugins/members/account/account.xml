@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="members">
+	<name>Members - Account</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_MEMBERS_ACCOUNT_XML_DESC</description>
+	<files>
+		<filename plugin="account">account.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_members_account.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_tab" type="list" default="1" label="PLG_MEMBERS_ACCOUNT_PARAM_DISPLAY_TAB_LABEL" description="PLG_MEMBERS_ACCOUNT_PARAM_DISPLAY_TAB_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="ssh_key_upload" type="list" default="0" label="PLG_MEMBERS_ACCOUNT_PARAM_SSH_KEY_UPLOAD_LABEL" description="PLG_MEMBERS_ACCOUNT_PARAM_SSH_KEY_UPLOAD_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

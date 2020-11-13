@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="projects">
+	<name>Projects - Links</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Manage external content for publications</description>
+	<files>
+		<filename plugin="tools">links.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_projects_links.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_limit" type="text" menu="hide" label="Display limit" default="50" description="Number of items to return" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

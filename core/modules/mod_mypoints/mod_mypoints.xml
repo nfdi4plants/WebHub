@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_mypoints</name>
+	<creationDate>October 2009</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.2.0</version>
+	<description>MOD_MYPOINTS_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_mypoints">mod_mypoints.php</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<filename>tmpl/index.html</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>assets/css/mod_mypoints.css</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="moduleclass_sfx" type="text" default="" label="MOD_MYPOINTS_PARAM_CLASS_LABEL" description="MOD_MYPOINTS_PARAM_CLASS_DESC" />
+				<field name="limit" type="text" default="5" label="MOD_MYPOINTS_PARAM_LIMIT_LABEL" description="MOD_MYPOINTS_PARAM_LIMIT_DESC" member_dashboard="1" />
+			</fieldset>
+		</fields>
+	</config>
+	<languages>
+		<language tag="en-GB">en-GB.mod_mypoints.ini</language>
+	</languages>
+</extension>

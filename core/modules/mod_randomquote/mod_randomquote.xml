@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_randomquote</name>
+	<creationDate>Mar 2010</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.5.0</version>
+	<description>MOD_RANDOMQUOTE_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_randomquote">mod_randomquote.php</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+		<filename>mod_randomquote.xml</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_randomquote.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="moduleid" type="text" default="" label="MOD_RANDOMQUOTE_PARAM_MODULEID_LABEL" description="MOD_RANDOMQUOTE_PARAM_MODULEID_DESC" />
+				<field name="quotepool" type="radio" default="notable_quotes" label="MOD_RANDOMQUOTE_PARAM_QUOTEPOOL_LABEL" description="MOD_RANDOMQUOTE_PARAM_QUOTEPOOL_DESC">
+					<option value="flash_rotation">MOD_RANDOMQUOTE_PARAM_QUOTEPOOL_ROTATION</option>
+					<option value="notable_quotes">MOD_RANDOMQUOTE_PARAM_QUOTEPOOL_NQPAGE</option>
+					<option value="all">MOD_RANDOMQUOTE_PARAM_QUOTEPOOL_ALL</option>
+				</field>
+				<field name="show_author" type="radio" default="1" label="MOD_RANDOMQUOTE_PARAM_SHOW_AUTHOR_LABEL" description="MOD_RANDOMQUOTE_PARAM_SHOW_AUTHOR_DESC">
+					<option value="1">MOD_RANDOMQUOTE_PARAM_SHOW</option>
+					<option value="0">MOD_RANDOMQUOTE_PARAM_HIDE</option>
+				</field>
+				<field name="show_all_link" type="radio" default="1" label="MOD_RANDOMQUOTE_PARAM_SHOW_ALL_LABEL" description="MOD_RANDOMQUOTE_PARAM_SHOW_ALL_DESC">
+					<option value="1">MOD_RANDOMQUOTE_PARAM_SHOW</option>
+					<option value="0">MOD_RANDOMQUOTE_PARAM_HIDE</option>
+				</field>
+				<field name="quotesrc" type="radio" default="miniquote" label="MOD_RANDOMQUOTE_PARAM_SOURCE_LABEL" description="MOD_RANDOMQUOTE_PARAM_SOURCE_DESC">
+					<option value="miniquote">MOD_RANDOMQUOTE_PARAM_SOURCE_MINI</option>
+					<option value="short_quote">MOD_RANDOMQUOTE_PARAM_SOURCE_SHORT</option>
+				</field>
+				<field name="charlimit" type="text" default="150" label="MOD_RANDOMQUOTE_PARAM_LIMIT_LABEL" description="MOD_RANDOMQUOTE_PARAM_LIMIT_DESC" />
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="cache" type="radio" default="0" label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC">
+					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+					<option value="1">JGLOBAL_USE_GLOBAL</option>
+				</field>
+				<field name="cache_time" type="text" default="15" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

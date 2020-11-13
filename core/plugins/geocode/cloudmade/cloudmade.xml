@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="geocode">
+	<name>Geocode - CloudMade</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>CloudMade provider for geocode</description>
+	<files>
+		<filename plugin="cloudmade">cloudmade.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_geocode_cloudmade.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<field name="apiKey" type="text" menu="hide" label="API Key" default="" description="API key" />
+		</fields>
+	</config>
+</extension>

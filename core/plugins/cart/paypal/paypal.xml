@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.1" type="plugin" group="cart">
+	<name>plg_cart_paypal</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_CART_PAYPAL_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="paypal">paypal.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_cart_paypal.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="title" type="text" default="PayPal" label="Tab title" description="Tab title"/>
+				<field name="description" type="textarea"  default="Click on the button to pay with PayPal" label="Description text" description="Description text"/>
+				<field type="spacer" />
+				<field name="env" type="radio" label="PLG_AUTHENTICATION_FACEBOOK_PARAM_SITELOGIN_LABEL" default="1" description="PLG_AUTHENTICATION_FACEBOOK_PARAM_SITELOGIN_DESC">
+					<option value="live">Live</option>
+					<option value="sandbox">Sandbox</option>
+				</field>
+				<field name="receiver_email" type="text" size="50" default="" label="Paypal Email" description="Paypal Email Desc"/>
+				<field name="currency" type="text" size="10" default="USD" label="Paypal Currency" description="Paypal Currency Desc"/>
+				<field name="secure_post" type="radio" default="0" label="Paypal Secure Post" description="Paypal Secure Post Desc">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="sandbox_receiver_email" type="text" size="50" default="" label="Paypal Sandbox Email" description="Paypal Sandbox Email Desc"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

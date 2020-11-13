@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.5">
+	<name>Usage</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<languages>
+		<language tag="en-GB">en-GB.com_usage.ini</language>
+	</languages>
+	<files>
+		<filename>router.php</filename>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>usage.html.php</filename>
+		<filename>about.php</filename>
+		<filename>usage.php</filename>
+		<filename>usage.css</filename>
+		<filename>usage.js</filename>
+		<filename>usage.helper.php</filename>
+		<filename>maps/images/markerB.png</filename>
+		<filename>maps/images/markerU.png</filename>
+		<filename>maps/js/Clusterer2.js</filename>
+		<filename>maps/js/elabel.js</filename>
+		<filename>maps/online.php</filename>
+		<filename>maps/images/1.png</filename>
+		<filename>maps/images/10.png</filename>
+		<filename>maps/images/11.png</filename>
+		<filename>maps/images/2.png</filename>
+		<filename>maps/images/3.png</filename>
+		<filename>maps/images/4.png</filename>
+		<filename>maps/images/5.png</filename>
+		<filename>maps/images/6.png</filename>
+		<filename>maps/images/7.png</filename>
+		<filename>maps/images/8.png</filename>
+		<filename>maps/images/9.png</filename>
+		<filename>maps/images/m.png</filename>
+		<filename>maps/images/marker.png</filename>
+		<filename>maps/images/markerG.png</filename>
+		<filename>maps/images/marker_red.png</filename>
+		<filename>maps/images/org.png</filename>
+		<filename>maps/animation.php</filename>
+		<filename>maps/maps.php</filename>
+		<filename>maps/tools.php</filename>
+		<filename>maps/us-maps.php</filename>
+		<filename>maps/web_all.php</filename>
+		<filename>maps/web_gradient.php</filename>
+		<filename>maps/whoisonline.php</filename>
+	</files>
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">install.sql</file>
+		</sql>
+	</install>
+	<administration>
+		<menu>Usage</menu>
+		<files>
+			<filename>controller.php</filename>
+			<filename>usage.php</filename>
+			<filename>config.xml</filename>
+			<filename>views/browse/tmpl/default.php</filename>
+			<filename>views/browse/tmpl/default.xml</filename>
+		</files>
+	</administration>
+</extension>

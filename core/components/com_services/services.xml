@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.5">
+	<name>Services</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Manage services</description>
+	<languages>
+		<language tag="en-GB">en-GB.com_services.ini</language>
+	</languages>
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">install.sql</file>
+		</sql>
+	</install>
+	<administration>
+		<menu>Services</menu>
+		<languages folder="admin">
+			<language tag="en-GB">en-GB.com_services.ini</language>
+		</languages>
+		<files>
+			<filename>services.xml</filename>
+			<filename>config.xml</filename>
+			<filename>index.html</filename>
+			<filename>services.php</filename>
+		</files>
+	</administration>
+</extension>

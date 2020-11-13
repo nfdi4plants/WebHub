@@ -1,0 +1,17 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+/*
+	-- -- -- -- -- -- --
+	Project databases selector CSS
+	-- -- -- -- -- -- --
+*/
+	.database-selector  {
+		margin-top: 2em !important;
+	}
+	.database-selector li {
+		border-bottom: 1px solid #CCC;
+	}

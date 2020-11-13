@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<config>
+	<fieldset name="basic">
+		<field name="limit" label="COM_OAIPMH_MAX_LABEL" type="text" default="50" description="COM_OAIPMH_MAX_DESC" />
+		<field name="allow_ore" type="radio" default="0" label="COM_OAIPMH_ALLOW_ORE_LABEL" description="COM_OAIPMH_ALLOW_ORE_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="@spacer" type="spacer" default="" label="" description="" />
+		<field name="repository_name" type="text" default="" label="COM_OAIPMH_REPOSITORY_LABEL" description="COM_OAIPMH_REPOSITORY_DESC" />
+		<field name="base_url" type="text" default="" label="COM_OAIPMH_BASE_URL_LABEL" description="COM_OAIPMH_BASE_URL_DESC" />
+		<field name="email" type="text" default="" label="COM_OAIPMH_EMAIL_LABEL" description="COM_OAIPMH_EMAIL_DESC" />
+		<field name="edate" type="text" default="2012-02-12 00:00:00" label="COM_OAIPMH_EDATE_LABEL" description="COM_OAIPMH_EDATE_DESC" />
+		<field name="del" type="list" default="No" label="COM_OAIPMH_DEL_LABEL" description="COM_OAIPMH_DEL_DESC">
+			<option value="no">JNO</option>
+			<option value="transient">COM_OAIPMH_DEL_TRANSIENT</option>
+			<option value="persistent">COM_OAIPMH_DEL_PERSISTENT</option>
+		</field>
+		<field name="gran" type="list" default="c" label="COM_OAIPMH_GRAN_LABEL" description="COM_OAIPMH_GRAN_DESC">
+			<option value="c">YYYY-MM-DDThh:mm:ssZ</option>
+			<option value="Y-m-d">YYYY-MM-DD</option>
+		</field>
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" validate="rules" filter="rules" component="com_oaipmh" section="component" />
+	</fieldset>
+</config>

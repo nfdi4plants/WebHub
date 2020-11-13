@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="resources">
+	<name>Resource - Related</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Display related resources</description>
+	<files>
+		<filename plugin="related">related.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_resources_related.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_limit" type="text" size="5" default="50" label="PLG_RESOURCES_RELATED_LIMIT_LABEL" description="PLG_RESOURCES_RELATED_LIMIT_DESC"/>
+				<field name="miniview" type="radio" default="0" label="PLG_RESOURCES_RELATED_MINI_LABEL" description="PLG_RESOURCES_RELATED_MINI_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

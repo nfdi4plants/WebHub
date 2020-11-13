@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_application_env</name>
+	<creationDate>April 2012</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.5.0</version>
+	<description>MOD_APPLICATION_ENV_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_application_env">mod_application_env.php</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+		<filename>index.html</filename>
+		<filename>mod_application_env.css</filename>
+	</files>
+	<config>
+	</config>
+	<languages>
+		<language tag="en-GB">en-GB.mod_application_env.ini</language>
+	</languages>
+</extension>

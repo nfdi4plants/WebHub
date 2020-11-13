@@ -1,0 +1,323 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+// Form elements
+// --------------------------------------------------
+
+// Inputs
+	input,
+	button,
+	textarea {
+		font-family: @sansFontFamily;
+		font-size: 1em;
+		line-height: 1.6em;
+		max-width: 100%;
+		padding: 0.5em 1em;
+		outline: none;
+		border: 1px solid #D9D9D9;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		background-color: #f1f1f1;
+		background-color: rgba(200, 200, 200, 0.15);
+		.background-clip(padding-box);
+		.transition(all 0.1s ease-out);
+
+		&:hover,
+		&:focus {
+			background-color: #fff;
+			border-color: #222;
+		}
+
+		&.disabled {
+			color: #888;
+			color: rgba(0, 0, 0, 0.5);
+
+			&:hover,
+			&:focus {
+				background-color: #f1f1f1;
+				background-color: rgba(200, 200, 200, 0.15);
+				border-color: #D9D9D9;
+				border-color: rgba(0, 0, 0, 0.15);
+			}
+		}
+	}
+	input[type=text],
+	input[type=password],
+	input[type=email],
+	input[type=date],
+	input[type=url],
+	input[type=color],
+	input[type=search],
+	input[type=tel],
+	input[type=month],
+	input[type=week],
+	input[type=time],
+	input[type=number],
+	input[type=file],
+	textarea {
+		width: 100%;
+	}
+	input.datetime-field {
+		background-image: url("/core/assets/icons/calendar.svg");
+		background-repeat: no-repeat;
+		background-position: center right calc(2.25rem / 4);
+		background-size: calc(2.25rem / 2) calc(2.25rem / 2);
+	}
+	button,
+	[type=submit] {
+		&:hover,
+		&:focus {
+			background-color: #222;
+			border-color: #222;
+			color: #fff;
+		}
+	}
+	select {
+		font-family: @sansFontFamily;
+		font-size: 1em;
+		line-height: 1.6em;
+		max-width: 100%;
+		width: 100%;
+		padding: 0.5em 1em;
+		outline: none;
+		border: 1px solid #D9D9D9;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		background-color: #f1f1f1;
+		background-color: rgba(200, 200, 200, 0.15);
+		.border-radius(0);
+		.background-clip(padding-box);
+		.transition(all 0.1s ease-out);
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		padding-right: 20px;
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
+		background-repeat: no-repeat;
+		background-position: 100% 50%;
+
+		&:hover,
+		&:focus {
+			background-color: #fff;
+			border-color: #222;
+		}
+	}
+	select:not([multiple]):not([size])::-ms-expand {
+		display: none;
+	}
+	select:not([multiple]):not([size]):disabled {
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A")
+	}
+	.placeholder-support {
+		color: #aaa;
+	}
+
+// HUB Forms
+	#hubForm {
+		position: relative;
+		padding: 0;
+
+		label {
+			display: block;
+			color: #777;
+			padding: 1.5em 0 0 0;
+		}
+		input,
+		select,
+		textarea {
+			margin-top: 0.25em;
+		}
+
+		input.option,
+		input[type="checkbox"],
+		input[type="radio"] {
+			width: auto;
+		}
+
+		legend {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			border-bottom: 1px solid #e5e5e5;
+			margin: 0 0 1em 0;
+			padding: 1em 2em;
+			text-transform: uppercase;
+			font-weight: 500;
+			letter-spacing: 0.1em;
+			line-height: 1;
+
+			&:before,
+			&:after {
+				content: "";
+				display: table;
+				line-height: 0;
+			}
+			&:after {
+				clear: right;
+			}
+		}
+
+		fieldset {
+			background: #fff;
+			border: 1px solid #e5e5e5;
+			margin: 0 0 2em 0;
+			position: relative;
+			padding: 3em 2em 2em 2em;
+
+			fieldset {
+				margin: 1.5em 0;
+				padding: 0 1em 1.5em 1em;
+				float: none;
+				width: auto;
+
+				label {
+					padding-top: 0.7em;
+				}
+				legend {
+					float: none;
+					position: static;
+					left: auto;
+					right: auto;
+					background: #fff;
+					color: #747474;
+					border: none;
+					width: auto;
+					padding: 0 1em;
+					margin: 0;
+					text-indent: 0;
+					text-shadow: none;
+					text-transform: none;
+					font-size: 1em;
+				}
+			}
+		}
+
+		span.optional,
+		span.required {
+			text-transform: uppercase;
+			font-size: xx-small;
+		}
+		span.required {
+			color: red;
+		}
+		span.optional {
+			color: #999;
+		}
+		.hint {
+			color: #999;
+			font-size: 90%;
+		}
+		.inactive {
+			color: #aa9;
+		}
+
+		.submit {
+			padding: 1em 0 0 0;
+			text-align: center;
+
+			input {
+				display: inline;
+				width: auto;
+			}
+		}
+
+		span.warning,
+		span.information,
+		span.help,
+		span.error {
+			margin: 0.5em 0 0 0;
+			display: inline-block;
+		}
+		.error p,
+		.warning p,
+		.information p,
+		.help p {
+			margin: 1em 0;
+		}
+
+		ul {
+			margin: 1em 0;
+
+			li {
+				margin-left: 2em;
+			}
+		}
+
+		.explaination {
+			background: #ccc;
+			background: rgba(0, 0, 0, 0.05);
+			position: relative;
+			padding: 1em;
+
+			&>*:first-child {
+				margin-top: 0;
+				padding-top: 0;
+			}
+			&>*:last-child {
+				margin-bottom: 0;
+				padding-bottom: 0;
+			}
+		}
+
+		&.full {
+			fieldset {
+				margin-right: 0;
+			}
+
+			.submit {
+				margin-right: 0;
+			}
+		}
+	}
+
+@media (min-width: 50em) {
+	#hubForm {
+		fieldset {
+			margin-right: 270px;
+
+			fieldset {
+				margin-right: 0;
+			}
+		}
+		.explaination {
+			float: right;
+			min-height: 1em;
+			width: 240px;
+			margin: 0 0 0 @spacing;
+
+			&:after {
+				content: "";
+				width: 0;
+				height: 0;
+				border: 8px solid #ccc;
+				border-color: transparent #ccc transparent transparent;
+				border-color: transparent rgba(0, 0, 0, 0.05) transparent transparent;
+				position: absolute;
+				right: 100%;
+				top: 1em;
+			}
+		}
+		.explaination + fieldset {
+			margin-right: 0;
+		}
+		.submit {
+			margin-right: 270px;
+		}
+	}
+}
+
+	form.search {
+		fieldset {
+			background: transparent;
+			border: none;
+			padding: 0;
+			margin: 0;
+
+			input {
+				width: auto;
+				display: inline-block;
+			}
+		}
+	}

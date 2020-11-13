@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="antispam">
+	<name>plg_antispam_babajispam</name>
+	<creationDate>June 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>2.5.0</version>
+	<description>PLG_ANTISPAM_BABAJISPAM_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="babajispam">babajispam.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_antispam_babajispam.ini</language>
+		<language tag="en-GB">en-GB.plg_antispam_babajispam.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="message" type="text" size="10" default="The submitted text was detected as possible spam or containing inappropriate content." label="PLG_ANTISPAM_BABAJISPAM_PARAM_MESSAGE_LABEL" description="PLG_ANTISPAM_BABAJISPAM_PARAM_MESSAGE_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

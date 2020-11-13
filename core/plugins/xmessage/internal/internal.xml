@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="xmessage">
+	<name>XMessage - Internal</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Allows an XMessage to be sent via Internal (site) system</description>
+	<files>
+		<filename plugin="internal">internal.php</filename>
+	</files>
+	<languages>
+	</languages>
+	<config>
+	</config>
+</extension>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.5" client="administrator">
+	<name>mod_courses</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>MOD_COURSES_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_courses">mod_courses.php</filename>
+		<filename>courses.css</filename>
+		<filename>index.html</filename>
+		<filename>tmpl/default.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="cache" type="list" default="1" label="MOD_COURSES_CACHE_LABEL" description="MOD_COURSES_CACHE_DESC">
+					<option value="1">MOD_COURSES_CACHE_GLOBAL</option>
+					<option value="0">MOD_COURSES_CACHE_NONE</option>
+				</field>
+			</fieldset>
+			<fieldset name="colors">
+				<field name="color_published" type="text" default="#656565" label="MOD_COURSES_COLOR_PUBLISHED_LABEL" description="MOD_COURSES_COLOR_PUBLISHED_DESC" />
+				<field name="color_draft" type="text" default="#999999" label="MOD_COURSES_COLOR_DRAFT_LABEL" description="MOD_COURSES_COLOR_DRAFT_DESC" />
+				<field name="color_archived" type="text" default="#cccccc" label="MOD_COURSES_COLOR_ARCHIVED_LABEL" description="MOD_COURSES_COLOR_ARCHIVED_DESC" />
+				<field name="color_unpublished" type="text" default="#ffffff" label="MOD_COURSES_COLOR_UNPUBLISHED_LABEL" description="MOD_COURSES_COLOR_UNPUBLISHED_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.5" client="administrator">
+	<name>Group Pages Pending Approval</name>
+	<creationDate>January 2014</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0.0</version>
+	<description>This module lists group pages pending approval.</description>
+	<files>
+		<filename module="mod_grouppages">mod_grouppages.php</filename>
+	</files>
+</extension>

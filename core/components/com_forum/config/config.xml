@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<config>
+	<fieldset name="basic">
+		<field name="filepath" type="text" default="/site/forum" label="COM_FORUM_CONFIG_FILEPATH_LABEL" description="COM_FORUM_CONFIG_FILEPATH_DESC" />
+		<field name="forum" type="list" default="both" label="COM_FORUM_CONFIG_DATASRC_LABEL" description="COM_FORUM_CONFIG_DATASRC_DESC">
+			<option value="site">COM_FORUM_CONFIG_DATASRC_SITE</option>
+			<option value="group">COM_FORUM_CONFIG_DATASRC_GROUP</option>
+			<option value="both">COM_FORUM_CONFIG_DATASRC_BOTH</option>
+		</field>
+		<field name="allow_anonymous" type="radio" default="1" label="COM_FORUM_CONFIG_ALLOW_ANON_LABEL" description="COM_FORUM_CONFIG_ALLOW_ANON_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="threading" type="list" default="both" label="COM_FORUM_CONFIG_THREADING_LABEL" description="COM_FORUM_CONFIG_THREADING_DESC">
+			<option value="list">COM_FORUM_CONFIG_THREADING_LIST</option>
+			<option value="tree">COM_FORUM_CONFIG_THREADING_TREE</option>
+		</field>
+		<field name="threading_depth" type="text" default="3" label="COM_FORUM_CONFIG_THREADING_LEVEL_LABEL" description="COM_FORUM_CONFIG_THREADING_LEVEL_DESC" />
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" validate="rules" filter="rules" component="com_forum" section="component" />
+	</fieldset>
+</config>

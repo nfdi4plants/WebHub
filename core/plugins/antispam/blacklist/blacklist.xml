@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="antispam">
+	<name>plg_antispam_blacklist</name>
+	<creationDate>January 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0.0</version>
+	<description>PLG_ANTISPAM_BLACKLIST_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="blacklist">blacklist.php</filename>
+		<filename>index.html</filename>
+		<filename>Detector.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_antispam_blacklist.ini</language>
+		<language tag="en-GB">en-GB.plg_antispam_blacklist.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="badwords" type="textarea" rows="25" cols="40" label="PLG_ANTISPAM_BLACKLIST_PARAM_WORDS_LABEL" description="PLG_ANTISPAM_BLACKLIST_PARAM_WORDS_DESC" default="viagra, xanax, phentermine, ringtones, tramadol, hydrocodone, levitra, ambien, vicodin, fioricet, diazepam, accarat, casino, fuck, crap, shit, asshole, cunt, fucker, fuckers, motherfucker, fucking, milf, cocksucker, porno, videosex, hentai, kasino, kasinos, poker" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Register Race Ethnic Explanation Layout">
+		<message>
+			<![CDATA[Register Race Ethnic Explanation Layout]]>
+		</message>
+	</layout>
+	<state>
+		<name>Register Race Ethnic Explanation Layout</name>
+		<description>Register Race Ethnic Explanation Layout</description>
+	</state>
+</metadata>

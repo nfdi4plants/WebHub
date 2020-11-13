@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="groups">
+	<name>plg_groups_activity</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_GROUPS_ACTIVITY_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="activity">activity.php</filename>
+		<filename>assets/js/activity.js</filename>
+		<filename>assets/css/activity.css</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_groups_activity.ini</language>
+	</languages>
+</extension>

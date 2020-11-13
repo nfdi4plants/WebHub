@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="handlers">
+	<name>PLG_HANDLERS_LATEX</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_HANDLERS_LATEX_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="latex">latex.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_handlers_latex.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="texpath" type="text" menu="hide" default="/usr/bin/pdflatex" label="Path to LaTeX" description="Path to LaTeX" />
+				<field name="compile_dir" type="text" menu="hide" default="site/latex/compiled" label="Compilation directory" description="Location where compiled PDF's and logs should be saved." />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

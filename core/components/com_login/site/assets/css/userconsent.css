@@ -1,0 +1,17 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+section.consent {
+	width: 33%;
+	margin: 30px auto;
+	background: #FFFFFF;
+	padding: 20px;
+	border: 1px solid #CCCCCC;
+}
+.consent .actions {
+	text-align: center;
+	margin-top: 10px;
+}

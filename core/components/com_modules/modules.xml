@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5" method="upgrade">
+	<name>com_modules</name>
+	<creationDate>April 2006</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>2.5.0</version>
+	<description>COM_MODULES_XML_DESCRIPTION</description>
+	<administration>
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>modules.php</filename>
+			<folder>admin</folder>
+			<folder>config</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>site</folder>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB.com_modules.ini</language>
+		</languages>
+	</administration>
+</extension>

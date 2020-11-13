@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="citation">
+	<name>Citation - BibTex</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Imports BibTex data</description>
+	<files>
+		<filename plugin="bibtex">bibtex.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_citation_bibtext.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field type="text" name="title_match_percent" label="PLG_CITATION_BIBTEX_TITLE_MATCH_LABEL" description="PLG_CITATION_BIBTEX_TITLE_MATCH_DESC" size="30" default="90%" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

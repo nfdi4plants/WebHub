@@ -1,0 +1,5 @@
+app/config/**
+config/**
+configuration.php
+muse
+.idea

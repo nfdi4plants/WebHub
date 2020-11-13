@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Standard Feedback Layout">
+		<message>
+			<![CDATA[STANDARD FEEDBACK LAYOUT DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>Standard Feedback Layout</name>
+		<description>STANDARD FEEDBACK LAYOUT DESC</description>
+		<params>
+		</params>
+	</state>
+</metadata>

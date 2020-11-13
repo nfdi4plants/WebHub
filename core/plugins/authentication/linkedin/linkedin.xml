@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="authentication">
+	<name>Authentication - LinkedIn</name>
+	<creationDate>March 2012</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.7</version>
+	<description>PLG_AUTHENTICATION_LINKEDIN_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="linkedin.php">linkedin.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="api_key"      type="text" size="32" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_KEY_LABEL"    description="PLG_AUTHENTICATION_LINKEDIN_PARAM_KEY_DESC" />
+				<field name="app_secret"   type="text" size="32" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_SECRET_LABEL" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_SECRET_DESC" />
+				<field name="display_name" type="text" size="32" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_NAME_LABEL"   description="PLG_AUTHENTICATION_LINKEDIN_PARAM_NAME_DESC" default="LinkedIn" />
+				<field name="site_login"  type="radio" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_SITELOGIN_LABEL" default="1" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_SITELOGIN_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="admin_login"  type="radio" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_ADMINLOGIN_LABEL" default="0" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_ADMINLOGIN_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+			</fieldset>
+			<fieldset name="profile">
+				<field name="profile_num-connections" type="radio" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_NUMCONNECTIONS_LABEL" default="0" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_PROFILE_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="profile_summary" type="radio" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_SUMMARY_LABEL" default="0" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_PROFILE_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="profile_specialties" type="radio" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_SPECIALTIES_LABEL" default="0" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_PROFILE_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="profile_public-profile-url" type="radio" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_PUBLICPROFILEURL_LABEL" default="0" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_PROFILE_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="profile_industry" type="radio" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_INDUSTRY_LABEL" default="0" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_PROFILE_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="profile_location" type="radio" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_LOCATION_LABEL" default="0" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_PROFILE_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="profile_positions" type="radio" label="PLG_AUTHENTICATION_LINKEDIN_PARAM_POSITIONS_LABEL" default="0" description="PLG_AUTHENTICATION_LINKEDIN_PARAM_PROFILE_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

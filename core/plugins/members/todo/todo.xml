@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="members">
+	<name>Members - Todo</name>
+	<creationDate>June 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.5</version>
+	<description>Display to do items from member projects</description>
+	<files>
+		<filename plugin="todo">todo.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_members_todo.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_tab" type="list" default="1" label="PLG_MEMBERS_TODO_PARAM_DISPLAY_TAB_LABEL" description="PLG_MEMBERS_TODO_PARAM_DISPLAY_TAB_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="display_limit" type="text" menu="hide" label="Display limit" default="50" description="Number of items to return" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

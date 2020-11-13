@@ -1,0 +1,16 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+.edit-asset .tool-list,
+.edit-asset .fs-dropdown {
+	width: auto;
+	display: none;
+}
+.edit-asset .prerequisites {
+	background: #F1F1F1;
+	margin-bottom: 20px;
+	border: 1px solid #AAAAAA;
+}

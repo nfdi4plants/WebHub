@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Compare two versions">
+		<message>
+			<![CDATA[Compare two versions]]>
+		</message>
+	</layout>
+	<fields name="params">
+		<fieldset name="basic">
+			<field name="lft" type="text" label="Old version" description="Enter the ID of the publication version to compare against" />
+			<field name="rgt" type="text" label="New version" description="Enter the ID of the publication version to compare" />
+		</fieldset>
+	</fields>
+</metadata>

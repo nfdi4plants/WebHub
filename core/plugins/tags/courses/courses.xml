@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="tags">
+	<name>Tags - Courses</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_TAGS_COURSES_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="courses">courses.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_tags_courses.ini</language>
+	</languages>
+</extension>

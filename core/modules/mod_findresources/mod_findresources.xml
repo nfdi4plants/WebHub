@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_findresources</name>
+	<creationDate>Sep 2009</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.5.0</version>
+	<description>MOD_FINDRESOURCES_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_findresources">mod_findresources.php</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+		<filename>helper.php</filename>
+		<filename>mod_findresources.xml</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_findresources.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="cssId" type="text" default="findresources" label="MOD_FINDRESOURCES_PARAM_CSSID_LABEL" description="MOD_FINDRESOURCES_PARAM_CSSID_DESC" />
+				<field name="limit" type="text" default="25" label="MOD_FINDRESOURCES_PARAM_LIMIT_LABEL" description="MOD_FINDRESOURCES_PARAM_LIMIT_DESC" />
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="cache" type="radio" default="0" label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="cache_time" type="text" default="900" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

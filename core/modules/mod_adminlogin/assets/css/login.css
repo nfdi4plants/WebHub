@@ -1,0 +1,150 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+.auth {
+	position: relative;
+}
+.auth .incoming {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.auth .instructions {
+	font-size: 1em;
+	text-align: center;
+	margin: 0;
+}
+.auth .block {
+	display: block;
+}
+.auth .none {
+	display: none;
+}
+.auth .or {
+	width: 200px;
+	height: 20px;
+	margin: 15px auto;
+	overflow: hidden;
+	position: relative;
+}
+.auth .or:before {
+	content: "or";
+	font-size: 1em;
+	padding: 10px;
+	font-style: italic;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background: #F9F9F9;
+	margin-left: -20px;
+	margin-top: -20px;
+	z-index: 500;
+}
+
+.auth .local a,
+.auth .multi-auth a {
+	background: #E9E9E9;
+	padding: 5px;
+	color: #555555;
+	text-align: center;
+	text-decoration: none;
+	margin: 10px auto 0 auto;
+	display: block;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	    -ms-border-radius: 3px;
+	     -o-border-radius: 3px;
+	        border-radius: 3px;
+	-webkit-transition: box-shadow 0.15s;
+	   -moz-transition: box-shadow 0.15s;
+	    -ms-transition: box-shadow 0.15s;
+	     -o-transition: box-shadow 0.15s;
+	        transition: box-shadow 0.15s;
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+	    -ms-box-shadow: none;
+	     -o-box-shadow: none;
+	        box-shadow: none;
+}
+
+.auth .account {
+	display: block;
+	margin: 1em auto;
+	position: relative;
+	height: 50px;
+	line-height: 50px;
+	color: #FFFFFF;
+	text-decoration: none;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	    -ms-border-radius: 3px;
+	     -o-border-radius: 3px;
+	        border-radius: 3px;
+	-webkit-transition: box-shadow 0.15s;
+	   -moz-transition: box-shadow 0.15s;
+	    -ms-transition: box-shadow 0.15s;
+	     -o-transition: box-shadow 0.15s;
+	        transition: box-shadow 0.15s;
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+	    -ms-box-shadow: none;
+	     -o-box-shadow: none;
+	        box-shadow: none;
+}
+.account {
+	background: #333;
+}
+.auth .account:hover,
+.auth .local a:hover,
+.auth .multi-auth a:hover {
+	-webkit-transition: box-shadow 0.15s;
+	   -moz-transition: box-shadow 0.15s;
+	    -ms-transition: box-shadow 0.15s;
+	     -o-transition: box-shadow 0.15s;
+	        transition: box-shadow 0.15s;
+	-webkit-box-shadow: inset 0 0 1px #fff,0 0 2px rgba(0,0,0,0.35);
+	   -moz-box-shadow: inset 0 0 1px #fff,0 0 2px rgba(0,0,0,0.35);
+	    -ms-box-shadow: inset 0 0 1px #fff,0 0 2px rgba(0,0,0,0.35);
+	     -o-box-shadow: inset 0 0 1px #fff,0 0 2px rgba(0,0,0,0.35);
+	        box-shadow: inset 0 0 1px #fff,0 0 2px rgba(0,0,0,0.35);
+}
+.auth .account:active,
+.auth .local a:active,
+.auth .multi-auth a:active {
+	box-shadow: inset 2px 2px #999999;
+}
+.auth .account:before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 40px;
+	text-align: center;
+	font-weight: normal;
+	color: #fff;
+	margin-left: 5px;
+}
+.auth .account:after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 1em;
+	text-align: center;
+	font-family: fontcons;
+	font-size: 14px;
+	font-weight: normal;
+	color: #FFFFFF;
+	margin-right: 5px;
+	content: "\203a";
+}
+.auth .account .signin {
+	margin-left: 50px;
+	color: #FFFFFF;
+	font-weight: 400;
+	font-size: 1.2em;
+}

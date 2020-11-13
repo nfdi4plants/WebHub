@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.0" type="plugin" group="groups">
+	<name>Groups - Files</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_GROUPS_FILES_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="files">files.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_groups_files.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="plugin_access" type="list" default="members" label="PLG_GROUPS_FILES_PARAM_PLUGIN_ACCESS_LABEL" description="PLG_GROUPS_FILES_PARAM_PLUGIN_ACCESS_DESC">
+					<option value="anyone">PLG_GROUPS_FILES_PARAM_PLUGIN_ACCESS_ANYONE</option>
+					<option value="registered">PLG_GROUPS_FILES_PARAM_PLUGIN_ACCESS_REGISTERED</option>
+					<option value="members">PLG_GROUPS_FILES_PARAM_PLUGIN_ACCESS_MEMBERS</option>
+					<option value="nobody">PLG_GROUPS_FILES_PARAM_PLUGIN_ACCESS_NOBODY</option>
+				</field>
+				<field name="display_tab" type="list" default="1" label="PLG_GROUPS_FILES_PARAM_DISPLAY_TAB_LABEL" description="PLG_GROUPS_FILES_PARAM_DISPLAY_TAB_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

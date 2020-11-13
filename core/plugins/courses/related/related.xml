@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" course="courses">
+	<name>Courses - Related</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_COURSES_RELATED_XML_DESC</description>
+	<files>
+		<filename plugin="related">related.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_courses_related.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_limit" type="text" size="3" default="3" label="PLG_COURSES_RELATED_LIMIT_LABEL" description="PLG_COURSES_RELATED_LIMIT_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

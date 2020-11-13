@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system">
+	<name>plg_system_p3p</name>
+	<creationDate>September 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>2.5.0</version>
+	<description>PLG_P3P_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="p3p">p3p.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_p3p.ini</language>
+		<language tag="en-GB">en-GB.plg_system_p3p.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="header" type="text" description="PLG_P3P_HEADER_DESCRIPTION" label="PLG_P3P_HEADER_LABEL" default="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM" size="37" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

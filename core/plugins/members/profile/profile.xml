@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="members">
+	<name>Members - Profile</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_MEMBERS_PROFILE_DESCRIPTION</description>
+	<files>
+		<filename plugin="profile">profile.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_members_profile.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_tab" type="list" default="1" label="PLG_MEMBERS_PROFILE_PARAM_DISPLAY_TAB_LABEL" description="PLG_MEMBERS_PROFILE_PARAM_DISPLAY_TAB_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="access_email" type="list" default="2" label="Email" description="Show/Hide the user email">
+					<option value="0">Public</option>
+					<option value="1">Registered users</option>
+					<option value="2">Private</option>
+				</field>
+				<field name="access_optin" type="list" default="2" label="E-mail Updates" description="Show/Hide if the user has elected to receive updates or newsletters by email">
+					<option value="0">Public</option>
+					<option value="1">Registered users</option>
+					<option value="2">Private</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

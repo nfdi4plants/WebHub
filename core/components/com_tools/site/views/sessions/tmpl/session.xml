@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Standard Tool Session Layout">
+		<message>
+			<![CDATA[STANDARD TOOL SESSION DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>Standard Tool Session Layout</name>
+		<description>STANDARD TOOL SESSION DESC</description>
+		<params>
+		</params>
+	</state>
+</metadata>

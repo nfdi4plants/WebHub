@@ -1,0 +1,19 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+.mod_users {
+	text-align: center;
+	font-size: 15px;
+	padding: 15px;
+}
+.mod_users .pending-users {
+	font-size: 20px;
+}
+.mod_users .count {
+	font-weight: bold;
+	color: red;
+	font-size: 25px;
+}

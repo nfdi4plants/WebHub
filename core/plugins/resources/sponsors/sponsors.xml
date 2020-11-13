@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="resources">
+	<name>Resource - Sponsors</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_RESOURCES_SPONSORS_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="sponsors">sponsors.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_resources_sponsors.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="format" type="text" size="20" default="{journal}@{publisher}" label="PLG_RESOURCES_SPONSORS_FORMAT_LABEL" description="PLG_RESOURCES_SPONSORS_FORMAT_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

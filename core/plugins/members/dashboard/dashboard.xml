@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="members">
+	<name>plg_members_dashboard</name>
+	<creationDate>December 2009</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.5</version>
+	<description>PLG_MEMBERS_DASHBOARD_DESCRIPTION</description>
+	<files>
+		<filename plugin="dashboard">dashboard.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_members_dashboard.ini</language>
+		<language tag="en-GB">en-GB.plg_members_dashboard.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_tab" type="list" default="1" label="PLG_MEMBERS_DASHBOARD_PARAM_DISPLAY_TAB_LABEL" description="PLG_MEMBERS_DASHBOARD_PARAM_DISPLAY_TAB_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="allow_customization" type="radio" default="1" label="PLG_MEMBERS_DASHBOARD_PARAM_ALLOWCUSTOMIZATION_LABEL" description="PLG_MEMBERS_DASHBOARD_PARAM_ALLOWCUSTOMIZATION_DESC">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+				<field name="position" type="text" menu="hide" label="PLG_MEMBERS_DASHBOARD_PARAM_POSITION_LABEL" default="memberDashboard" description="PLG_MEMBERS_DASHBOARD_PARAM_POSITION_DESC" />
+				<field name="defaults" type="text" menu="hide" label="PLG_MEMBERS_DASHBOARD_PARAM_DEFAULTS_LABEL" default="" description="PLG_MEMBERS_DASHBOARD_PARAM_DEFAULTS_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

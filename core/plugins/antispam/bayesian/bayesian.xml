@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="antispam">
+	<name>plg_antispam_bayesian</name>
+	<creationDate>January 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0.0</version>
+	<description>PLG_ANTISPAM_BAYESIAN_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="bayesian">bayesian.php</filename>
+		<filename>index.html</filename>
+		<filename>Detector.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_antispam_bayesian.ini</language>
+		<language tag="en-GB">en-GB.plg_antispam_bayesian.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="threshold" type="text" size="10" default="0.95" label="PLG_ANTISPAM_BAYESIAN_PARAM_THRESHOLD_LABEL" description="PLG_ANTISPAM_BAYESIAN_PARAM_THRESHOLD_DESC" />
+				<field name="learn" type="list" default="1" label="PLG_ANTISPAM_BAYESIAN_PARAM_LEARN_LABEL" description="PLG_ANTISPAM_BAYESIAN_PARAM_LEARN_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

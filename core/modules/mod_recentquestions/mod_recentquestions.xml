@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_recentquestions</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>MOD_RECENTQUESTIONS_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_recentquestions">mod_recentquestions.php</filename>
+		<filename>mod_recentquestions.xml</filename>
+		<filename>index.html</filename>
+		<filename>tmpl/index.html</filename>
+		<filename>tmpl/default.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="limit" type="text" default="5" label="MOD_RECENTQUESTIONS_PARAM_LIMIT_LABEL" description="MOD_RECENTQUESTIONS_PARAM_LIMIT_DESC" />
+				<field name="cssId" type="text" default="" label="MOD_RECENTQUESTIONS_PARAM_CSSID_LABEL" description="MOD_RECENTQUESTIONS_PARAM_CSSID_DESC" />
+				<field name="cssClass" type="text" default="" label="MOD_RECENTQUESTIONS_PARAM_CSSCLASS_LABEL" description="MOD_RECENTQUESTIONS_PARAM_CSSCLASS_DESC" />
+				<field name="state" type="list" default="both" label="MOD_RECENTQUESTIONS_PARAM_STATE_LABEL" description="MOD_RECENTQUESTIONS_PARAM_STATE_DESC">
+					<option value="open">MOD_RECENTQUESTIONS_PARAM_STATE_OPEN</option>
+					<option value="closed">MOD_RECENTQUESTIONS_PARAM_STATE_CLOSED</option>
+					<option value="both">MOD_RECENTQUESTIONS_PARAM_STATE_BOTH</option>
+				</field>
+				<field name="feedlink" type="list" default="yes" label="MOD_RECENTQUESTIONS_PARAM_FEEDLINK_LABEL" description="MOD_RECENTQUESTIONS_PARAM_FEEDLINK_DESC">
+					<option value="no">JNo</option>
+					<option value="yes">JYes</option>
+				</field>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="cache" type="radio" default="0" label="MOD_RECENTQUESTIONS_PARAM_CACHE_LABEL" description="MOD_RECENTQUESTIONS_PARAM_CACHE_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="cache_time" type="text" default="15" label="MOD_RECENTQUESTIONS_PARAM_CACHETIME_LABEL" description="MOD_RECENTQUESTIONS_PARAM_CACHETIME_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+	<languages>
+		<language tag="en-GB">en-GB.mod_recentquestions.ini</language>
+	</languages>
+</extension>

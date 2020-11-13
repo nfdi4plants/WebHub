@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.5">
+	<name>Newsletters</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Manage Newsletters</description>
+	<languages>
+		<language tag="en-GB">en-GB.com_newsletter.ini</language>
+	</languages>
+	<administration>
+		<menu>Newsletters</menu>
+	</administration>
+</extension>

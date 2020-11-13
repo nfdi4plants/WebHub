@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system">
+	<name>plg_system_cache</name>
+	<creationDate>November 2016</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>2.5.0</version>
+	<description>PLG_CACHE_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="cache">cache.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_cache.ini</language>
+		<language tag="en-GB">en-GB.plg_system_cache.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="pagecache" type="radio" default="0" description="PLG_CACHE_FIELD_PAGECACHE_DESC" label="PLG_CACHE_FIELD_PAGECACHE_LABEL">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="browsercache" type="radio" default="0" description="PLG_CACHE_FIELD_BROWSERCACHE_DESC" label="PLG_CACHE_FIELD_BROWSERCACHE_LABEL">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="cacheexempt" type="textarea" cols="30" rows="10" default="/about/contact" label="PLG_CACHE_FIELD_EXEMPT_LABEL" description="PLG_CACHE_FIELD_EXEMPT_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<config>
+	<fieldset name="basic">
+		<field name="defaultpic" type="text" menu="hide" default="/components/com_feedback/site/assets/img/contributor.gif" label="COM_FEEDBACK_CONFIG_DEFAULT_PICTURE_LABEL" description="COM_FEEDBACK_CONFIG_DEFAULT_PICTURE_DESC" />
+		<field name="@spacer" type="spacer" default="" label="" description="" />
+		<field name="uploadpath" type="text" menu="hide" default="/site/quotes" label="COM_FEEDBACK_CONFIG_UPLOAD_PATH_LABEL" description="COM_FEEDBACK_CONFIG_UPLOAD_PATH_DESC" />
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" validate="rules" filter="rules" component="com_feedback" section="component" />
+	</fieldset>
+</config>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="publications">
+	<name>Publication - Citations</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Displays citations for a publication</description>
+	<files>
+		<filename plugin="citations">citations.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_publication_citations.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_limit" type="text" size="5" default="50" label="Display Limit" description="Number of items to return"/>
+				<field name="format" type="text" size="10" default="APA" label="Format" description="Format to display items in"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

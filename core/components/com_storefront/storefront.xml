@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.5">
+	<name>Storefront</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Store</description>
+	<files>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.com_storefront.ini</language>
+	</languages>
+	<administration>
+		<menu>Storefront</menu>
+		<languages folder="admin">
+			<language tag="en-GB">en-GB.com_storefront.ini</language>
+		</languages>
+	</administration>
+</extension>

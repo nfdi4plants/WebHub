@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="projects">
+	<name>Projects - Todo</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_PROJECTS_TODO_DESCRIPTION</description>
+	<files>
+		<filename plugin="todo">todo.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_projects_todo.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_limit" type="text" menu="hide" label="PLG_PROJECTS_TODO_PARAM_LIMIT_LABEL" default="50" description="PLG_PROJECTS_TODO_PARAM_LIMIT_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

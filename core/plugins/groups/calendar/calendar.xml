@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="groups">
+	<name>Groups - Calendar</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Displays a Group Calendar</description>
+	<files>
+		<filename plugin="calendar">calendar.php</filename>
+		<filename>calendar.css</filename>
+		<filename>calendar.js</filename>
+		<filename>tables/iCalcreator.class.php</filename>
+		<filename>tables/group.event.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_groups_calendar.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="plugin_access" type="list" default="members" label="Default Plugin Access" description="Default access level assigned to the calendar plugin.">
+					<option value="anyone">Any HUB Visitor</option>
+					<option value="registered">Only Registered HUB Users</option>
+					<option value="members">Only Group Members</option>
+					<option value="nobody">Disabled/Off</option>
+				</field>
+				<field name="display_tab" type="list" default="1" label="Display in Menu" description="Display 'Calendar' in group menu.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field type="spacer" />
+				<field name="allow_registrations" type="list" default="1" label="Event Registrations" description="Allow group events to capture event registrations.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="allow_subscriptions" type="list" default="1" label="Calendar Subscriptions" description="Allow groups to publish calendars.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field type="spacer" />
+				<field name="allow_quick_create" type="list" default="1" label="Event Quick Create" description="Allow users to double click on calendar date and create event.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field type="spacer" />
+				<field name="allow_import" type="list" default="1" label="Event Import" description="Allow users import events and calendar subscriptions.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field type="spacer" />
+				<field name="import_subscription_interval" type="list" default="60" label="Calendar Subscription Refresh Interval" description="Interval of which imported calendar subscriptions refreshed.">
+					<option value="5">5 Minutes</option>
+					<option value="15">15 Minutes</option>
+					<option value="30">30 Minutes</option>
+					<option value="60">60 Minutes</option>
+					<option value="120">2 Hours</option>
+					<option value="240">4 Hours</option>
+					<option value="480">8 Hours</option>
+					<option value="1440">1 Day</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
+

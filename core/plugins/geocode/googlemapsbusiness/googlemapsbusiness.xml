@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="geocode">
+	<name>Geocode - GoogleMapsBusiness</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>GoogleMapsBusiness provider for geocode</description>
+	<files>
+		<filename plugin="googlemapsbusiness">googlemapsbusiness.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_geocode_googlemapsbusiness.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="clientId" type="text" menu="hide" label="Client ID" default="" description="Client ID" />
+				<field name="privateKey" type="text" menu="hide" label="Private Key" default="" description="Private key" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

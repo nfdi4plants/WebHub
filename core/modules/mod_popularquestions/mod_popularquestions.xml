@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_popularquestions</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>MOD_POPULARQUESTIONS_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_popularquestions">mod_popularquestions.php</filename>
+		<filename>index.html</filename>
+		<filename>mod_popularquestions.xml</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="limit" type="text" default="5" label="MOD_POPULARQUESTIONS_PARAM_LIMIT_LABEL" description="MOD_POPULARQUESTIONS_PARAM_LIMIT_DESC" />
+				<field name="cssId" type="text" default="" label="MOD_POPULARQUESTIONS_PARAM_CSSID_LABEL" description="MOD_POPULARQUESTIONS_PARAM_CSSID_DESC" />
+				<field name="cssClass" type="text" default="" label="MOD_POPULARQUESTIONS_PARAM_CSSCLASS_LABEL" description="MOD_POPULARQUESTIONS_PARAM_CSSCLASS_DESC" />
+				<field name="state" type="list" default="both" label="MOD_POPULARQUESTIONS_PARAM_STATE_LABEL" description="MOD_POPULARQUESTIONS_PARAM_STATE_DESC">
+					<option value="open">MOD_POPULARQUESTIONS_PARAM_STATE_OPEN</option>
+					<option value="closed">MOD_POPULARQUESTIONS_PARAM_STATE_CLOSED</option>
+					<option value="both">MOD_POPULARQUESTIONS_PARAM_STATE_BOTH</option>
+				</field>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="cache" type="radio" default="0" label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="cache_time" type="text" default="900" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+	<languages>
+		<language tag="en-GB">en-GB.mod_popularquestions.ini</language>
+	</languages>
+</extension>

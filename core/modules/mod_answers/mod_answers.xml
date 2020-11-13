@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.5" client="administrator">
+	<name>MOD_ANSWERS</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>MOD_ANSWERS_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_answers">mod_answers.php</filename>
+		<filename>answers.css</filename>
+		<filename>index.html</filename>
+		<filename>tmpl/default.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="showMine" type="radio" default="0" label="MOD_ANSWERS_MINE_LABEL" description="MOD_ANSWERS_MINE_DESC">
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+				</field>
+				<field name="cache" type="list" default="1" label="MOD_ANSWERS_CACHE_LABEL" description="MOD_ANSWERS_CACHE_DESC">
+					<option value="1">MOD_ANSWERS_CACHE_GLOBAL</option>
+					<option value="0">MOD_ANSWERS_CACHE_NONE</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

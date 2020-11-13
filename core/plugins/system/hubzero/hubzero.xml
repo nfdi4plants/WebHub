@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="system">
+	<name>System - HUBzero</name>
+	<creationDate>June 2012</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_SYSTEM_HUBZERO_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="hubzero">hubzero.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_hubzero.ini</language>
+		<language tag="en-GB">en-GB.plg_system_hubzero.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="search" type="text" size="25" default="search" label="PLG_SYSTEM_HUBZERO_PARAM_SEARCH_LABEL" description="PLG_SYSTEM_HUBZERO_PARAM_SEARCH_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

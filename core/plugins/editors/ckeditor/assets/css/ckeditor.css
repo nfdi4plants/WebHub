@@ -1,0 +1,13 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+/* Show macros text */
+.cke_button__hubzeromacro_label {
+	display: inline-block !important;
+}
+.cke {
+	visibility: visible !important;
+}

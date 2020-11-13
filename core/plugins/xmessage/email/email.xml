@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="xmessage">
+	<name>XMessage - Email</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Allows an XMessage to be sent via email</description>
+	<files>
+		<filename plugin="email">email.php</filename>
+	</files>
+	<languages>
+	</languages>
+	<config>
+	</config>
+</extension>
+

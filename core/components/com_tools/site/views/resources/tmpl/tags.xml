@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Tool Resource Page: Tags">
+		<message>
+			<![CDATA[Tool Resource Page: Tags]]>
+		</message>
+	</layout>
+	<state>
+		<name>Tool Resource Page: Tags</name>
+		<description>Tool Resource Page: Tags</description>
+		<params>
+		</params>
+	</state>
+</metadata>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="whatsnew">
+	<name>Whatsnew - Content</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Displays the latest articles</description>
+	<files>
+		<filename plugin="content">content.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_whatsnew_content.ini</language>
+	</languages>
+	<config>
+	</config>
+</extension>
+

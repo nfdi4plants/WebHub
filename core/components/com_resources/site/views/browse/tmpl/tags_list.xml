@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Browse by tags column">
+		<message>
+			<![CDATA[Browse by tags column]]>
+		</message>
+	</layout>
+	<state>
+		<name>Browse by tags column</name>
+		<description>Browse by tags column</description>
+		<params>
+		</params>
+	</state>
+</metadata>

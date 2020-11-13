@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<config>
+	<fieldset name="basic">
+		<field name="component_enabled" type="list" default="1" label="COM_JOBS_ENABLED_LABEL" description="COM_JOBS_ENABLED_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="industry" type="text" menu="hide" label="COM_JOBS_INDUSTRY_LABEL" default="" description="COM_JOBS_INDUSTRY_DESC" />
+		<field name="admingroup" type="text" menu="hide" label="COM_JOBS_ADMINGROUP_LABEL" default="" description="COM_JOBS_ADMINGROUP_DESC" />
+		<field name="specialgroup" type="text" menu="hide" label="COM_JOBS_SPECIALGROUP_LABEL" default="" description="COM_JOBS_SPECIALGROUP_DESC" />
+		 <field name="autoapprove" type="list" default="1" label="COM_JOBS_AUTOAPPROVE_LABEL" description="COM_JOBS_AUTOAPPROVE_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="jobslimit" type="text" menu="hide" label="COM_JOBS_LIMIT_LABEL" default="25" description="COM_JOBS_LIMIT_DESC" />
+		<field name="allowsubscriptions" type="list" default="1" label="COM_JOBS_ALLOWSUBSCRIPTIONS_LABEL" description="COM_JOBS_ALLOWSUBSCRIPTIONS_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="usonly" type="list" default="1" label="COM_JOBS_US_ONLY_LABEL" description="COM_JOBS_US_ONLY_DESC">
+			<option value="1">COM_JOBS_US_ONLY_YES</option>
+			<option value="0">COM_JOBS_US_ONLY_NO</option>
+		</field>
+		<field name="expiry" type="list" default="1" label="COM_JOBS_EXPIRY" description="COM_JOBS_EXPIRY_DESC">
+			<option value="1">COM_JOBS_EXPIRY_ON</option>
+			<option value="0">COM_JOBS_EXPIRY_OFF</option>
+		</field>
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" validate="rules" filter="rules" component="com_jobs" section="component" />
+	</fieldset>
+</config>

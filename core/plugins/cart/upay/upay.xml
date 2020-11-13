@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.1" type="plugin" group="cart">
+	<name>plg_cart_upay</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_CART_UPAY_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="upay">upay.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_cart_upay.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="title" type="text" default="PayPal" label="Tab title" description="Tab title"/>
+
+				<field type="spacer" />
+
+				<field name="paymentSiteId" type="text" default="" label="UPay site ID" description="UPay site ID"/>
+				<field name="paymentValidationKey" type="text" default="" label="Payment validation key" description="Payment validation key"/>
+				<field name="env" type="radio" label="Environment" default="1" description="Environment">
+					<option value="live">Live</option>
+					<option value="sandbox">Sandbox</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

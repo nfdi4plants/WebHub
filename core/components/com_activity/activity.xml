@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.5">
+	<name>Activity</name>
+	<creationDate>March 2017</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0</version>
+	<description>Manage A Blog</description>
+	<files folder="site">
+		<filename>router.php</filename>
+		<filename>controller.php</filename>
+		<filename>activity.xml</filename>
+		<filename>activity.php</filename>
+		<filename>views/entries/tmpl/default.php</filename>
+		<filename>views/entry/tmpl/default.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages folder="site">
+		<language tag="en-GB">en-GB.com_activity.ini</language>
+	</languages>
+	<administration>
+		<menu>Activity</menu>
+		<files folder="admin">
+			<filename>controller.php</filename>
+			<filename>activity.php</filename>
+			<filename>views/entries/tmpl/default.php</filename>
+			<filename>views/edit/tmpl/default.php</filename>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">en-GB.com_activity.ini</language>
+			<language tag="en-GB">en-GB.com_activity.sys.ini</language>
+		</languages>
+	</administration>
+</extension>

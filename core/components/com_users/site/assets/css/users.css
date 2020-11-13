@@ -1,0 +1,22 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+#hubForm label.required {
+	font-size: inherit;
+	color: inherit;
+	text-transform: inherit;
+}
+#hubForm span.required {
+	text-transform: uppercase;
+	font-size: xx-small;
+	margin-left: 5px;
+	position: relative;
+}
+#hubForm span.required.star:before {
+	font-family: "fontcons";
+	content: "\273D";
+	margin-right: 1px;
+}

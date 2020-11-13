@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="publications">
+	<name>plg_publications_recommendations</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_PUBLICATIONS_RECOMMENDATIONS_DESCRIPTION</description>
+	<files>
+		<filename plugin="recommendations">recommendations.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_publication_recommendations.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="threshold" type="text" size="5" default="0.21" label="Threshold" description="The threshold for returning results"/>
+				<field name="display_limit" type="text" size="5" default="50" label="Display Limit" description="Number of items to return"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

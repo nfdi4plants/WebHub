@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="publications">
+	<name>Publication - Usage</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Displays usage info for a publication</description>
+	<files>
+		<filename plugin="usage">usage.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_publication_usage.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="period" type="text" size="5" default="15" label="Time period" description="Time period to pull data for"/>
+				<field name="chart_path" type="text" size="25" default="/site/usage/chart_resources/" label="Chart path" description="Path to the directory where charts are stored"/>
+				<field name="map_path" type="text" size="25" default="/site/usage/resource_maps/" label="Map path" description="Path to the directory where map images are stored"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

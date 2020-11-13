@@ -1,0 +1,16 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+.delete {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	margin: 0;
+	padding: 0;
+	line-height: 1;
+	overflow: hidden;
+	white-space: nowrap;
+}

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<config>
+	<fieldset name="basic">
+		<field name="suggest_feature" type="list" default="1" label="COM_PROJECTS_CONFIG_SUGGEST_FEATURE_LABEL" description="COM_PROJECTS_CONFIG_SUGGEST_FEATURE_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="min_name_length" type="text" menu="hide" default="6" label="COM_PROJECTS_CONFIG_MIN_NAME_LENGTH_LABEL" description="COM_PROJECTS_CONFIG_MIN_NAME_LENGTH_DESC" />
+		<field name="max_name_length" type="text" menu="hide" default="25" label="COM_PROJECTS_CONFIG_MAX_NAME_LENGTH_LABEL" description="COM_PROJECTS_CONFIG_MAX_NAME_LENGTH_DESC" />
+		<field name="reserved_names" type="text" menu="hide" default="clone, temp, test" label="COM_PROJECTS_CONFIG_RESERVED_NAMES_LABEL" description="COM_PROJECTS_CONFIG_RESERVED_NAMES_DESC" />
+		<field name="imagepath" type="text" menu="hide" default="/site/projects" label="COM_PROJECTS_CONFIG_IMAGEPATH_LABEL" description="COM_PROJECTS_CONFIG_IMAGEPATH_DESC" />
+		<field name="defaultpic" type="text" menu="hide" default="/components/com_projects/site/assets/img/project.png" label="COM_PROJECTS_CONFIG_DEFAULTPIC_LABEL" description="COM_PROJECTS_CONFIG_DEFAULTPIC_DESC" />
+		<field name="showthumbemail" type="list" default="0" label="Show project thumb in emails" description="Show project thumbnail in html emails (must be OFF for firewalled hubs)">
+			<option value="0">JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		<field name="logging" type="list" default="0" label="COM_PROJECTS_CONFIG_LOGGING_LABEL" description="COM_PROJECTS_CONFIG_LOGGING_DESC">
+			<option value="0">COM_PROJECTS_CONFIG_LOGGING_NONE</option>
+			<option value="1">COM_PROJECTS_CONFIG_LOGGING_ALL_NO_AJAX</option>
+			<option value="2">COM_PROJECTS_CONFIG_LOGGING_ALL</option>
+		</field>
+		<field name="messaging" type="list" default="0" label="COM_PROJECTS_CONFIG_MESSAGING_LABEL" description="COM_PROJECTS_CONFIG_MESSAGING_DESC">
+			<option value="0">JOFF</option>
+			<option value="1">JON</option>
+		</field>
+		<field name="accesslevel" type="accesslevel" default="5" label="COM_PROJECTS_CONFIG_ACCESSLEVEL_LABEL" description="COM_PROJECTS_CONFIG_ACCESSLEVEL_DESC" />
+		<field name="layout" type="list" default="standard" label="COM_PROJECTS_CONFIG_LAYOUT_LABEL" description="COM_PROJECTS_CONFIG_LAYOUT_DESC">
+			<option value="standard">COM_PROJECTS_CONFIG_LAYOUT_STANDARD</option>
+			<option value="extended">COM_PROJECTS_CONFIG_LAYOUT_EXTENDED</option>
+		</field>
+		<field name="sidebox_limit" type="text" menu="hide" default="3" label="COM_PROJECTS_CONFIG_SIDEBOX_LIMIT_LABEL" description="COM_PROJECTS_CONFIG_SIDEBOX_LIMIT_DESC" />
+		<field name="group_prefix" type="text" menu="hide" default="pr-" label="COM_PROJECTS_CONFIG_GROUP_PREFIX_LABEL" description="COM_PROJECTS_CONFIG_GROUP_PREFIX_DESC" />
+		<field name="documentation" type="text" menu="hide" default="/projects/features" label="COM_PROJECTS_CONFIG_DOCUMENTATION_LABEL" description="COM_PROJECTS_CONFIG_DOCUMENTATION_DESC" />
+	</fieldset>
+	<fieldset name="PROJECTSETUP">
+		<field name="grantinfo" type="list" default="0" label="COM_PROJECTS_CONFIG_GRANTINFO_LABEL" description="COM_PROJECTS_CONFIG_GRANTINFO_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="confirm_step" type="list" default="0" label="COM_PROJECTS_CONFIG_CONFIRM_STEP_LABEL" description="COM_PROJECTS_CONFIG_CONFIRM_STEP_DESC">
+			<option value="0">JOFF</option>
+			<option value="1">JON</option>
+		</field>
+		<field name="edit_settings" type="list" default="0" label="COM_PROJECTS_CONFIG_EDIT_SETTINGS_LABEL" description="COM_PROJECTS_CONFIG_EDIT_SETTINGS_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="edit_description" type="list" default="0" label="COM_PROJECTS_CONFIG_EDIT_DESCRIPTION_LABEL" description="COM_PROJECTS_CONFIG_EDIT_DESCRIPTION_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="custom_profile" type="list" default="0" label="COM_PROJECTS_CONFIG_CUSTOM_PROFILE_LABEL" description="COM_PROJECTS_CONFIG_CUSTOM_PROFILE_DESC">
+			<option value="0">JNO</option>
+			<option value="custom">COM_PROJECTS_USE_TEMPLATE</option>
+		</field>
+		<field name="restricted_data" type="list" default="0" label="COM_PROJECTS_CONFIG_RESTRICTED_DATA_LABEL" description="COM_PROJECTS_CONFIG_RESTRICTED_DATA_DESC">
+			<option value="0">JNO</option>
+			<option value="2">COM_PROJECTS_CONFIG_RESTRICTED_DATA_YES_GENERAL</option>
+			<option value="1">COM_PROJECTS_CONFIG_RESTRICTED_DATA_YES_SPECIFIC</option>
+		</field>
+		<field name="approve_restricted" type="list" default="0" label="COM_PROJECTS_CONFIG_APPROVE_RESTRICTED_LABEL" description="COM_PROJECTS_CONFIG_APPROVE_RESTRICTED_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="init_team" type="list" default="0" label="COM_PROJECTS_CONFIG_INIT_TEAM_LABEL" description="COM_PROJECTS_CONFIG_INIT_TEAM_DESC">
+			<option value="0">COM_PROJECTS_CONFIG_INIT_TEAM_ONLY_CREATOR</option>
+			<option value="1">COM_PROJECTS_CONFIG_INIT_TEAM_GROUP_MANAGERS</option>
+		</field>
+		<field name="sync_behavior" type="list" default="1" label="COM_PROJECTS_CONFIG_SYNC_BEHAVIOR_LABEL" description="COM_PROJECTS_CONFIG_SYNC_BEHAVIOR_DESC">
+			<option value="0">COM_PROJECTS_CONFIG_SYNC_BEHAVIOR_SELECT</option>
+			<option value="1">COM_PROJECTS_CONFIG_SYNC_BEHAVIOR_GROUP</option>
+		</field>
+		<field name="privacylink" type="text" menu="hide" default="/legal/privacy" label="COM_PROJECTS_CONFIG_PRIVACYLINK_LABEL" description="COM_PROJECTS_CONFIG_PRIVACYLINK_DESC" />
+		<field name="HIPAAlink" type="text" menu="hide" default="/legal/privacy" label="COM_PROJECTS_CONFIG_HIPAALINK_LABEL" description="COM_PROJECTS_CONFIG_HIPAALINK_DESC" />
+		<field name="FERPAlink" type="text" menu="hide" default="/legal/privacy" label="COM_PROJECTS_CONFIG_FERPALINK_LABEL" description="COM_PROJECTS_CONFIG_FERPALINK_DESC" />
+	</fieldset>
+	<fieldset name="ADMINGROUPS">
+		<field name="creatorgroup" type="text" menu="hide" default="" label="COM_PROJECTS_CONFIG_CREATORGROUP_LABEL" description="COM_PROJECTS_CONFIG_CREATORGROUP_DESC" />
+		<field name="admingroup" type="text" menu="hide" default="" label="COM_PROJECTS_CONFIG_ADMINGROUP_LABEL" description="COM_PROJECTS_CONFIG_ADMINGROUP_DESC" />
+		<field name="sdata_group" type="text" menu="hide" default="" label="COM_PROJECTS_CONFIG_SDATA_GROUP_LABEL" description="COM_PROJECTS_CONFIG_SDATA_GROUP_DESC" />
+		<field name="ginfo_group" type="text" menu="hide" default="" label="COM_PROJECTS_CONFIG_GINFO_GROUP_LABEL" description="COM_PROJECTS_CONFIG_GINFO_GROUP_DESC" />
+		<field name="reportgroup" type="text" menu="hide" default="" label="COM_PROJECTS_CONFIG_REPORTGROUP_LABEL" description="COM_PROJECTS_CONFIG_REPORTGROUP_DESC" />
+	</fieldset>
+	<fieldset name="FILEREPO">
+		<field name="webpath" type="text" menu="hide" default="/srv/projects" label="COM_PROJECTS_CONFIG_WEBPATH_LABEL" description="COM_PROJECTS_CONFIG_WEBPATH_DESC" />
+		<field name="offroot" type="list" default="1" label="COM_PROJECTS_CONFIG_OFFROOT_LABEL" description="COM_PROJECTS_CONFIG_OFFROOT_DESC">
+			<option value="0">COM_PROJECTS_CONFIG_OFFROOT_RELATIVE</option>
+			<option value="1">COM_PROJECTS_CONFIG_OFFROOT_ABSOLUTE</option>
+		</field>
+		<field name="gitpath" type="text" menu="hide" default="/opt/local/bin/git" label="COM_PROJECTS_CONFIG_GITPATH_LABEL" description="COM_PROJECTS_CONFIG_GITPATH_DESC" />
+		<field name="defaultQuota" type="text" menu="hide" default="5" label="COM_PROJECTS_CONFIG_DEFAULTQUOTA_LABEL" description="COM_PROJECTS_CONFIG_DEFAULTQUOTA_DESC" />
+		<field name="premiumQuota" type="text" menu="hide" default="30" label="COM_PROJECTS_CONFIG_PREMIUMQUOTA_LABEL" description="COM_PROJECTS_CONFIG_PREMIUMQUOTA_DESC" />
+		<field name="approachingQuota" type="text" menu="hide" default="90" label="COM_PROJECTS_CONFIG_APPROACHINGQUOTA_LABEL" description="COM_PROJECTS_CONFIG_APPROACHINGQUOTA_DESC" />
+		<field name="pubQuota" type="text" menu="hide" default="1" label="COM_PROJECTS_CONFIG_PUBQUOTA_LABEL" description="COM_PROJECTS_CONFIG_PUBQUOTA_DESC" />
+		<field name="premiumPubQuota" type="text" menu="hide" default="30" label="COM_PROJECTS_CONFIG_PREMIUMPUBQUOTA_LABEL" description="COM_PROJECTS_CONFIG_PREMIUMPUBQUOTA_DESC" />
+		<field name="simpleSizeReporting" type="list" default="0" label="COM_PROJECTS_CONFIG_SAMPLESIZEREPORTING_LABEL" description="COM_PROJECTS_CONFIG_SAMPLESIZEREPORTING_DESC">
+			<option value="0">JOff</option>
+			<option value="1">JOn</option>
+		</field>
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" validate="rules" filter="rules" component="com_projects" section="component" />
+	</fieldset>
+</config>

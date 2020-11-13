@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.0" type="plugin" group="groups">
+	<name>Groups - Search</name>
+	<creationDate>March 2018</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0</version>
+	<description>Automatically update search index when group info is changed.</description>
+	<files>
+		<filename plugin="search">search.php</filename>
+	</files>
+</extension>

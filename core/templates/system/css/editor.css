@@ -1,0 +1,72 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+body {
+	background: #fff;
+	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #333;
+}
+
+h1,
+h3,
+h4 {
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 16px;
+	color: #666;
+}
+h2 {
+	font-size: 14px;
+	font-weight: normal;
+	color: #333;
+}
+h3 {
+	font-size: 13px;
+	color: #135cae;
+}
+h4 {
+	color: #333;
+}
+
+a,
+a:link,
+a:visited {
+	color: #1B57B1;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+a:hover {
+	color: #00c;
+	text-decoration: underline;
+	font-weight: normal;
+}
+
+div.caption {
+	padding: 0 10px 0 10px;
+}
+div.caption img {
+	border: 1px solid #CCC;
+}
+div.caption p {
+	font-size: .90em;
+	color: #666;
+	text-align: center;
+}
+
+/* STYLES FOR EDITOR */
+hr#system-readmore {
+	border: red dashed 1px;
+	color: red;
+}
+hr.system-pagebreak {
+	border: gray dashed 1px;
+	color: gray;
+}

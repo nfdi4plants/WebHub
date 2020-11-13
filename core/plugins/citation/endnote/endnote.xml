@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="citation">
+	<name>Citation - Endnote</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Imports Endnote data</description>
+	<files>
+		<filename plugin="calendar">endnote.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_citation_endnote.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field type="textarea" name="custom_tags" label="PLG_CITATION_ENDNOTE_TAGS_LABEL" description="PLG_CITATION_ENDNOTE_TAGS_DESC" rows="10" cols="30" />
+				<field type="text" name="title_match_percent" label="PLG_CITATION_ENDNOTE_TITLE_MATCH_LABEL" description="PLG_CITATION_ENDNOTE_TITLE_MATCH_DESC" size="30" default="90" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="user">
+	<name>User - Constant Contact</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_USER_CONSTANTCONTACT_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="constantcontact">constantcontact.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field type="list" name="ccManageEmailPreference" label="PLG_USER_CONSTANTCONTACT_PARAM_EMAIL_LABEL" default="0">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field type="spacer" />
+				<field name="ccUsername" type="text" default="" label="PLG_USER_CONSTANTCONTACT_PARAM_CCUSERNAME_LABEL" description="PLG_USER_CONSTANTCONTACT_PARAM_CCUSERNAME_DESC" />
+				<field name="ccPassword" type="password" default="" label="PLG_USER_CONSTANTCONTACT_PARAM_CCPASSWORD_LABEL" description="PLG_USER_CONSTANTCONTACT_PARAM_CCPASSWORD_DESC" />
+				<field name="ccApiKey" type="text" default="" label="PLG_USER_CONSTANTCONTACT_PARAM_CCAPIKEY_LABEL" description="PLG_USER_CONSTANTCONTACT_PARAM_CCAPIKEY_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

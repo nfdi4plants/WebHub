@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Edit form for blog entry">
+		<message>
+			<![CDATA[Edit form for blog entry]]>
+		</message>
+	</layout>
+	<state>
+		<name>Edit form for blog entry</name>
+		<description>Edit form for blog entry</description>
+		<params>
+	 		<param name="entry" type="text" label="Entry ID" description="Enter an entry ID" />
+		</params>
+	</state>
+</metadata>
+

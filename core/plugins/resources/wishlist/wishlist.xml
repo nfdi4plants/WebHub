@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="resources">
+	<name>Resource - Wishlist</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Display wishlist for a resource</description>
+	<files>
+		<filename plugin="wishlist">wishlist.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_resources_wishlist.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_limit" type="text" size="5" default="50" label="PLG_RESOURCES_WISHLIST_LIMIT_LABEL" description="PLG_RESOURCES_WISHLIST_LIMIT_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

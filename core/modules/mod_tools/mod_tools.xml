@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.5" client="administrator">
+	<name>Tools</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>MOD_TOOLS_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_tools">mod_tools.php</filename>
+		<filename>assets/css/tools.css</filename>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<filename>tmpl/default.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="cache" type="list" default="1" label="MOD_TOOLS_CACHE_LABEL" description="MOD_TOOLS_CACHE_DESC">
+					<option value="1">MOD_TOOLS_CACHE_GLOBAL</option>
+					<option value="0">MOD_TOOLS_CACHE_NONE</option>
+				</field>
+			</fieldset>
+			<fieldset name="colors">
+				<field name="color_registered" type="text" default="#333333" label="MOD_TOOLS_COLOR_REGISTERED_LABEL" description="MOD_TOOLS_COLOR_REGISTERED_DESC" />
+				<field name="color_created" type="text" default="#999999" label="MOD_TOOLS_COLOR_CREATED_LABEL" description="MOD_TOOLS_COLOR_CREATED_DESC" />
+				<field name="color_uploaded" type="text" default="#656565" label="MOD_TOOLS_COLOR_UPLOADED_LABEL" description="MOD_TOOLS_COLOR_UPLOADED_DESC" />
+				<field name="color_updated" type="text" default="#cccccc" label="MOD_TOOLS_COLOR_UPDATED_LABEL" description="MOD_TOOLS_COLOR_UPDATED_DESC" />
+				<field name="color_approved" type="text" default="#ffffff" label="MOD_TOOLS_COLOR_APPROVED_LABEL" description="MOD_TOOLS_COLOR_APPROVED_DESC" />
+				<field name="color_published" type="text" default="#f9d180" label="MOD_TOOLS_COLOR_PUBLISHED_LABEL" description="MOD_TOOLS_COLOR_PUBLISHED_DESC" />
+				<field name="color_retired" type="text" default="#e1e1e1" label="MOD_TOOLS_COLOR_RETIRED_LABEL" description="MOD_TOOLS_COLOR_RETIRED_DESC" />
+				<field name="color_abandoned" type="text" default="#000000" label="MOD_TOOLS_COLOR_ABANDONED_LABEL" description="MOD_TOOLS_COLOR_ABANDONED_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

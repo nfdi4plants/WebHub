@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.0" type="plugin" group="members">
+	<name>plg_members_activity</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_MEMBERS_ACTIVITY_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="activity">activity.php</filename>
+		<filename>assets/css/activity.css</filename>
+		<filename>assets/js/activity.js</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_members_activity.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_tab" type="list" default="1" label="PLG_MEMBERS_ACTIVITY_PARAM_DISPLAY_TAB_LABEL" description="PLG_MEMBERS_ACTIVITY_PARAM_DISPLAY_TAB_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="email_digests" type="list" default="0" label="PLG_MEMBERS_ACTIVITY_PARAM_EMAILDIGESTS_LABEL" description="PLG_MEMBERS_ACTIVITY_PARAM_EMAILDIGESTS_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

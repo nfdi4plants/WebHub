@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.5">
+	<name>Projects</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Manage projects</description>
+	<files>
+		<filename>controller.php</filename>
+		<filename>projects.php</filename>
+		<filename>router.php</filename>
+		<filename>index.html</filename>
+		<filename>assets/css/projects.css</filename>
+		<filename>assets/js/projects.js</filename>
+		<filename>assets/js/setup.js</filename>
+		<filename>assets/js/reports.js</filename>
+		<filename>helpers/autocomplete.php</filename>
+		<filename>helpers/html.php</filename>
+		<filename>helpers/install.php</filename>
+		<filename>helpers/index.html</filename>
+		<filename>views/browse/tmpl/default.php</filename>
+		<filename>views/browse/tmpl/default.xml</filename>
+		<filename>views/edit/tmpl/default.php</filename>
+		<filename>views/edit/tmpl/default.xml</filename>
+		<filename>views/emails/tmpl/index.html</filename>
+		<filename>views/emails/tmpl/invite.php</filename>
+		<filename>views/emails/tmpl/invite.xml</filename>
+		<filename>views/emails/tmpl/new.php</filename>
+		<filename>views/emails/tmpl/new.xml</filename>
+		<filename>views/image/tmpl/default.php</filename>
+		<filename>views/image/tmpl/default.xml</filename>
+		<filename>views/intro/tmpl/default.php</filename>
+		<filename>views/intro/tmpl/default.xml</filename>
+		<filename>views/intro/tmpl/features.php</filename>
+		<filename>views/intro/tmpl/features.xml</filename>
+		<filename>views/login/tmpl/default.php</filename>
+		<filename>views/login/tmpl/default.xml</filename>
+		<filename>views/setup/tmpl/describe.php</filename>
+		<filename>views/setup/tmpl/describe.xml</filename>
+		<filename>views/setup/tmpl/finalize.php</filename>
+		<filename>views/setup/tmpl/finalize.xml</filename>
+		<filename>views/setup/tmpl/team.php</filename>
+		<filename>views/setup/tmpl/team.xml</filename>
+		<filename>views/view/tmpl/external.php</filename>
+		<filename>views/view/tmpl/external.xml</filename>
+		<filename>views/view/tmpl/internal.php</filename>
+		<filename>views/view/tmpl/internal.xml</filename>
+		<filename>views/view/tmpl/invited.php</filename>
+		<filename>views/view/tmpl/invited.xml</filename>
+		<filename>views/view/tmpl/suspended.php</filename>
+		<filename>views/view/tmpl/suspended.xml</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.com_projects.ini</language>
+	</languages>
+	<administration>
+		<menu>Projects</menu>
+		<files>
+			<filename>controller.php</filename>
+			<filename>projects.php</filename>
+			<filename>config.xml</filename>
+			<filename>index.html</filename>
+			<filename>helpers/html.php</filename>
+			<filename>tables/project.php</filename>
+			<filename>tables/activity.php</filename>
+			<filename>tables/comment.php</filename>
+			<filename>tables/microblog.php</filename>
+			<filename>tables/owner.php</filename>
+			<filename>tables/todo.php</filename>
+			<filename>tables/type.php</filename>
+			<filename>views/edit/tmpl/default.php</filename>
+			<filename>views/edit/tmpl/default.xml</filename>
+			<filename>views/edit/tmpl/index.html</filename>
+			<filename>views/emails/tmpl/default.php</filename>
+			<filename>views/emails/tmpl/default.xml</filename>
+			<filename>views/emails/tmpl/index.html</filename>
+			<filename>views/projects/tmpl/default.php</filename>
+			<filename>views/projects/tmpl/default.xml</filename>
+			<filename>views/projects/tmpl/index.html</filename>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">en-GB.com_projects.ini</language>
+		</languages>
+	</administration>
+</extension>

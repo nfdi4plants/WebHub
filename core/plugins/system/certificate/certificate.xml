@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="system">
+	<name>System - CAC</name>
+	<creationDate>June 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_SYSTEM_CERTIFICATE_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="certificate">certificate.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="failure_location" type="text" size="50" label="PLG_SYSTEM_CERTIFICATE_PARAM_FAILLOC_LABEL" description="PLG_SYSTEM_CERTIFICATE_PARAM_FAILLOC_DESC" default="/invalidcert.php" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

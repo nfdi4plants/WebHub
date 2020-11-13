@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="cron">
+	<name>Cron - Storefront</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Cron events for the Storefront</description>
+	<files>
+		<filename plugin="forum">storefront.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_cron_storefront.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset group="emailPublishDownNotifications">
+				<field name="publish_down_notification1" default="0" label="PLG_CRON_STOREFRONT_PUBLISH_DOWN_NOTIFY1" description="PLG_CRON_STOREFRONT_PUBLISH_DOWN_NOTIFY1_DESC" />
+				<field name="publish_down_notification2" default="0" label="PLG_CRON_STOREFRONT_PUBLISH_DOWN_NOTIFY1" description="PLG_CRON_STOREFRONT_PUBLISH_DOWN_NOTIFY2_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+	<params group="emailPublishDownNotifications">
+		<param type="text" name="publish_down_notification1" default="0" label="PLG_CRON_STOREFRONT_PUBLISH_DOWN_NOTIFY1" description="PLG_CRON_STOREFRONT_PUBLISH_DOWN_NOTIFY1_DESC" />
+		<param type="text" name="publish_down_notification2" default="0" label="PLG_CRON_STOREFRONT_PUBLISH_DOWN_NOTIFY2" description="PLG_CRON_STOREFRONT_PUBLISH_DOWN_NOTIFY2_DESC" />
+	</params>
+</extension>

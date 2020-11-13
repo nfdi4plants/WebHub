@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="usage">
+	<name>Usage - Overview</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Overview display for Usage component</description>
+	<files>
+		<filename plugin="overview">overview.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_usage_overview.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="currentYear" type="text" menu="hide" default="" label="PLG_USAGE_OVERVIEW_ENDYEAR_LABEL" description="PLG_USAGE_OVERVIEW_ENDYEAR_DESC" />
+				<field name="currentMonth" type="text" menu="hide" default="" label="PLG_USAGE_OVERVIEW_ENDMONTH_LABEL" description="PLG_USAGE_OVERVIEW_ENDMONTH_DESC" />
+				<field name="message" type="textarea" rows="5" cols="40" default="" label="PLG_USAGE_OVERVIEW_MESSAGE_LABEL" description="PLG_USAGE_OVERVIEW_MESSAGE_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

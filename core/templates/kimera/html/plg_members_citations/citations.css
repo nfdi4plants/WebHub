@@ -1,0 +1,11 @@
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+@import "../../../../plugins/members/citations/assets/css/citations.css";
+
+.highlight {
+	background-color: rgba(255, 255, 27, 0.82);
+}

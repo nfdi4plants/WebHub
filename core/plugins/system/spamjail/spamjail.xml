@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="system">
+	<name>System - Spamjail</name>
+	<creationDate>June 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_SYSTEM_SPAMJAIL_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="spamjail">spamjail.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="session_count" type="text" default="5" label="PLG_SYSTEM_SPAMJAIL_PARAM_SESSION_COUNT_LABEL" description="PLG_SYSTEM_SPAMJAIL_PARAM_SESSION_COUNT_DESC" />
+				<field name="user_count" type="text" default="10" label="PLG_SYSTEM_SPAMJAIL_PARAM_USER_COUNT_LABEL" description="PLG_SYSTEM_SPAMJAIL_PARAM_USER_COUNT_DESC" />
+				<field name="spam_video" type="text" default="" label="PLG_SYSTEM_SPAMJAIL_PARAM_VIDEO_LABEL" description="PLG_SYSTEM_SPAMJAIL_PARAM_VIDEO_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

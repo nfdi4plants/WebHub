@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="geocode">
+	<name>Geocode - GoogleMaps</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>GoogleMaps provider for geocode</description>
+	<files>
+		<filename plugin="googlemaps">googlemaps.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_geocode_googlemaps.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+		</fields>
+	</config>
+</extension>

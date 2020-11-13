@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="projects">
+	<name>Projects - Publications</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Manage project publications and contribution process</description>
+	<files>
+		<filename plugin="publications">publications.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_projects_publications.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_limit" type="text" menu="hide" label="Display limit" default="50" description="Number of items to return" />
+				<field name="updatable_areas" type="text" menu="hide" default="" label="Updatable fields" description="Publication info areas that may be updated after version release" />
+				<field name="image_types" type="text" menu="hide" default="jpg, jpeg, gif, png" label="Gallery image formats" description="Allowable image types for gallery" />
+				<field name="video_types" type="text" menu="hide" default="avi, mpeg, mov, mpg, wmv, rm, mp4" label="Gallery video formats" description="Allowable video types for gallery" />
+				<field name="googleview" type="radio" default="0" label="Use google viewer" description="Allow certain types of docs to be served inline via Google Docs viewer">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="restricted" type="text" menu="hide" default="" label="Restricted to projects" description="Comma-separated aliases of projects that have databases plugin enabled (empty field means NO RESTRICTIONS)" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

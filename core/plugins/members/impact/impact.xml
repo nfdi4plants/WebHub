@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="members">
+	<name>plg_members_impact</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_MEMBERS_IMPACT_DESCRIPTION</description>
+	<files>
+		<filename plugin="impact">impact.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_members_impact.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_tab" type="list" default="1" label="PLG_MEMBERS_IMPACT_PARAM_DISPLAY_TAB_LABEL" description="PLG_MEMBERS_IMPACT_PARAM_DISPLAY_TAB_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field name="display_limit" type="text" size="5" default="50" label="PLG_MEMBERS_IMPACT_PARAM_LIMIT_LABEL" description="PLG_MEMBERS_IMPACT_PARAM_LIMIT_DESC"/>
+				<field name="show_impact" type="list" default="0" label="PLG_MEMBERS_IMPACT_PARAM_SHOWIMPACT_LABEL" description="PLG_MEMBERS_IMPACT_PARAM_SHOWIMPACT_DESC">
+					<option value="0">JNo</option>
+					<option value="2">PLG_MEMBERS_IMPACT_PARAM_SHOWIMPACT_PUBLIC</option>
+					<option value="1">PLG_MEMBERS_IMPACT_PARAM_SHOWIMPACT_AUTHORONLY</option>
+				</field>
+				<field name="contributions" type="list" default="0" label="PLG_MEMBERS_IMPACT_PARAM_CONTRIBUTIONS_LABEL" description="PLG_MEMBERS_IMPACT_PARAM_CONTRIBUTIONS_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

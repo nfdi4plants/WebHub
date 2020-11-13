@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Edit Tag">
+		<message>
+			<![CDATA[Edit Tag]]>
+		</message>
+	</layout>
+	<state>
+		<name>Edit Tag</name>
+		<description>Edit Tag</description>
+		<params>
+			<param name="id" type="text" label="Tag ID" description="Enter a tag ID" />
+		</params>
+	</state>
+</metadata>
+

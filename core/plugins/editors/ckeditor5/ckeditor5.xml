@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="5" type="plugin" group="editors">
+	<name>plg_editors_ckeditor5</name>
+	<version>1.0</version>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>WYSIWYG Editor built on CKEditor5</description>
+	<files>
+		<filename plugin="ckeditor">ckeditor5.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB"></language>
+	</languages>
+</extension>

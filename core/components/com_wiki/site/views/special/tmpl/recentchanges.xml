@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Special: List all recent changes in this wiki">
+		<message>
+			<![CDATA[Special: List all recent changes in this wiki]]>
+		</message>
+	</layout>
+	<state>
+		<name>Special: List all recent changes in this wiki</name>
+		<description>Special: List all recent changes in this wiki</description>
+		<params>
+	 		<param name="namespace" type="text" label="Namespace" description="Optional namespace to filter results" />
+		</params>
+	</state>
+</metadata>

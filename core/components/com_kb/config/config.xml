@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<config>
+	<fieldset name="basic">
+		<field name="show_date" type="list" default="2" label="COM_KB_SHOW_DATE_LABEL" description="COM_KB_SHOW_DATE_DESC">
+			<option value="0">COM_KB_SHOW_DATE_HIDE</option>
+			<option value="1">COM_KB_SHOW_DATE_CREATED</option>
+			<option value="2">COM_KB_SHOW_DATE_MODIFIED</option>
+		</field>
+		<field name="allow_comments" type="list" default="1" label="COM_KB_ALLOW_COMMENTS_LABEL" description="COM_KB_ALLOW_COMMENTS_DESC">
+			<option value="0">COM_KB_DISALLOW</option>
+			<option value="1">COM_KB_ALLOW</option>
+		</field>
+		<field name="close_comments" type="list" default="year" label="COM_KB_CLOSE_COMMENTS_LABEL" description="COM_KB_CLOSE_COMMENTS_DESC">
+			<option value="never">COM_KB_FEED_CLOSE_NEVER</option>
+			<option value="now">COM_KB_FEED_CLOSE_NOW</option>
+			<option value="day">COM_KB_FEED_CLOSE_DAY</option>
+			<option value="week">COM_KB_FEED_CLOSE_WEEK</option>
+			<option value="month">COM_KB_FEED_CLOSE_MONTH</option>
+			<option value="6months">COM_KB_FEED_CLOSE_6MONTHS</option>
+			<option value="year">COM_KB_FEED_CLOSE_YEAR</option>
+		</field>
+		<field name="feeds_enabled" type="list" default="1" label="COM_KB_FEED_ENABLED_LABEL" description="COM_KB_FEED_ENABLED_DESC">
+			<option value="0">COM_KB_DISABLED</option>
+			<option value="1">COM_KB_ENABLED</option>
+		</field>
+		<field name="feed_entries" type="list" default="partial" label="COM_KB_FEED_ENTRIES_LABEL" description="COM_KB_FEED_ENTRIES_DESC">
+			<option value="full">COM_KB_FEED_ENTRIES_FULL</option>
+			<option value="partial">COM_KB_FEED_ENTRIES_PARTIAL</option>
+		</field>
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" validate="rules" filter="rules" component="com_kb" section="component" />
+	</fieldset>
+</config>

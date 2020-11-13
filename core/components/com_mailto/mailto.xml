@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5" method="upgrade">
+	<name>com_mailto</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>2.5.0</version>
+	<description>COM_MAILTO_XML_DESCRIPTION</description>
+	<files folder="site">
+		<filename>controllers/mailings.php</filename>
+		<filename>index.html</filename>
+		<filename>mailto.php</filename>
+		<folder>views</folder>
+	</files>
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB.com_mailto.ini
+		</language>
+	</languages>
+	<administration>
+		<files folder="admin">
+			<filename>index.html</filename>
+		</files>
+	</administration>
+	<params>
+		<param name="view" type="filelist" directory="/components/com_mailto/site/views" hide_none="1" hide_default="0" filter="." default="0" label="View Style" description="The view style for display" />
+	</params>
+</extension>

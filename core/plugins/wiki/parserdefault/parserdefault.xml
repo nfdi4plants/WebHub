@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="wiki">
+	<name>Wiki - Default Parser</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Loads a wiki parser and performs any called actions on text passed to it</description>
+	<files>
+		<filename plugin="parserdefault">parserdefault.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_wiki_parserdefault.ini</language>
+	</languages>
+	<config>
+	</config>
+</extension>

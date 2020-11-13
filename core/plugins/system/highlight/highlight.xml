@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+	<name>plg_system_highlight</name>
+	<creationDate>November 2016</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0</version>
+	<description>PLG_SYSTEM_HIGHLIGHT_XML_DESCRIPTION</description>
+	<files>
+		<file plugin="highlight">highlight.php</file>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_highlight.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_highlight.sys.ini</language>
+	</languages>
+</extension>

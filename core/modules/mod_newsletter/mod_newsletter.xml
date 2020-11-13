@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_newsletter</name>
+	<creationDate>August 2012</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0.0</version>
+	<description>MOD_NEWSLETTER_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_newsletter">mod_newsletter.php</filename>
+		<filename>helper.php</filename>
+		<filename>assets/css/mod_newsletter.css</filename>
+		<filename>assets/js/mod_newsletter.js</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="mailinglist" label="MOD_NEWSLETTER_PARAM_MAILINGLIST_LABEL" description="MOD_NEWSLETTER_PARAM_MAILINGLIST_DESC" type="sql" query="SELECT * FROM `#__newsletter_mailinglists` WHERE deleted=0 AND private=0" key_field="id" value_field="name" />
+			</fieldset>
+		</fields>
+	</config>
+	<languages>
+		<language tag="en-GB">en-GB.mod_newsletter.ini</language>
+	</languages>
+</extension>

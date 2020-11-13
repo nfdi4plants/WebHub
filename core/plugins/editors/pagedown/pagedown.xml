@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.0" type="plugin" group="editors">
+	<name>plg_editors_pagedown</name>
+	<version>1.0</version>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Editor built on StackExchange/pagedown</description>
+	<files>
+		<filename plugin="pagedown">pagedown.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB"></language>
+	</languages>
+</extension>

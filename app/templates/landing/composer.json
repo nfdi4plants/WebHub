@@ -1,0 +1,15 @@
+{
+        "name": "nfdi4plants/tpl_landing",
+        "description": "nfdi4plants.de landing page template",
+        "type": "hubzero-template",
+        "keywords": ["nfdi4plants"],
+        "license": "MIT",
+        "require": {
+                "php" : "^5.4"
+        },
+        "extra": {
+                "install-directory": "/templates/landing/"
+        }
+
+}
+

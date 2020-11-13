@@ -1,0 +1,96 @@
+<?php
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+defined('_HZEXEC_') or die('Restricted access');
+
+$params = Plugin::params('content', 'formathtml');
+
+// define path to macros
+$path = dirname(dirname(__DIR__)) . DS . 'macros';
+
+// get all macro files
+$files = Filesystem::files($path, '.php', true, true, array('CVS', '.DS_Store', '__MACOSX', 'macro-assets'));
+
+// include base macro class
+require_once dirname($path) . DS . 'macro.php';
+
+// include each macro
+foreach ($files as $file)
+{
+	require_once $file;
+}
+
+if ($path = $params->get('macropath'))
+{
+	// define path to macros
+	$path = PATH_ROOT . DS . ltrim($path, DS);
+
+	if (is_dir($path))
+	{
+		// get all macro files
+		$files = Filesystem::files($path, '.php', true, true, array('CVS', '.DS_Store', '__MACOSX', 'macro-assets'));
+
+		// include each macro
+		foreach ($files as $file)
+		{
+			require_once $file;
+		}
+	}
+}
+
+// anonymous function to get macros description
+$macroAttributes = function($class)
+{
+	if (is_subclass_of($class, 'Plugins\Content\Formathtml\Macro'))
+	{
+		$macroClass = new $class();
+		if (method_exists($macroClass, 'description'))
+		{
+			$nameParts = explode("\\", str_replace('Plugins\\Content\\Formathtml\\Macros\\', '', $class));
+			$name = '[[' . implode('.', $nameParts) . '(args)]]';
+			$namespace = (count($nameParts) > 1) ? $nameParts[0] : 'general';
+			$desc = $macroClass->description();
+			if ($desc == '')
+			{
+				return;
+			}
+			return array(
+				'namespace'   => ucfirst($namespace),
+				'name'        => $name,
+				'description' => $desc
+			);
+		}
+	}
+};
+
+// get macro description html
+$macrosNameAndDesc = array_values(array_filter(array_map($macroAttributes, get_declared_classes())));
+
+// group according to namepace
+$macrosList = array();
+foreach ($macrosNameAndDesc as $macroNameAndDesc)
+{
+	if (!isset($macrosList[$macroNameAndDesc['namespace']]))
+	{
+		$macrosList[$macroNameAndDesc['namespace']] = array();
+	}
+
+	array_push($macrosList[$macroNameAndDesc['namespace']], $macroNameAndDesc);
+}
+?>
+<h1 class="page-title">HTML Macros</h1>
+<p>Below is a list of available macros, useful for generating dynamic content in HTML.</p>
+
+<?php foreach ($macrosList as $namespace => $macros) : ?>
+	<h3><?php echo $namespace; ?> Macros</h3>
+	<dl>
+		<?php foreach ($macros as $macro) : ?>
+			<dt><?php echo $macro['name']; ?></dt>
+			<dd><?php echo $macro['description']; ?></dd>
+		<?php endforeach; ?>
+	</dl>
+<?php endforeach;

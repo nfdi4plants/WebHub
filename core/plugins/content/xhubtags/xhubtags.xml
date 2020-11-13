@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="content">
+	<name>plg_content_xhubtags</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_CONTENT_XHUBTAGS_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="xhubtags">xhubtags.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="style" type="text" default="xhtml" label="PLG_CONTENT_XHUBTAGS_PARAM_MODSTYLE_LABEL" description="PLG_CONTENT_XHUBTAGS_PARAM_MODSTYLE_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

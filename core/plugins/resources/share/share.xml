@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="resources">
+	<name>Resources - Share</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_RESOURCES_SHARE_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="share">share.php</filename>
+	</files>
+	<languages>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="icons_limit" type="text" size="5" default="7" label="PLG_RESOURCES_SHARE_LIMIT_LABEL" description="PLG_RESOURCES_SHARE_LIMIT_DESC"/>
+				<field name="share_facebook" type="radio" default="1" label="PLG_RESOURCES_SHARE_SHOW_FACEBOOK_LABEL" description="PLG_RESOURCES_SHARE_SHOW_FACEBOOK_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="share_twitter" type="radio" default="1" label="PLG_RESOURCES_SHARE_SHOW_TWITTER_LABEL" description="PLG_RESOURCES_SHARE_SHOW_TWITTER_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="share_google" type="radio" default="1" label="PLG_RESOURCES_SHARE_SHOW_GOOGLE_LABEL" description="PLG_RESOURCES_SHARE_SHOW_GOOGLE_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="share_delicious" type="radio" default="1" label="PLG_RESOURCES_SHARE_SHOW_DELICIOUS_LABEL" description="PLG_RESOURCES_SHARE_SHOW_DELICIOUS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="share_reddit" type="radio" default="1" label="PLG_RESOURCES_SHARE_SHOW_REDDIT_LABEL" description="PLG_RESOURCES_SHARE_SHOW_REDDIT_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="share_linkedin" type="radio" default="1" label="PLG_RESOURCES_SHARE_SHOW_LINKEDIN_LABEL" description="PLG_RESOURCES_SHARE_SHOW_LINKEDIN_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

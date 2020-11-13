@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="courses">
+	<name>plg_courses_reviews</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_COURSES_REVIEWS_DESCRIPTION</description>
+	<files>
+		<filename plugin="reviews">reviews.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_courses_reviews.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="display_limit" type="text" size="5" default="50" label="PLG_COURSES_REVIEWS_PARAM_LIMIT_LABEL" description="PLG_COURSES_REVIEWS_PARAM_LIMIT_DESC"/>
+				<field name="voting" type="radio" default="1" label="PLG_COURSES_REVIEWS_PARAM_VOTING_LABEL" description="PLG_COURSES_REVIEWS_PARAM_VOTING_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

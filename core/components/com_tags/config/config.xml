@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<config>
+	<fieldset name="basic">
+		<field name="focus_area_01" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA1" description="COM_TAGS_FOCUS_AREA_DESC" />
+		<field name="focus_area_02" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA2" description="COM_TAGS_FOCUS_AREA_DESC" />
+		<field name="focus_area_03" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA3" description="COM_TAGS_FOCUS_AREA_DESC" />
+		<field name="focus_area_04" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA4" description="COM_TAGS_FOCUS_AREA_DESC" />
+		<field name="focus_area_05" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA5" description="COM_TAGS_FOCUS_AREA_DESC" />
+		<field name="focus_area_06" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA6" description="COM_TAGS_FOCUS_AREA_DESC" />
+		<field name="focus_area_07" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA7" description="COM_TAGS_FOCUS_AREA_DESC" />
+		<field name="focus_area_08" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA8" description="COM_TAGS_FOCUS_AREA_DESC" />
+		<field name="focus_area_09" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA9" description="COM_TAGS_FOCUS_AREA_DESC" />
+		<field name="focus_area_10" type="text" menu="hide" default="" label="COM_TAGS_FOCUS_AREA10" description="COM_TAGS_FOCUS_AREA_DESC" />
+	</fieldset>
+	<fieldset name="cache">
+		<field name="cache" type="list" menu="hide" default="1" label="COM_TAGS_PARAM_CACHE_LABEL" description="COM_TAGS_PARAM_CACHE_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="cache_time" type="text" menu="hide" default="15" label="COM_TAGS_PARAM_CACHETIME_LABEL" description="COM_TAGS_PARAM_CACHETIME_DESC" />
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox" validate="rules" filter="rules" component="com_tags" section="component" />
+	</fieldset>
+</config>

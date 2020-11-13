@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="geocode">
+	<name>Geocode - GeoIPs</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>GeoIPs provider for geocode</description>
+	<files>
+		<filename plugin="geoips">geoips.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_geocode_geoips.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="apiKey" type="text" menu="hide" label="API Key" default="" description="API key" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

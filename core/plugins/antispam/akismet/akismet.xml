@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="antispam">
+	<name>plg_antispam_akismet</name>
+	<creationDate>January 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>2.5.0</version>
+	<description>PLG_ANTISPAM_AKISMET_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="akismet">akismet.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_antispam_akismet.ini</language>
+		<language tag="en-GB">en-GB.plg_antispam_akismet.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="apiKey" type="text" size="10" default="" label="PLG_ANTISPAM_AKISMET_PARAM_APIKEY_LABEL" description="PLG_ANTISPAM_AKISMET_PARAM_APIKEY_DESC" />
+				<field name="apiPort" type="text" size="10" default="80" label="PLG_ANTISPAM_AKISMET_PARAM_APIPORT_LABEL" description="PLG_ANTISPAM_AKISMET_PARAM_APIPORT_DESC" />
+				<field name="akismetServer" type="text" size="10" default="rest.akismet.com" label="PLG_ANTISPAM_AKISMET_PARAM_SERVER_LABEL" description="PLG_ANTISPAM_AKISMET_PARAM_SERVER_DESC" />
+				<field name="akismetVersion" type="text" size="10" default="1.1" label="PLG_ANTISPAM_AKISMET_PARAM_VERSION_LABEL" description="PLG_ANTISPAM_AKISMET_PARAM_VERSION_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

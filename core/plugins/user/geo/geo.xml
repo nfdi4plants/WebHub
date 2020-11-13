@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="user">
+	<name>plg_user_geo</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_USER_GEO_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="geo">geo.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_user_geo.ini</language>
+		<language tag="en-GB">en-GB.plg_user_geo.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="group"
+					type="text"
+					default=""
+					description="PLG_USER_GEO_FIELD_GROUP_DESC"
+					label="PLG_USER_GEO_FIELD_GROUP_LABEL" />
+
+				<field
+					name="location"
+					type="text"
+					default=""
+					description="PLG_USER_GEO_FIELD_LOCATION_DESC"
+					label="PLG_USER_GEO_FIELD_LOCATION_LABEL" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

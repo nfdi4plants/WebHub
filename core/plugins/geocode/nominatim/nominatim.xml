@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="geocode">
+	<name>Geocode - Nominatim</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Nominatim provider for geocode</description>
+	<files>
+		<filename plugin="nominatim">nominatim.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_geocode_nominatim.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="rootUrl" type="text" menu="hide" label="Root URL" default="http://nominatim.openstreetmap.org" description="Root URL of the nominatim server" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.2" type="plugin" group="user">
+	<name>PLG_USER_AUTOAPPROVE</name>
+	<creationDate>August 2018</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.0</version>
+	<description>PLG_USER_AUTOAPPROVE_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="autoapprove">autoapprove.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="email_pattern" type="text" default=".*\.edu$" label="PLG_USER_AUTOAPPROVE_PARAM_PATTERN_LABEL" description="PLG_USER_AUTOAPPROVE_PARAM_PATTERN_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

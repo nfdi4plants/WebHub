@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.5.0">
+	<name>mod_logjserrors</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.5.0</version>
+	<description>MOD_LOGJSERRORS_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_logjserrors">mod_logjserrors.php</filename>
+	</files>
+</extension>

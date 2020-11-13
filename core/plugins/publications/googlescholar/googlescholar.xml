@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="publications">
+	<name>plg_publications_googlescholar</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_PUBLICATIONS_GOOGLESCHOLAR_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="googlescholar">googlescholar.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_publications_googlescholar.ini</language>
+	</languages>
+</extension>

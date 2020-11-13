@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="wiki">
+	<name>Wiki - Editor Wykiwyg</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Creates a wysiwyg textarea with an editing toolbar for wiki syntax shortcuts</description>
+	<files>
+		<filename plugin="editorwykiwyg">editorwykiwyg.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_wiki_editorwykiwyg.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+		</fields>
+	</config>
+</extension>
+

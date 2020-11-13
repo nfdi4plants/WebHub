@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="system">
+	<name>System - Authfactors</name>
+	<creationDate>June 2015</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_SYSTEM_AUTHFACTORS_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="authfactors">authfactors.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_authfactors.ini</language>
+		<language tag="en-GB">en-GB.plg_system_authfactors.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="clients" type="checkboxes" default="1" label="PLG_SYSTEM_AUTHFACTORS_PARAM_CLIENTS_LABEL" description="PLG_SYSTEM_AUTHFACTORS_PARAM_CLIENTS_DESC">
+					<option value="0">PLG_SYSTEM_AUTHFACTORS_PARAM_CLIENTS_SITE</option>
+					<option value="1">PLG_SYSTEM_AUTHFACTORS_PARAM_CLIENTS_ADMIN</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

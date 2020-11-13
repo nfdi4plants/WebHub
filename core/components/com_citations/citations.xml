@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.5">
+	<name>Citations</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>Manage citations</description>
+	<files folder="site">
+		<filename>BibTex.php</filename>
+		<filename>citations.html.php</filename>
+		<filename>citations.css</filename>
+		<filename>citations.php</filename>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>citations.formatter.php</filename>
+		<filename>citations.js</filename>
+		<filename>router.php</filename>
+		<filename>images/citations-large.gif</filename>
+		<filename>views/index.html</filename>
+		<filename>views/intro/tmpl/default.php</filename>
+		<filename>views/intro/tmpl/default.xml</filename>
+		<filename>views/intro/tmpl/index.html</filename>
+	</files>
+	<administration>
+		<files folder="admin">
+			<menu>Citations Manager</menu>
+			<filename>citations.class.php</filename>
+			<filename>admin.citations.html.php</filename>
+			<filename>admin.citations.php</filename>
+			<filename>admin.controller.php</filename>
+			<filename>index.html</filename>
+			<filename>toolbar.citations.html.php</filename>
+			<filename>toolbar.citations.php</filename>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">en-GB.com_citations.ini</language>
+			<language tag="en-GB">en-GB.com_citations.menu.ini</language>
+		</languages>
+	</administration>
+	<languages>
+		<language tag="en-GB">en-GB.com_citations.ini</language>
+	</languages>
+</extension>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="cron">
+	<name>Cron - Courses</name>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_CRON_COURSES_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="courses">courses.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_cron_courses.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset group="emaildigest">
+				<field name="course" type="sql" default="1" label="PLG_CRON_COURSES_DIGEST_COURSES_LABEL" desc="PLG_CRON_COURSES_DIGEST_COURSES_DESC" query="SELECT 0 AS value, 'All' AS course UNION SELECT id AS value, title AS course FROM #__courses" />
+			</fieldset>
+		</fields>
+	</config>
+	<params group="emaildigest">
+		<param name="course" type="sql" default="0" label="PLG_CRON_COURSES_DIGEST_COURSES_LABEL" desc="PLG_CRON_COURSES_DIGEST_COURSES_DESC" query="SELECT 0 AS value, 'All' AS course UNION SELECT id AS value, title AS course FROM #__courses" />
+	</params>
+</extension>

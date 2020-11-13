@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5.0" client="site" type="module">
+	<name>mod_incremental_registration</name>
+	<creationDate>April 2012</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>1.5.0</version>
+	<description>MOD_INCREMENTAL_REGISTRATION_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_incremental_registration">mod_incremental_registration.php</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<filename>assets/css/mod_incremental_registration.css</filename>
+		<filename>assets/js/mod_incremental_registration.js</filename>
+	</files>
+	<config>
+	</config>
+	<languages>
+		<language tag="en-GB">en-GB.mod_collect.ini</language>
+	</languages>
+</extension>

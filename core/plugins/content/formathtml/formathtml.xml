@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="content">
+	<name>plg_content_formathtml</name>
+	<creationDate>October 2013</creationDate>
+	<author>HUBzero</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<version>2.5.0</version>
+	<description>PLG_CONTENT_FORMATHTML_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="formathtml">formathtml.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_content_formathtml.ini</language>
+		<language tag="en-GB">en-GB.plg_content_formathtml.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="applyFormat" type="list" default="0" label="Apply format marker" description="Apply the format marker to the content.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="convertFormat" type="list" default="1" label="Convert to HTML" description="Save rendered HTML back to the database? This will mean the content is no longer wiki markup.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="sanitizeBefore" type="list" default="1" label="Sanitize HTML" description="Run content through an HTML sanitizer before saving?">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="unlink" type="list" default="0" label="Unlink links" description="Turn HTML links into plain text.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="macropath" type="text" default="" label="Alt. Macro Path" description="Alternate path to laod macros from." />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
