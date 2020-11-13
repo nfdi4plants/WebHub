@@ -519,7 +519,7 @@ class Articles extends SiteController
 						else
 						{
 							// otherwise, use the global value
-							$articleArray[$key] = $globalParams->get($key);
+							$articleArray[$key] = $params->get($key);
 						}
 					}
 				}
@@ -586,6 +586,7 @@ class Articles extends SiteController
 			else
 			{
 				// If no access filter is set, the layout takes some responsibility for display of limited information.
+                $groups = User::getAuthorisedViewLevels();
 				if ($item->catid == 0 || $item->category_access === null)
 				{
 					$item->params->set('access-view', in_array($item->access, $groups));
@@ -1578,6 +1579,7 @@ class Articles extends SiteController
 			App::abort(403, Lang::txt('JERROR_ALERTNOAUTHOR'));
 		}
 
+        $form = $item->getForm('site');
 		if (!empty($item) && isset($item->id))
 		{
 			$item->images = json_decode($item->images);
@@ -1589,8 +1591,6 @@ class Articles extends SiteController
 
 			$form->bind($tmp);
 		}
-
-		$form = $item->getForm('site');
 
 		if ($params->get('enable_category') == 1)
 		{
@@ -1664,10 +1664,12 @@ class Articles extends SiteController
 		Request::checkToken();
 
 		$id = Request::getInt('id');
+        $catId = Request::getInt('catid');
 		$data = Request::getArray('fields', array(), 'post');
 		$context = "com_content.article.$id";
 
 		$model = Article::oneOrNew($id)->set($data);
+        $asset  = 'com_content.article.' . $id;
 
 		// Check general edit permission first.
 		$authorised = false;
