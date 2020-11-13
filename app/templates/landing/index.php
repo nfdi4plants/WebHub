@@ -27,6 +27,7 @@
  * @copyright Copyright 2005-2015 Purdue University. All rights reserved.
  * @license   http://www.gnu.org/licenses/lgpl-3.0.html LGPLv3
  */
+
 defined('_HZEXEC_') or die();
 Html::behavior('framework', true);
 Html::behavior('modal');
@@ -97,7 +98,7 @@ $this->setTitle(Config::get('sitename') . ' - ' . $this->getTitle());
 
 							<h1>
 								<a href="<?php echo Request::root(); ?>" title="<?php echo Config::get('sitename'); ?>">
-									<span><img src="/logo.svg" height=31rem alt="logo" /> </span>
+									<span><img src="/img/logo.png" height=31rem alt="logo" /> </span>
 								</a>
 							</h1>
 
@@ -180,100 +181,89 @@ $this->setTitle(Config::get('sitename') . ' - ' . $this->getTitle());
 								<!-- start component output -->
 <?php
 
-////var_dump(get_object_vars($urlobj));
+$filters = array();
+$filters['params'] = App::get('menu.params');
+$filters['start'] = 0;
+$filters['category_id'] = Request::getInt('id');
+$filters['context']   = 'com_content.category';
+$filters['published'] = array(Components\Content\Models\Article::STATE_PUBLISHED);
+$filters['access'] = User::getAuthorisedViewLevels();
+$filters['ordering'] = 'a.publish_up';
+$filters['direction'] = 'DESC';
+$filters['language'] = App::get('language.filter');
+
+
+//$itemid = Request::getInt('id', 0) . ':' . Request::getInt('Itemid', 0);
+//$limit = Request::getState('com_content.category.list.' . $itemid . '.limit', 'limit', $filters['params']->get('display_num'), 'uint');
+//$filters['limit'] = $limit;
+
 $categories = \Components\Categories\Helpers\Categories::getInstance('Content');
-$category=JRequest::getVar('id', '');
-$categoryNodes = $categories->get($category);
-//
-$model = JModelLegacy::getInstance('Articles', 'ContentModel', array('ignore_request' => true));
-//$model->getState();
-//
-//
-//
-//// Set application parameters in model
-$app = JFactory::getApplication();
-$appParams = $app->getParams();
-//$model->setState('params', $appParams);
-//
-//
-//// Set the filters based on the module params
-//$model->setState('list.start', 0);
-////$model->setState('list.limit', 5);
-//$model->setState('filter.category_id', $category);
-//$model->setState('filter.published', 1);
-//
-//
-//
-//// Permissions
-//$access = !JComponentHelper::getParams('com_content')->get('show_noauth');
-//$authorised = JAccess::getAuthorisedViewLevels(JFactory::getUser()->get('id'));
-//$model->setState('filter.access', $access);
-//
-//
-//
-//
-//// Ordering
-//$model->setState('list.ordering', 'a.publish_up');
-//$model->setState('list.direction', 'DESC');
-//
-//
-//$articles = $model->getItems();
-//
-//$i = -1;
-//
-//foreach ($articles as &$article) {
-//$i++;
-//$i%=4;
-//$color = "undefined";
-//switch ($i) {
-//    case 0:
-//        $color = "mint";
-//        break;
-//    case 2:
-//        $color = "darkblue";
-//        break;
-//    case 1:
-//        $color = "lightblue";
-//        break;
-//    case 3:
-//        $color = "lightgray";
-//        break;
-//}
-//
-//
-//$imgobj = json_decode($article->images);
-//$urlobj = json_decode($article->urls);
-//?>
+$category = $categories->get($filters['category_id']);
+
+$query = Components\Content\Models\Article::AllByFilters($filters);
+
+$articles = $query
+    ->order('a.created', 'DESC')
+    ->start($filters['start'])
+    ->rows()
+    ->toArray();
+
+
+$i = -1;
+
+foreach ($articles as $article) {
+    $i++;
+    $i %= 4;
+    $color = "undefined";
+    switch ($i) {
+        case 0:
+            $color = "mint";
+            break;
+        case 2:
+            $color = "darkblue";
+            break;
+        case 1:
+            $color = "lightblue";
+            break;
+        case 3:
+            $color = "lightgray";
+            break;
+    }
+    // Is somehow empty
+    $imgobj = json_decode($article['images']);
+    // Is somehow empty
+    $urlobj = json_decode($article['urls']);
+?>
+
+<!-- ARC -->
 <!---->
 <!---->
-<!--<!-- ARC -->-->
-<!---->
-<!---->
-<!--<div class="container-md">-->
-<!--  <div class="row hero bg---><?php //echo $color ?><!--">-->
-<!--    <div class="hero-image --><?php //if ($i%2 == 1) { echo "order-1 order-md-2"; } ?><!--">-->
+<div class="container-md">
+  <div class="row hero bg <?php echo $color ?>">
+    <div class="hero-image><?php if ($i%2 == 1) { echo "order-1 order-md-2"; } ?>">
 <!--      <img src="--><?php //echo $imgobj->image_fulltext ?><!--" alt="$imgobj->image_fulltext_alt"/>-->
-<!--    </div>-->
-<!--    <div class="hero-content --><?php //if ($i%2 == 1) { echo "order-2 order-md-1"; } ?><!--">-->
-<!--      <div class="card bg-white">-->
-<!--        <div class="card-body">-->
-<!--          <h5 class="text---><?php //echo $color ?><!-- card-title upcase">--><?php //echo $article->alias ?><!--</h5>-->
-<!--          <h2 class="card-title">--><?php //echo $article->title ?><!--</h2>-->
-<!--          <p class="card-text">--><?php //echo $article->introtext ?><!--</p>-->
-<!--          --><?php //if (! $urlobj->urla)
-//                   goto endlink; ?>
-<!--          <a href="--><?php //echo $urlobj->urla ?><!--" class="learn-more">--><?php //echo $urlobj->urlatext ?><!--</a>-->
-<!--          --><?php //endlink: ?>
-<!--          <!-- <a href="/arcs.html" class="learn-more">learn more</a> -->-->
-<!--        </div>-->
-<!--      </div>-->
-<!--     </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!---->
-<?php
-//}
-//?>
+        <?php  ?>
+    </div>
+    <div class="hero-content <?php if ($i%2 == 1) { echo "order-2 order-md-1"; } ?>">
+      <div class="card bg-white">
+        <div class="card-body">
+          <h5 class="text<?php echo $color ?> card-title upcase"><?php echo $article['alias'] ?></h5>
+          <h2 class="card-title"><?php echo $article['title'] ?></h2>
+          <p class="card-text"><?php echo $article['introtext'] ?></p>
+                                <!--          --><?php //if (! $urlobj->urla)
+                                //                   goto endlink; ?>
+                                <!--          <a href="--><?php //echo $urlobj->urla ?><!--" class="learn-more">--><?php //echo $urlobj->rlatext ?><!--</a>-->
+                                <!--          --><?php //endlink: ?>
+                                <!--          <a href="/arcs.html" class="learn-more">learn more</a> -->
+        </div>
+      </div>
+     </div>
+  </div>
+</div>
+                                <!---->
+                                <?php
+}
+?>
 								<!-- end component output -->
 
 					<?php if ($this->countModules('left or right')) : ?>
