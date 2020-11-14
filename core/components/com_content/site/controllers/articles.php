@@ -1252,7 +1252,12 @@ class Articles extends SiteController
 		}
 		$query->order('a.created', 'DESC');
 
-		$total = with(clone $query)->total();
+		//$total = with(clone $query)->total();
+        $total = with(clone $query)
+            ->start(0)
+            ->limit(PHP_INT_MAX)
+            ->rows()
+            ->count();
 
 		$items = $query
 			->start($filters['start'])
