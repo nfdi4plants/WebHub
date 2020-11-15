@@ -181,6 +181,12 @@ class Article extends Relational implements \Hubzero\Search\Searchable
 			$data['images'] = '';
 		}
 
+        if (!empty($data['images']))
+        {
+            $metadata = new Registry($data['images']);
+            $data['images'] = $metadata->toString();
+        }
+
 		return $data['images'];
 	}
 
@@ -196,6 +202,12 @@ class Article extends Relational implements \Hubzero\Search\Searchable
 		{
 			$data['urls'] = '';
 		}
+
+        if (!empty($data['urls']))
+        {
+            $metadata = new Registry($data['urls']);
+            $data['urls'] = $metadata->toString();
+        }
 
 		return $data['urls'];
 	}
