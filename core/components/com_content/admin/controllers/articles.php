@@ -22,6 +22,7 @@ use User;
 use Lang;
 use Date;
 use App;
+use stdClass;
 
 /**
  * Controller class for content articles
@@ -432,10 +433,17 @@ class Articles extends AdminController
 		$newTasks = array('save2new', 'save2copy');
 		$task = in_array($this->_task, $newTasks) ? 'add' : $this->_task;
 
+        $tmp = new stdClass;
+        $tmp->images = json_decode($article->images);
+        $tmp->urls   = json_decode($article->urls);
+
+        $form = $article->getForm();
+        $form->bind($tmp);
+
 		$this->view
 			->set('task', $task)
 			->set('item', $article)
-			->set('form', $article->getForm())
+			->set('form', $form)
 			->setLayout('edit')
 			->display();
 	}

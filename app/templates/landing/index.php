@@ -241,8 +241,7 @@ foreach ($articles as $article) {
 <div class="container-md">
   <div class="row hero bg <?php echo $color ?>">
     <div class="hero-image><?php if ($i%2 == 1) { echo "order-1 order-md-2"; } ?>">
-<!--      <img src="--><?php //echo $imgobj->image_fulltext ?><!--" alt="$imgobj->image_fulltext_alt"/>-->
-        <?php  ?>
+      <img src="<?php echo $imgobj->image_fulltext ?>" alt="$imgobj->image_fulltext_alt"/>
     </div>
     <div class="hero-content <?php if ($i%2 == 1) { echo "order-2 order-md-1"; } ?>">
       <div class="card bg-white">
@@ -250,11 +249,11 @@ foreach ($articles as $article) {
           <h5 class="text<?php echo $color ?> card-title upcase"><?php echo $article['alias'] ?></h5>
           <h2 class="card-title"><?php echo $article['title'] ?></h2>
           <p class="card-text"><?php echo $article['introtext'] ?></p>
-                                <!--          --><?php //if (! $urlobj->urla)
-                                //                   goto endlink; ?>
-                                <!--          <a href="--><?php //echo $urlobj->urla ?><!--" class="learn-more">--><?php //echo $urlobj->rlatext ?><!--</a>-->
-                                <!--          --><?php //endlink: ?>
-                                <!--          <a href="/arcs.html" class="learn-more">learn more</a> -->
+          <?php if (! $urlobj->urla)
+                   goto endlink; ?>
+          <a href="<?php echo $urlobj->urla ?>" class="learn-more"><?php echo $urlobj->rlatext ?></a>
+          <?php endlink: ?>
+          <a href="/arcs.html" class="learn-more">learn more</a>
         </div>
       </div>
      </div>
