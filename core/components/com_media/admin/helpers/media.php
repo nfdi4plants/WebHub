@@ -287,7 +287,7 @@ class MediaHelper
 			$child['name'] = str_replace('/', '', substr($child['path'], 0, strlen($child['path'])));
 			$child['path'] = $folder . $child['path'];
 
-			if (preg_match("/\.(bmp|gif|jpg|jpe|jpeg|png)$/i", $child['name']))
+			if (preg_match("/\.(bmp|gif|jpg|jpe|jpeg|png|svg)$/i", $child['name']))
 			{
 				$child['type'] = 'img';
 			}
