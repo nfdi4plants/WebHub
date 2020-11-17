@@ -229,19 +229,16 @@ foreach ($articles as $article) {
             $color = "lightgray";
             break;
     }
-    // Is somehow empty
+
     $imgobj = json_decode($article['images']);
-    // Is somehow empty
     $urlobj = json_decode($article['urls']);
 ?>
 
 <!-- ARC -->
-<!---->
-<!---->
 <div class="container-md">
-  <div class="row hero bg <?php echo $color ?>">
-    <div class="hero-image><?php if ($i%2 == 1) { echo "order-1 order-md-2"; } ?>">
-      <img src="<?php echo $imgobj->image_fulltext ?>" alt="$imgobj->image_fulltext_alt"/>
+  <div class="row hero bg-<?php echo $color ?>">
+    <div class="hero-image <?php if ($i%2 == 1) { echo "order-1 order-md-2"; } ?>">
+      <object class="landimages" data="<?php echo $imgobj->image_fulltext ?>" alt="<?php $imgobj->image_fulltext_alt ?>" type="image/svg+xml"></object>
     </div>
     <div class="hero-content <?php if ($i%2 == 1) { echo "order-2 order-md-1"; } ?>">
       <div class="card bg-white">
@@ -251,9 +248,8 @@ foreach ($articles as $article) {
           <p class="card-text"><?php echo $article['introtext'] ?></p>
           <?php if (! $urlobj->urla)
                    goto endlink; ?>
-          <a href="<?php echo $urlobj->urla ?>" class="learn-more"><?php echo $urlobj->rlatext ?></a>
+          <a href="<?php echo $urlobj->urla ?>" class="learn-more"><?php echo $urlobj->urlatext ?></a>
           <?php endlink: ?>
-          <a href="/arcs.html" class="learn-more">learn more</a>
         </div>
       </div>
      </div>
