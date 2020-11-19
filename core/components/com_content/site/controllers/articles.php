@@ -1224,6 +1224,9 @@ class Articles extends SiteController
 
 		$query = Article::allByFilters($filters);
 
+		// Reset a.ordering order, as it would take precedence over further ordering
+        $query->unorder();
+
 		// Filter by frontpage.
 		if ($filters['frontpage'])
 		{
