@@ -114,14 +114,18 @@ class Query
 	{
 		switch ($orderDate)
 		{
+		    // don't exactly know what is wrong with both query parts,
+            // but at least this way the respective page does not crash
 			case 'modified' :
-				$queryDate = 'CASE WHEN a.modified = 0 THEN a.created ELSE a.modified END';
-				break;
+				//$queryDate = 'CASE WHEN a.modified = 0 THEN a.created ELSE a.modified END';
+				$queryDate = 'a.modified';
+                break;
 
 			// use created if publish_up is not set
 			case 'published' :
-				$queryDate = 'CASE WHEN a.publish_up = 0 THEN a.created ELSE a.publish_up END';
-				break;
+				// $queryDate = 'CASE WHEN a.publish_up = 0 THEN a.created ELSE a.publish_up END';
+				$queryDate = 'a.publish_up';
+                break;
 
 			case 'created' :
 			default :
