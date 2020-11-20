@@ -97,8 +97,21 @@ class Login extends AdminController
 		$credentials = $model->getState('credentials');
 		$return      = $model->getState('return');
 
+        $options = array(
+            'action'        => 'core.login.admin',
+            'authenticator' => '',
+            // The minimum group
+            'group'         => 'Public Backend',
+            // Make sure users are not autoregistered
+            'autoregister'  => false,
+            // Set the access control action to check.
+            'action'        => 'core.login.admin'
+        );
+
+        $authenticator = Request::getString('authenticator', false, 'method');
+
 		// If a specific authenticator is specified try to call the login method for that plugin
-		if ($authenticator = Request::getString('authenticator', false, 'method'))
+		if ($authenticator)
 		{
 			Plugin::import('authentication');
 
@@ -133,17 +146,6 @@ class Login extends AdminController
 				}
 			}
 		}
-
-		$options = array(
-			'action'        => 'core.login.admin',
-			'authenticator' => $authenticator,
-			// The minimum group
-			'group'         => 'Public Backend',
-			// Make sure users are not autoregistered
-			'autoregister'  => false,
-			// Set the access control action to check.
-			'action'        => 'core.login.admin'
-		);
 
 		// Set the application login entry point
 		if (!array_key_exists('entry_url', $options))
