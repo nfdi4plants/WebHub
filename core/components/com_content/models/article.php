@@ -145,11 +145,14 @@ class Article extends Relational implements \Hubzero\Search\Searchable
 	 */
 	public function automaticAssetId()
 	{
-		if (!empty($this->assetRules))
-		{
-			return parent::automaticAssetId();
-		}
-		return $this->get('asset_id');
+	    // Original function does not handle empty non admin cases correctly
+	    return parent::automaticAssetId();
+	    // Original code kept for quick lookup if this breaks something
+//		if (!empty($this->assetRules))
+//		{
+//			return parent::automaticAssetId();
+//		}
+//		return $this->get('asset_id');
 	}
 
 	/**
