@@ -894,10 +894,14 @@ class Page extends Relational
 							if (!$this->isLocked())
 							{
 								$this->config()->set('access-page-delete', User::authorise('core.delete', $option));
-								$this->config()->set('access-page-edit', User::authorise('core.edit', $option));
+								// Check if article created by user and allowed to edit own,
+								// else check if is allowed to edit in general
+								$canEdit = $this->get('created_by') == User::get('id')
+									&& User::authorise('core.edit.own', $option)
+									|| User::authorise('core.edit', $option);
+								$this->config()->set('access-page-edit', $canEdit);
 								$this->config()->set('access-page-modify', true);
 							}
-
 							$this->config()->set('access-comment-view', true);
 							$this->config()->set('access-comment-create', true);
 						break;
