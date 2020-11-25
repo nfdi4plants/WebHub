@@ -439,7 +439,7 @@ class FileMacro extends WikiMacro
 
 		$file = trim($file, DS);
 
-		if ($this->pageid)
+		if ($this->pageid && $this->pageid > 0)
 		{
 			$page = \Components\Wiki\Models\Page::oneOrFail($this->pageid);
 			$link = $page->link();
@@ -516,7 +516,7 @@ class FileMacro extends WikiMacro
 
 				$rand = rand(0, 100000);
 
-				$$html  = '<div id="unityPlayer' . $rand . '" class="unityPlayer_macro" data-width="'.intval($attr['width']).'" data-height="'.intval($attr['height']).'" data-href="'.$attr['href'].'">
+				$html  = '<div id="unityPlayer' . $rand . '" class="unityPlayer_macro" data-width="'.intval($attr['width']).'" data-height="'.intval($attr['height']).'" data-href="'.$attr['href'].'">
 							<div class="missing">
 								<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
 									<img alt="Unity Web Player. Install now!" src="' . (\Request::scheme() == 'https' ? 'https://ssl-' : 'http://') . 'webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
@@ -564,7 +564,7 @@ class FileMacro extends WikiMacro
 				\Document::addScript(\Request::scheme() . '://www.wolfram.com/cdf-player/plugin/v2.1/cdfplugin.js');
 				\Document::addScript(\Request::root() . 'core/plugins/content/formathtml/macros/macro-assets/file/file.js?t=' . filemtime(__DIR__ . '/macro-assets/file/file.js'));
 
-				$html .= '<noscript>';
+				$html = '<noscript>';
 				$html .= '<div class="embedded-plugin" style="width: ' . intval($attr['width']) . 'px; height: ' . intval($attr['height']) . ';">';
 				$html .= $attr['alt'];
 				$html .= '</div>';
