@@ -241,6 +241,8 @@ $authors = implode(', ', $authors);
                                 </div>
                             </div><!-- / .grid -->
                         </div>
+                        <?php } else { ?>
+                            <p><?php echo 'Attachments are available after the page has been saved' ?></p>
 						<?php } ?>
                     </fieldset><div class="clear"></div>
 
