@@ -224,7 +224,7 @@ $authors = implode(', ', $authors);
                             </label>
                         </div>
 
-						<?php //if ($this->sub) { ?>
+						<?php if ($this->page->exists()) { ?>
                         <div class="field-wrap">
                             <div class="grid">
                                 <div class="col span-half">
@@ -241,7 +241,7 @@ $authors = implode(', ', $authors);
                                 </div>
                             </div><!-- / .grid -->
                         </div>
-						<?php //} ?>
+						<?php } ?>
                     </fieldset><div class="clear"></div>
 
 					<?php if (!$this->page->exists() || $this->page->get('created_by') == User::get('id') || $this->page->access('manage')) {?>

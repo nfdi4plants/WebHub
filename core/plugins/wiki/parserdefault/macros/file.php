@@ -439,7 +439,7 @@ class FileMacro extends WikiMacro
 
 		$file = trim($file, DS);
 
-		if ($this->pageid && $this->pageid > 0)
+		if ($this->pageid)
 		{
 			$page = \Components\Wiki\Models\Page::oneOrFail($this->pageid);
 			$link = $page->link();
