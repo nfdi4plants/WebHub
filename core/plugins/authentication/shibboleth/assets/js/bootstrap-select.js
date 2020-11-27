@@ -387,6 +387,7 @@
 
       if (this.options.size == 'auto') {
         var getSize = function () {
+          if (that.$lis == null) that.$lis = menu.find('li');
           var minHeight,
               lisVis = that.$lis.not('.hide');
 

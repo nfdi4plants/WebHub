@@ -46,9 +46,9 @@ class Auth extends SiteController
 		}
 
 		// Check for errors.
-		if ($this->getError())
+		if ($error = $this->getError())
 		{
-			App::abort(500, implode('<br />', $errors));
+			App::abort(500, $error);
 		}
 
 		// Get the active menu
@@ -940,7 +940,7 @@ class Auth extends SiteController
 		}
 
 		// Check if the log out succeeded.
-		if (!($error instanceof Exception))
+		if (!$error)
 		{
 			// If the authenticator is empty, but they have an active third party session,
 			// redirect to a page indicating this and offering complete signout
