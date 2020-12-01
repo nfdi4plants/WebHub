@@ -114,8 +114,8 @@ class Institutions extends Field
 			}
 			$rv[] = $item;
 		}
-		$rv = array_merge($rv, self::getResearchAndScholarshipIdps($curl));
 		curl_close($curl);
+		$rv = array_merge($rv, self::getResearchAndScholarshipIdps($curl));
 		return array($mtime, $rv);
 	}
 
@@ -127,8 +127,9 @@ class Institutions extends Field
 	 */
 	private static function getResearchAndScholarshipIdps($ch)
 	{
-		$rv = [];
+		$out = array();
 		exec('php ' . __DIR__ . '/get-rs-entities.php', $out);
-		return json_decode(join('', $out));
+		return $out;
+		// return json_decode(join('', $out));
 	}
 }
