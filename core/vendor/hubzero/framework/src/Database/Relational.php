@@ -121,7 +121,7 @@ class Relational implements \IteratorAggregate, \ArrayAccess, \Serializable
 	/**
 	 * The includes set on the model for eager loading
 	 *
-	 * @var  string
+	 * @var  array
 	 **/
 	private $includes = [];
 
@@ -1761,6 +1761,7 @@ class Relational implements \IteratorAggregate, \ArrayAccess, \Serializable
 	private function whereRelated($relationship, $constraint)
 	{
 		$this->data = [];
+		$name 		= $this->name();
 		$keys       = null;
 
 		// Parse for nested relationships
