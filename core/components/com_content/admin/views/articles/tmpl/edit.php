@@ -263,7 +263,7 @@ endif;
 
 			<?php // The url and images fields only show if the configuration is set to allow them.  ?>
 			<?php // This is for legacy reasons. ?>
-			<?php if ($params['show_urls_images_backend']): ?>
+			<?php if ($params['show_urls_images_backend'] == true): ?>
 				<?php echo Html::sliders('panel', Lang::txt('COM_CONTENT_FIELDSET_URLS_AND_IMAGES'), 'urls_and_images-options'); ?>
 				<fieldset class="panelform">
 					<div class="form-group input-wrap">
