@@ -32,7 +32,16 @@ class Router extends Base
 			//$segments[$i] = str_replace(':', '-', $segments[$i]);
 			if (strstr($segments[$i], ':'))
 			{
-				$segments[$i] = trim(strstr($segments[$i], ':'), ':');
+				list($id, $alias) = explode(':', $segments[$i], 2);
+				
+				if (!empty($alias))
+				{
+					$segments[$i] = $alias;
+				}
+				else
+				{
+					$segments[$i] = $id;
+				}
 			}
 		}
 
@@ -47,8 +56,6 @@ class Router extends Base
 	 */
 	public function build(&$query)
 	{
-		$segments = array();
-
 		// get a menu item based on Itemid or currently active
 		$menu     = App::get('menu');
 		$params   = Component::params('com_content');
@@ -73,15 +80,17 @@ class Router extends Base
 		else
 		{
 			// we need to have a view in the query or it is an invalid URL
-			return $this->postBuild($segments);
+			return array();
 		}
 
 		// are we dealing with an article or category that is attached to a menu item?
+	
 		if (($menuItem instanceof \stdClass)
 		 && $menuItem->query['view'] == $query['view']
 		 && isset($query['id'])
 		 && $menuItem->query['id'] == intval($query['id']))
 		{
+			// lots of side effects here -> what exactly is the effect here?
 			unset($query['view']);
 
 			if (isset($query['catid']))
@@ -96,8 +105,10 @@ class Router extends Base
 
 			unset($query['id']);
 
-			return $segments;
+			return array();
 		}
+
+		$segments = array();
 
 		if ($view == 'category' || $view == 'article')
 		{
@@ -131,11 +142,12 @@ class Router extends Base
 				else
 				{
 					// we should have these two set for this view.  If we don't, it is an error
-					return $this->postBuild($segments);
+					return array();
 				}
 			}
 			else
 			{
+				// if not article view it has to be a category
 				if (isset($query['id']))
 				{
 					$catid = $query['id'];
@@ -143,7 +155,7 @@ class Router extends Base
 				else
 				{
 					// we should have id set for this view.  If we don't, it is an error
-					return $this->postBuild($segments);
+					return array();
 				}
 			}
 
@@ -162,7 +174,7 @@ class Router extends Base
 			if (!$category)
 			{
 				// we couldn't find the category we were given.  Bail.
-				return $this->postBuild($segments);
+				return array();
 			}
 
 			$path = array_reverse($category->getPath());
@@ -275,13 +287,7 @@ class Router extends Base
 
 		// Count route segments
 		$count = count($segments);
-
-		for ($i = 0; $i < $count; $i++)
-		{
-			$segments[$i] = preg_replace('/-/', ':', $segments[$i], 1);
-		}
-
-		// Standard routing for articles.  If we don't pick up an Itemid then we get the view from the segments
+		
 		// the first segment is the view and the last segment is the id of the article or category.
 		if (!isset($item))
 		{
@@ -295,16 +301,27 @@ class Router extends Base
 		// we test it first to see if it is a category.  If the id and alias match a category
 		// then we assume it is a category.  If they don't we assume it is an article
 		if ($count == 1)
-		{
-			// we check to see if an alias is given.  If not, we assume it is an article
-			if (strpos($segments[0], ':') === false)
-			{
-				$vars['view'] = 'article';
-				$vars['id']   = (int)$segments[0];
-				return $vars;
-			}
+		{	
+			
+			list($id, $alias) = explode('-', $segments[0], 2);
+			$alias = urldecode($alias);
 
-			list($id, $alias) = explode(':', $segments[0], 2);
+			// we check to see if an alias is given.  If not, we assume it is an article
+			if (is_numeric($id))
+			{
+				$query = 'SELECT alias, catid FROM `#__content` WHERE id = ' . (int)$id;
+				$db->setQuery($query);
+				$article = $db->loadObject();
+
+				if ($article)
+				{
+					$vars['view']  = 'article';
+					$vars['catid'] = (int)$article->catid;
+					$vars['id']    = (int)$id;
+
+					return $vars;
+				}
+			}
 
 			// first we check if it is a category
 			$category = \Components\Categories\Helpers\Categories::getInstance('Content')->get($id);
@@ -318,20 +335,17 @@ class Router extends Base
 			}
 			else
 			{
-				$query = 'SELECT alias, catid FROM `#__content` WHERE id = ' . (int)$id;
+				$query = 'SELECT id, catid FROM `#__content` WHERE alias = ' . $db->Quote(urldecode($segments[0]));
 				$db->setQuery($query);
 				$article = $db->loadObject();
 
 				if ($article)
 				{
-					if ($article->alias == $alias)
-					{
-						$vars['view']  = 'article';
-						$vars['catid'] = (int)$article->catid;
-						$vars['id']    = (int)$id;
+					$vars['view']	= 'article';
+					$vars['catid']	= (int)$article->catid;
+					$vars['id']	= (int)$article->id;
 
-						return $vars;
-					}
+					return $vars;
 				}
 			}
 		}
