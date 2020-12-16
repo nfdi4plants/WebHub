@@ -42,6 +42,20 @@ class Articles extends SiteController
 		$filters['access'] = null;
 		$filters['context'] = 'com_content.article';
 
+		// If no id is present, use alias instead
+		$idx = count(Request::segments());
+		$id_or_alias = Request::segment($idx);
+
+		if ($idx > 0 && !is_numeric($id_or_alias))
+		{
+			$db = App::get('db');
+			$query = 'SELECT id FROM `#__content` WHERE alias = ' . $db->Quote(urldecode($id_or_alias));
+			$db->setQuery($query);
+			$article = $db->loadObject();
+
+			$filters['id'] = $article->id;
+		}
+
 		// Filter by published state.
 		if (!User::authorise('core.edit.state', $this->_option)
 		 && !User::authorise('core.edit', $this->_option))
@@ -51,7 +65,8 @@ class Articles extends SiteController
 
 		$data = Article::oneByFilters($filters);
 
-		if (!$data || !$data->get('id'))
+		// No more than 4 segments should be present for displaying, else we have bogus in between that is not read anywhere and the displayed location is probably wrong
+		if (!$data || !$data->get('id') || $idx > 4)
 		{
 			App::abort(404, Lang::txt('COM_CONTENT_ERROR_ARTICLE_NOT_FOUND'));
 		}
