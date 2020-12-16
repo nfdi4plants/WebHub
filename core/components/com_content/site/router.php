@@ -59,6 +59,8 @@ class Router extends Base
 		// get a menu item based on Itemid or currently active
 		$menu     = App::get('menu');
 		$params   = Component::params('com_content');
+		// this does not seem to be the "Search Engine Frienly URLs" option, might be "Search Engine Friendly Groups URLs"
+		// be aware that setting this to true might break URLs further down the line (Thomas Zajac)
 		$advanced = $params->get('sef_advanced_link', 0);
 
 		// we need a menu item.  Either the one specified in the query, or the current active one if none specified
@@ -350,14 +352,35 @@ class Router extends Base
 			}
 		}
 
-		// if there was more than one segment, then we can determine where the URL points to
-		// because the first segment will have the target category id prepended to it.  If the
-		// last segment has a number prepended, it is an article, otherwise, it is a category.
+		// Changed code to use alias when possible and id only in those cases where no alias is provided
+		// Need to check for both parts if they are numeric and thus an id or an alias
+		// If this is not triggered (i.e. if $advanced === true) code further below might still have issues
 		if (!$advanced)
 		{
-			$cat_id = (int)$segments[0];
+			if (is_numeric($segments[0])){
+				$cat_id = (int) $segments[0];
+			}			
+			else
+			{
+				$query = 'SELECT id FROM `#__categories` WHERE alias = ' . $db->Quote(urldecode($segments[0]));
+				$db->setQuery($query);
+				$category = $db->loadObject();
 
-			$article_id = (int)$segments[$count - 1];
+				$cat_id = $category->id;
+			}			
+			
+			if (is_numeric($segments[$count - 1])){
+				$article_id = (int) $segments[$count - 1];
+			}			
+			else
+			{
+				$query = 'SELECT id FROM `#__content` WHERE alias = ' . $db->Quote(urldecode($segments[$count - 1]));
+				$db->setQuery($query);
+				$article = $db->loadObject();
+
+				$article_id = $article->id;
+			}			
+
 
 			if ($article_id > 0)
 			{
