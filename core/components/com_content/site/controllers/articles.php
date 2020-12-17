@@ -46,14 +46,47 @@ class Articles extends SiteController
 		$idx = count(Request::segments());
 		$id_or_alias = Request::segment($idx);
 
+		// Try resolving by alias
+		// $idx > 0 required to resolve landing page correctly
 		if ($idx > 0 && !is_numeric($id_or_alias))
 		{
 			$db = App::get('db');
-			$query = 'SELECT id FROM `#__content` WHERE alias = ' . $db->Quote(urldecode($id_or_alias));
+			$query = 'SELECT id FROM `#__content` WHERE alias = ' . $db->Quote(urldecode($id_or_alias)) . ' AND state > 0';
 			$db->setQuery($query);
 			$article = $db->loadObject();
 
-			$filters['id'] = $article->id;
+			if (isset($article))
+			{
+				$filters['id'] = $article->id;
+			}
+			else
+			{
+				// HUBzero does not require a unique alias, try to limit scope by category id
+				$category_id = Request::segment($idx - 1);
+				if (!is_numeric($category_id)){
+					$query = 'SELECT id FROM `#__categories` WHERE alias = ' .$db->Quote(urldecode($category_id));
+					$db->setQuery($query);
+					$category = $db->loadObject();
+
+					if (isset($category))
+					{
+						$category_id = $category->id;
+					}
+				}
+
+				// check again to see if id was retrieved correctly for given alias
+				if (is_numeric($category_id))
+				{
+					$query = 'SELECT id FROM `#__content` WHERE alias = ' . $db->Quote(urldecode($id_or_alias)) . ' AND catid = ' . $category_id . ' AND state > 0';
+					$db->setQuery($query);
+					$article = $db->loadObject();
+
+					if (isset($article))
+					{
+						$filters['id'] = $article->id;
+					}
+				}
+			}
 		}
 
 		// Filter by published state.
@@ -65,8 +98,7 @@ class Articles extends SiteController
 
 		$data = Article::oneByFilters($filters);
 
-		// No more than 4 segments should be present for displaying, else we have bogus in between that is not read anywhere and the displayed location is probably wrong
-		if (!$data || !$data->get('id') || $idx > 4)
+		if (!$data || !$data->get('id'))
 		{
 			App::abort(404, Lang::txt('COM_CONTENT_ERROR_ARTICLE_NOT_FOUND'));
 		}
