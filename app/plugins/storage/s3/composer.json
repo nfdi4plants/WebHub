@@ -1,0 +1,9 @@
+{  
+    "name": "uni_tuebingen/plg_storage_s3",  
+    "description": "S3 storage plugin for NFDI4Plants/BioDATEN",  
+    "license": "GPL3",  
+    "type": "hubzero-plugin",  
+    "extra": {  
+      "install-directory": "/plugins/storage/s3/"  
+    }  
+  }  

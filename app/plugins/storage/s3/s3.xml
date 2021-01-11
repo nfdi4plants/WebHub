@@ -1,0 +1,6 @@
+    <?xml version="1.0" encoding="utf-8"?>  
+    <extension>  
+        <name>Storage - S3</name>
+        <author>University Tübingen</author>
+        <description>S3 Storage for NFDI4Plants/BioDATEN</description>
+    </extension>  
