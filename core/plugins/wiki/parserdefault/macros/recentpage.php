@@ -5,6 +5,7 @@
  * @license    http://opensource.org/licenses/MIT MIT
  */
 
+
 // No direct access
 defined('_HZEXEC_') or die();
 
@@ -76,6 +77,7 @@ class RecentPageMacro extends WikiMacro
 
 		$pages = \Components\Wiki\Models\Page::all()
 			->whereEquals('state', \Components\Wiki\Models\Page::STATE_PUBLISHED)
+			->whereIn('access', User::getAuthorisedViewLevels())
 			->order('modified', 'desc')
 			->limit($limit)
 			->start($limitstart);
