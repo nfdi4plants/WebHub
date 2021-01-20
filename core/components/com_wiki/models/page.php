@@ -893,7 +893,10 @@ class Page extends Relational
 						default:
 							if (!$this->isLocked())
 							{
-								$this->config()->set('access-page-delete', User::authorise('core.delete', $option));
+								$canDelete = $this->get('created_by') == User::get('id') 
+									&& User::authorise('core.edit.own', $option) 
+									|| User::authorise('core.delete', $option);
+								$this->config()->set('access-page-delete', $canDelete);
 								// Check if article created by user and allowed to edit own,
 								// else check if is allowed to edit in general
 								$canEdit = $this->get('created_by') == User::get('id')
