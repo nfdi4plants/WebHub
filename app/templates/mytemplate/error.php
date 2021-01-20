@@ -76,6 +76,14 @@ Lang::load('tpl_' . $this->template, __DIR__);
 									break;
 							}
 						}
+						if ($this->error->getCode() == 403)
+						{
+							$message .= '<p style="text-align:center"><a href="/login">Login</a></p>';
+						}
+						else
+						{
+							$message .= '<p style="text-align:center"><a href="/">Go back to landing page</a></p>';
+						}
 						echo $message;
 					?></p>
 				</div><!-- / .inner -->
