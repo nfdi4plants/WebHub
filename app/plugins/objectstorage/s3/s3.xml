@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.0" type="plugin" group="filesystem">
+	<name>Object Storage - S3</name>
+	<author>Thomas J. Zajac</author>
+	<authorUrl>hubzero.org</authorUrl>
+	<authorEmail>support@hubzero.org</authorEmail>
+	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
+	<license>http://opensource.org/licenses/MIT MIT</license>
+	<description>PLG_OBJECTSTORAGE_S3_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="awss3">s3.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_objectstorage_s3.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="user_credentials">
+				<field name="app_id" type="text" default="" label="PLG_OBJECTSTORAGE_S3_APP_ID_LABEL" description="PLG_OBJECTSTORAGE_S3_APP_ID_DESC" />
+				<field name="app_secret" type="text" default="" label="PLG_OBJECTSTORAGE_S3_APP_SECRET_LABEL" description="PLG_OBJECTSTORAGE_S3_APP_SECRET_DESC" />
+				<field name="region" type="text" default="" label="PLG_OBJECTSTORAGE_S3_REGION_LABEL" description="PLG_OBJECTSTORAGE_S3_REGION_DESC" />
+				<field name="bucket" type="text" default="" label="PLG_OBJECTSTORAGE_S3_BUCKET_LABEL" description="PLG_OBJECTSTORAGE_S3_BUCKET_DESC" />
+				<field name="directory" type="text" default="" label="PLG_OBJECTSTORAGE_S3_DIRECTORY_LABEL" description="PLG_OBJECTSTORAGE_S3_DIRECTORY_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,23 @@
+{
+	"name": "uni-tuebingen/plg_objectstorage_s3",
+	"description": "S3 object storage plugin for the HUBzero CMS.",
+	"type": "hubzero-plugin",
+	"keywords": ["S3", "Storage", "Object Storage"],
+	"homepage": "https://hubzero.org",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Thomas J. Zajac",
+			"email": "thomas-jakob.zajac@uni-tuebingen.de"
+		}
+	],
+	"support": {
+		"email": "thomas-jakob.zajac@uni-tuebingen.de"
+	},
+	"require": {
+		"php" : "^5.4"
+	},
+	"extra": {
+		"install-directory": "/plugins/objectstorage/s3/"
+	}
+}

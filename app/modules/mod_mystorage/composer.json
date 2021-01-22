@@ -1,0 +1,20 @@
+{
+	"name": "uni-tuebingen/mod_mystorage",
+	"description": "This module will display a list of available S3 storage for a user in the HUBzero CMS",
+	"type": "hubzero-module",
+	"keywords": ["S3", "Storage"],
+	"homepage": "https://nfdi4plants.de",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Thomas J. Zajac",
+			"email": "thomas-jakob.zajac@uni-tuebingen.de"
+		}
+	],
+	"support": {
+		"email": "thomas-jakob.zajac@uni-tuebingen.de"
+	},
+	"require": {
+		"php" : "^5.4"
+	}
+}
