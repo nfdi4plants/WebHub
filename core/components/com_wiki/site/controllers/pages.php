@@ -321,7 +321,7 @@ class Pages extends SiteController
 		}
 
 		// Check if the page is restricted and the user is authorized
-		if (!$this->page->access('edit') && !$this->page->access('modify'))
+		if (!$this->page->access('edit'))
 		{
 			App::redirect(
 				Route::url($this->page->link()),

@@ -814,7 +814,6 @@ class Page extends Relational
 			$this->config()->set('access-page-create', false);
 			$this->config()->set('access-page-delete', false);
 			$this->config()->set('access-page-edit', false);
-			$this->config()->set('access-page-modify', false);
 
 			$this->config()->set('access-comment-view', false);
 			$this->config()->set('access-comment-create', false);
@@ -850,7 +849,6 @@ class Page extends Relational
 					$this->config()->set('access-page-create', true);
 					$this->config()->set('access-page-delete', true);
 					$this->config()->set('access-page-edit', true);
-					$this->config()->set('access-page-modify', true);
 
 					$this->config()->set('access-comment-view', true);
 					$this->config()->set('access-comment-create', true);
@@ -875,11 +873,6 @@ class Page extends Relational
 							{
 								$this->config()->set('access-page-delete', true);
 								$this->config()->set('access-page-edit', true);
-								$this->config()->set('access-page-modify', true);
-							}
-							else if ($this->param('allow_changes'))
-							{
-								$this->config()->set('access-page-modify', true); // This allows users to suggest changes
 							}
 
 							if ($this->param('allow_comments'))
@@ -903,7 +896,6 @@ class Page extends Relational
 									&& User::authorise('core.edit.own', $option)
 									|| User::authorise('core.edit', $option);
 								$this->config()->set('access-page-edit', $canEdit);
-								$this->config()->set('access-page-modify', true);
 							}
 							$this->config()->set('access-comment-view', true);
 							$this->config()->set('access-comment-create', true);
