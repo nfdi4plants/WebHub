@@ -141,8 +141,13 @@ class Comments extends SiteController
 	{
 		// Viewing comments for a specific version?
 		$version = Request::getInt('version', 0);
+		
+		if ( $this->page->get('access') != 0 && !$this->page->access('view'))
+		{
+			App::abort(403, Lang::txt('COM_WIKI_WARNING_NOT_AUTH'));
+		}
 
-		if (!$mycomment && !User::isGuest())
+		if (!$mycomment)
 		{
 			$mycomment = Comment::blank();
 			// No ID, so we're creating a new comment

@@ -108,8 +108,7 @@ class Media extends SiteController
 		if ($this->page->exists())
 		{
 			// Check if the page is group restricted and the user is not authorized
-			if ($this->page->get('scope') != 'site'
-			 && $this->page->get('access') != 0
+			if ( $this->page->get('access') != 0
 			 && !$this->page->access('view'))
 			{
 				App::abort(403, Lang::txt('COM_WIKI_WARNING_NOT_AUTH'));
@@ -548,6 +547,13 @@ class Media extends SiteController
 	 */
 	public function displayTask()
 	{
+		
+		// Check if the page is restricted and the user is not authorized
+		if ( $this->page->get('access') != 0 && !$this->page->access('view'))
+		{
+			App::abort(403, Lang::txt('COM_WIKI_WARNING_NOT_AUTH'));
+		}
+
 		$this->view
 			->set('config', $this->config)
 			->set('listdir', Request::getInt('listdir', 0, 'request'))
@@ -563,6 +569,12 @@ class Media extends SiteController
 	 */
 	public function listTask()
 	{
+		// Check if the page is restricted and the user is not authorized
+		if ( $this->page->get('access') != 0 && !$this->page->access('view'))
+		{
+			App::abort(403, Lang::txt('COM_WIKI_WARNING_NOT_AUTH'));
+		}
+
 		// Incoming
 		$listdir = Request::getInt('listdir', 0, 'get');
 

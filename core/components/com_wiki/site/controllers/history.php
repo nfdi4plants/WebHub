@@ -125,6 +125,13 @@ class History extends SiteController
 	 */
 	public function displayTask()
 	{
+	
+		// Check if the page is restricted and the user is not authorized
+		if ( $this->page->get('access') != 0 && !$this->page->access('view'))
+		{
+			App::abort(403, Lang::txt('COM_WIKI_WARNING_NOT_AUTH'));
+		}
+
 		// Set the page's <title> tag
 		Document::setTitle(
 			Lang::txt(strtoupper($this->_option)) . ': ' .

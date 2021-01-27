@@ -94,7 +94,6 @@ class Router extends Base
 			case 'save':
 			case 'rename':
 			case 'saverename':
-			case 'approve':
 			default:
 				$vars['controller'] = 'page';
 			break;
