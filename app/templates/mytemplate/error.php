@@ -68,7 +68,18 @@ Lang::load('tpl_' . $this->template, __DIR__);
 									$message = Lang::txt('TPL_MYTEMPLATE_404_HEADER');
 									break;
 								case 403:
-									$message = Lang::txt('TPL_MYTEMPLATE_403_HEADER');
+									if (User::isGuest())
+									{
+										// Redirect to login page on 403 and redirect back to location afterwards
+										$url = Request::getString('REQUEST_URI', '', 'server');
+											App::redirect(
+										Route::url('index.php?option=com_users&view=login&return=' . base64_encode($url), false)
+										);
+									}
+									else
+									{
+										$message = Lang::txt('TPL_MYTEMPLATE_403_HEADER');
+									}
 									break;
 								case 500:
 								default:
@@ -76,14 +87,7 @@ Lang::load('tpl_' . $this->template, __DIR__);
 									break;
 							}
 						}
-						if ($this->error->getCode() == 403)
-						{
-							$message .= '<p style="text-align:center"><a href="/login">Login</a></p>';
-						}
-						else
-						{
-							$message .= '<p style="text-align:center"><a href="/">Go back to landing page</a></p>';
-						}
+						$message .= '<p style="text-align:center"><a href="/">Go back to landing page</a></p>';
 						echo $message;
 					?></p>
 				</div><!-- / .inner -->
