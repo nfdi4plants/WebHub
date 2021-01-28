@@ -8,42 +8,38 @@
 // No direct access
 defined('_HZEXEC_') or die();
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
-use Aws\S3\S3Client;
-use League\Flysystem\AwsS3v2\AwsS3Adapter;
-use League\Flysystem\Filesystem;
-
 /**
- * Plugin class for AWS S3 filesystem connectivity
+ * Plugin class for S3 Objectstorage
  */
-class plgFilesystemAWSS3 extends \Hubzero\Plugin\Plugin
+class plgObjectstorageS3 extends \Hubzero\Plugin\Plugin
 {
 	/**
-	 * Initializes the AWS S3 connection
+	 * Affects constructor behavior. If true, language files will be loaded automatically.
 	 *
-	 * @param   array   $params  Any connection params needed
+	 * @var  boolean
+	 */
+	protected $_autoloadLanguage = true;
+	/**
+	 *
 	 * @return  object
 	 **/
-	public static function init($params = [])
+	public static function onView()
 	{
-		// Get the params
-		$pparams = Plugin::params('filesystem', 'awss3');
+		$content = array();
 
-		$app_id = $params['app_id'];
-		$app_secret = $params['app_secret'];
-		$region = $params['region'];
-		$bucket = $params['bucket'];
-		$path = isset($params['path']) ? $params['path'] : '';
-
-		$client = S3Client::factory([
-			'key'			=> $app_id,
-			'secret'	=> $app_secret,
-			'region'	=> $region,
-			'base_url' => 'http://s3.amazonaws.com',
-			'signature'=> 'v4'
-		]);
-		$adapter = new AwsS3Adapter($client, $bucket, $path);
-		return $adapter;
+		// Retrieve configuration from admin area. Fields are defined in s3.xml
+		$params = Plugin::params('objectstorage', 's3');
+		if(empty($params))
+		{
+			$content[] = 'Found';
+			$content[] = 'the';
+			$content[] = 'dragons';
+		}
+		else
+		{
+			$content = $params;
+		}
+		
+		return $content;
 	}
 }

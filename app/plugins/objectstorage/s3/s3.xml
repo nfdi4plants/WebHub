@@ -15,12 +15,10 @@
 	</languages>
 	<config>
 		<fields name="params">
-			<fieldset name="user_credentials">
-				<field name="app_id" type="text" default="" label="PLG_OBJECTSTORAGE_S3_APP_ID_LABEL" description="PLG_OBJECTSTORAGE_S3_APP_ID_DESC" />
-				<field name="app_secret" type="text" default="" label="PLG_OBJECTSTORAGE_S3_APP_SECRET_LABEL" description="PLG_OBJECTSTORAGE_S3_APP_SECRET_DESC" />
-				<field name="region" type="text" default="" label="PLG_OBJECTSTORAGE_S3_REGION_LABEL" description="PLG_OBJECTSTORAGE_S3_REGION_DESC" />
-				<field name="bucket" type="text" default="" label="PLG_OBJECTSTORAGE_S3_BUCKET_LABEL" description="PLG_OBJECTSTORAGE_S3_BUCKET_DESC" />
-				<field name="directory" type="text" default="" label="PLG_OBJECTSTORAGE_S3_DIRECTORY_LABEL" description="PLG_OBJECTSTORAGE_S3_DIRECTORY_DESC" />
+			<fieldset name="dummy_text">
+				<field name="it" type="text" default="" label="PLG_OBJECTSTORAGE_S3_APP_ID_LABEL" description="PLG_OBJECTSTORAGE_S3_APP_ID_DESC" />
+				<field name="just" type="text" default="" label="PLG_OBJECTSTORAGE_S3_APP_SECRET_LABEL" description="PLG_OBJECTSTORAGE_S3_APP_SECRET_DESC" />
+				<field name="works" type="text" default="" label="PLG_OBJECTSTORAGE_S3_REGION_LABEL" description="PLG_OBJECTSTORAGE_S3_REGION_DESC" />
 			</fieldset>
 		</fields>
 	</config>

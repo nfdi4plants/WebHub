@@ -20,7 +20,7 @@ class Migration20210122000000PlgObjectstorageS3 extends Base
 	 **/
 	public function up()
 	{
-		$this->addPluginEntry('objectstorage', 's3', 0);
+		$this->addPluginEntry('objectstorage', 's3', 1);
 	}
 
 	/**
