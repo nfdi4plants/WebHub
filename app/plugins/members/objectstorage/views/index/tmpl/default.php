@@ -9,6 +9,8 @@
 // No direct access
 defined('_HZEXEC_') or die('Restricted access');
 
+$base = $this->member->link() . '/' . $this->name;
+
 $this->css()
 	->js();
 ?>
@@ -60,8 +62,8 @@ $this->css()
 	<div id="settings">
 		<p class="description">Options</p>
 		<ul>
-			<li>Show Elixir ID</li>
-			<li>Configure API Key</li>
+			<li><a href="<?php echo Route::url($base . '&task=settings/elixir'); ?>"">Show Elixir ID</a></li>
+			<li><a href="<?php echo Route::url($base . '&task=settings/api'); ?>">Configure API Key</a></li>
 		</ul>
 	</div>
 </div>

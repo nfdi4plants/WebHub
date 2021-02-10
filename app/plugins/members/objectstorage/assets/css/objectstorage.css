@@ -2,8 +2,8 @@
     font-size: large;
 }
 
-li {
-    content: "" !important;
+li::marker {
+    content: "";
 }
 
 .main-section {
