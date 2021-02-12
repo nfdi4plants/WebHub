@@ -20,7 +20,6 @@ class Migration20210123000000PlgMembersObjectstorage extends Base
 	 **/
 	public function up()
 	{
-
 		if (!$this->db->tableExists('#__objectstorage'))
 		{
 			$query = "CREATE TABLE `#__objectstorage` (
@@ -29,14 +28,12 @@ class Migration20210123000000PlgMembersObjectstorage extends Base
 			  `api_key` varchar(33) NOT NULL,
 			  PRIMARY KEY (`id`),
 			  UNIQUE KEY `id` (`id`),
-			  UNIQUE KEY `user_id` (`user_id`),
-			  UNIQUE KEY `api_key` (`api_key`)
+			  UNIQUE KEY `user_id` (`user_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
 			$this->db->setQuery($query);
 			$this->db->query();
 		}
-
 	}
 
 	/**

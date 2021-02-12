@@ -21,12 +21,12 @@ HUB.Plugins.ObjectStorage = {
     jQuery: jq,
 
     initialize: function () {
-        var titles = $(".item-title");
+        // Set up all click event listeners
         // add click listeners to file list title
+        var titles = $(".item-title");
         for (var i = 0; i < titles.length; i++) {
             titles[i].addEventListener('click', this.toggle, false);
         }
-
     },
 
     toggle: function (e) {

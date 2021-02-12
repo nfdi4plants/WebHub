@@ -99,7 +99,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 			{
 				if (isset($parts[4]) && $parts[4] === 'api') 
 				{
-					return $this->view('api', 'settings');
+					return $this->getSettingsAPI();
 				} 
 				else if (isset($parts[4]) && $parts[4]  === 'elixir') 
 				{
@@ -108,5 +108,51 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 			}
 		}
 		return $this->view('default', 'index');
+	}
+
+	private function getSettingsAPI(){
+		// get key from POST Request triggered by form, set to empty string if no Var set
+		$key = Request::getVar('api-key', '', 'POST');
+		// update DB
+		if (!empty($key)){
+			$this->updateKey($key);
+		} else {
+			// get key from DB, if empty
+			$key = $this->getKey();
+		}
+		// Load correct view and make api key available
+		return $this->view('api', 'settings')
+			->set('key', $key);
+	}
+
+	private function getKey()
+	{
+		$id = User::get('id');
+		$db = App::get('db');
+
+		$query = 'SELECT api_key FROM `#__objectstorage` WHERE user_id = ' . $db->quote($id) . ';';
+
+		// run query and fetch result
+		$db->setQuery($query);
+		$db->query();
+		$key = $db->loadResult();
+
+		if(!isset($key)) {
+			$key = '';
+		}
+
+		return $key;
+	}
+
+	private function updateKey($key)
+	{
+		$id = User::get('id');
+		$db = App::get('db');
+
+		// Insert or update API key, if user id is already present
+		$query = 'INSERT INTO `#__objectstorage` (user_id, api_key) VALUES(' . $db->quote($id) . ',' . $db->quote($key) . ') ON DUPLICATE KEY UPDATE api_key=' . $db->quote($key) . ';';
+
+		$db->setQuery($query);
+		$db->query();
 	}
 }
