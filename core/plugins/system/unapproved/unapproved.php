@@ -30,7 +30,8 @@ class plgSystemUnapproved extends \Hubzero\Plugin\Plugin
 				'com_users.logout.login',
 				'com_support.tickets.save.index',
 				'com_support.tickets.new.index',
-				'com_members.media.download.profiles'
+				'com_members.media.download.profiles',
+				'com_members.profiles.save.profiles'
 			];
 
 			$current  = Request::getWord('option', '');
