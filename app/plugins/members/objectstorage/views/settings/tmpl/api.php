@@ -14,14 +14,24 @@ $this->css()
 ?>
 
 <form method="POST">
-	<label for="api-key"> de.NBI S3 API Key:</label>
-	<?php if (empty($this->key))
+	<label for="access-key"> de.NBI S3 Access Key:</label>
+	<?php if (empty($this->access_key))
 	{
-		echo '<input type="text" id="api-key" name="api-key" placeholder="Please Provide an API Key" size="33" minlength="33" maxlength="33">';
+		echo '<input type="text" id="access-key" name="access-key" placeholder="Please Provide an Access Key" size="33" minlength="33" maxlength="33">';
 	}
 	else
 	{
-		echo '<input type="text" id="api-key" name="api-key" value="' . $this->key . '" size="33" minlength="33" maxlength="33">';
+		echo '<input type="text" id="access-key" name="aaccess-key" value="' . $this->access_key . '" size="33" minlength="33" maxlength="33">';
+	}
+	?>
+	<label for="secret-key"> de.NBI S3 Secret Key:</label>
+	<?php if (empty($this->secret_key))
+	{
+		echo '<input type="text" id="secret-key" name="secret-key" placeholder="Please Provide a Secret Key" size="33" minlength="33" maxlength="33">';
+	}
+	else
+	{
+		echo '<input type="text" id="secret-key" name="secret-key" value="' . $this->secret_key . '" size="33" minlength="33" maxlength="33">';
 	}
 	?>
 	<button>Submit</button>
