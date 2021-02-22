@@ -9,6 +9,10 @@
 // No direct access
 defined('_HZEXEC_') or die();
 
+include_once __DIR__ . DS . 'connector' . DS . 'Filter.php';
+include_once __DIR__ . DS . 'connector' . DS . 'S3.php';
+include_once __DIR__ . DS . 'objects' . DS . 'File.php';
+
 /**
  * Plugin class for S3 Objectstorage
  */
@@ -69,6 +73,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 
 			// get html by task (none, elixir-settings, api-settings)
 			$view = $this->processRoute()
+				->set('option', 'com_members')
 				->set('params', $params)
 				->set('name', $this->_name)
 				->set('member', $this->member)
@@ -107,7 +112,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 				}
 			}
 		}
-		return $this->view('default', 'index');
+		return $this->getS3View();
 	}
 
 	private function getSettingsAPI(){
@@ -137,7 +142,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 		$id = User::get('id');
 		$db = App::get('db');
 
-		$query = 'SELECT ' . $key_name . ' FROM `#__objectstorage` WHERE user_id = ' . $db->quote($id) . ';';
+		$query = 'SELECT ' . $db->quoteName($key_name) . ' FROM `#__objectstorage` WHERE user_id = ' . $db->quote($id) . ';';
 
 		// run query and fetch result
 		$db->setQuery($query);
@@ -157,9 +162,44 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 		$db = App::get('db');
 
 		// Insert or update API key, if user id is already present
-		$query = 'INSERT INTO `#__objectstorage` (user_id, ' . $key_name . ') VALUES(' . $db->quote($id) . ',' . $db->quote($key) . ') ON DUPLICATE KEY UPDATE ' . $key_name . '=' . $db->quote($key) . ';';
+		$query = 'INSERT INTO `#__objectstorage` (user_id, ' . $db->quoteName($key_name) . ') VALUES(' . $db->quote($id) . ',' . $db->quote($key) . ') ON DUPLICATE KEY UPDATE ' . $db->quoteName($key_name) . '=' . $db->quote($key) . ';';
 
 		$db->setQuery($query);
 		$db->query();
+	}
+
+	private function getS3View()
+	{
+		$view  = $this->view('test', 'index');
+
+		$access_key = $this->getKey('access_key');
+		$secret_key = $this->getKey('secret_key');
+
+		// Both access-key and secret key need to be set for this to work, pass information to template if one of them is missing
+		if(!isset($access_key) || !isset($secret_key))
+		{
+			return $view->set('missing_keys', true);
+		}
+
+		$connector = new S3($access_key, $secret_key);
+		$response = $connector->getBucket('deep');
+
+		if(isset($response->error) || isset($response->code) && $response->code != 200)
+		{
+			// TODO: handle failure
+			return $view->set('missing_keys', true);
+		}
+		
+		// Everything ok, fetch actual content
+		$body = $response->body;
+
+		// Get bucket name and all files
+		$current = $body->Name;
+		$files = array();
+		foreach($body->Contents as $content){
+				$files[] = new File($content);
+		}
+
+		return $view->set('current', $current)->set('files', $files);
 	}
 }

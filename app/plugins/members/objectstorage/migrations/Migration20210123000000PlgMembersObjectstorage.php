@@ -25,8 +25,8 @@ class Migration20210123000000PlgMembersObjectstorage extends Base
 			$query = "CREATE TABLE `#__objectstorage` (
 			  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 			  `user_id` int(11) unsigned NOT NULL,
-			  `access_key` varchar(33) NOT NULL,
-			  `secret_key` varchar(33) NOT NULL,
+			  `access_key` varchar(32) NOT NULL,
+			  `secret_key` varchar(32) NOT NULL,
 			  PRIMARY KEY (`id`),
 			  UNIQUE KEY `id` (`id`),
 			  UNIQUE KEY `user_id` (`user_id`)

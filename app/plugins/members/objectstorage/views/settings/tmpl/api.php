@@ -17,21 +17,21 @@ $this->css()
 	<label for="access-key"> de.NBI S3 Access Key:</label>
 	<?php if (empty($this->access_key))
 	{
-		echo '<input type="text" id="access-key" name="access-key" placeholder="Please Provide an Access Key" size="33" minlength="33" maxlength="33">';
+		echo '<input type="text" id="access-key" name="access-key" placeholder="Please Provide an Access Key" minlength="32" maxlength="32">';
 	}
 	else
 	{
-		echo '<input type="text" id="access-key" name="aaccess-key" value="' . $this->access_key . '" size="33" minlength="33" maxlength="33">';
+		echo '<input type="text" id="access-key" name="access-key" value="' . $this->access_key . '" minlength="32" maxlength="32">';
 	}
 	?>
 	<label for="secret-key"> de.NBI S3 Secret Key:</label>
 	<?php if (empty($this->secret_key))
 	{
-		echo '<input type="text" id="secret-key" name="secret-key" placeholder="Please Provide a Secret Key" size="33" minlength="33" maxlength="33">';
+		echo '<input type="text" id="secret-key" name="secret-key" placeholder="Please Provide a Secret Key" minlength="32" maxlength="32">';
 	}
 	else
 	{
-		echo '<input type="text" id="secret-key" name="secret-key" value="' . $this->secret_key . '" size="33" minlength="33" maxlength="33">';
+		echo '<input type="text" id="secret-key" name="secret-key" value="' . $this->secret_key . '" minlength="32" maxlength="32">';
 	}
 	?>
 	<button>Submit</button>
