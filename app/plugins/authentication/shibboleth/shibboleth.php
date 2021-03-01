@@ -8,18 +8,16 @@
 // No direct access
 defined('_HZEXEC_') or die();
 
-use Hubzero\Utility\Cookie;
-
 /**
  * Authentication Plugin class for Shibboleth/InCommon
  */
 class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 {
-		/**
+	/**
 	 * Actions to perform when logging in a user session
 	 *
-	 * @param   unknown &$credentials Parameter description (if any) ...
-	 * @param   array &$options Parameter description (if any) ...
+	 * @param   unknown &$credentials nothing is done with this
+	 * @param   array &$options Contains return URI and processed mod_shib data is written into this
 	 * @return  void
 	 */
 	public function login(&$credentials, &$options)
@@ -41,55 +39,70 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 			App::redirect($service . '/index.php?option=' . $com_user . '&task=' . $task . '&authenticator=shibboleth&shib-session=' . urlencode($_COOKIE['shib-session']));
 		}
 
-		// Extract variables set by mod_shib, if any
-		if (($sid = isset($_SERVER['REDIRECT_Shib-Session-ID']) ? $_SERVER['REDIRECT_Shib-Session-ID'] : (isset($_SERVER['Shib-Session-ID']) ? $_SERVER['Shib-Session-ID'] : null)))
+		// Get session id, default to null
+		$sid = null;
+		if (isset($_SERVER['REDIRECT_Shib-Session-ID']))
 		{
-			$attrs = array(
+			$sid = $_SERVER['REDIRECT_Shib-Session-ID'];
+		}
+		else if (isset($_SERVER['Shib-Session-ID']))
+		{
+			$sid = $_SERVER['Shib-Session-ID'];
+		}
+
+		// Extract variables set by mod_shib, if any
+		if (isset($sid))
+		{
+			// Fetch identity provider (what is the difference here?)
+			if(isset($_SERVER['REDIRECT_Shib-Identity-Provider']))
+			{
+				$idp = $_SERVER['REDIRECT_Shib-Identity-Provider'];
+			}
+			else 
+			{
+				$idp = $_SERVER['Shib-Identity-Provider'];
+			}
+			$attributes = array( 
 				'id' => $sid,
-				'idp' => isset($_SERVER['REDIRECT_Shib-Identity-Provider']) ? $_SERVER['REDIRECT_Shib-Identity-Provider'] : $_SERVER['Shib-Identity-Provider']
+				'idp' => $idp
 			);
-			foreach (array('email', 'eppn', 'displayName', 'givenName', 'sn', 'mail') as $key)
+			
+			// original: array('email', 'eppn', 'displayName', 'givenName', 'sn', 'mail');
+			// 
+			// sn = surname, eduPersonUniqueID = elixir id
+			$shibbolethAttributes = array('email', 'givenName', 'sn', 'eppn',  'eduPersonUniqueID');
+
+			// fetch selected attributes from mod_shib
+			foreach ( $shibbolethAttributes as $key)
 			{
 				if (isset($_SERVER[$key]))
 				{
-					$attrs[$key] = $_SERVER[$key];
+					$attributes[$key] = $_SERVER[$key];
 				}
 				elseif (isset($_SERVER['REDIRECT_'.$key]))
 				{
-					$attrs[$key] = $_SERVER['REDIRECT_'.$key];
+					$attributes[$key] = $_SERVER['REDIRECT_'.$key];
 				}
 			}
-			if (isset($attrs['mail']) && strpos($attrs['mail'], '@'))
-			{
-				$attrs['email'] = $attrs['mail'];
-				unset($attrs['mail']);
-			}
-			// Normalize things a bit
-			if (!isset($attrs['username']) && isset($attrs['eppn']))
-			{
-				$attrs['username'] = preg_replace('/@.*$/', '', $attrs['eppn']);
-			}
-			// Eppn is sometimes or maybe always in practice an email address
-			if (!isset($attrs['email']) && isset($attrs['eppn']) && strpos($attrs['eppn'], '@'))
-			{
-				$attrs['email'] = $attrs['eppn'];
-			}
-			if (!isset($attrs['displayName']) && isset($attrs['givenName']) && $attrs['sn'])
-			{
-				$attrs['displayName'] = $attrs['givenName'].' '.$attrs['sn'];
-			}
-			$options['shibboleth'] = $attrs;
 
+			// set from fetched information
+			$attributes['displayName'] = $attributes['givenName'] . ' ' . $attributes['sn'];
+			$attributes['username'] = preg_replace('/@.-*$/', '', $attributes['eppn']);
+
+			// fill in for use 
+			$options['shibboleth'] = $attributes;
+
+			// TODO: fix cookie use and db cleanup
 			$key = trim(base64_encode(openssl_random_pseudo_bytes(128)));
 			setcookie('shib-session', $key);
-			$dbh = App::get('db');
-			$dbh->setQuery('INSERT INTO `#__shibboleth_sessions` (session_key, data) VALUES('.$dbh->quote($key).', '.$dbh->quote(json_encode($attrs)).')');
-			$dbh->execute();
+			$db = App::get('db');
+			$db->setQuery('INSERT INTO `#__shibboleth_sessions` (session_key, data) VALUES(' . $db->quote($key) . ', ' . $db->quote(json_encode($attributes)) . ')');
+			$db->execute();
 		}
 	}
 
-		/**
-	 * Summary (if any) ...
+	/**
+	 * Fetch triple of service URL, component and task (login or link)
 	 *
 	 * @return  array  Array of service, user, and task
 	 */
@@ -116,9 +129,9 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	public function link($options = array())
 	{
 		$session_data = $this->sessionData();
+
 		if (isset($session_data))
 		{	
-			// TODO: change for keycloak
 			// Get unique username
 			$username = $session_data['eppn'];
 			$hzad = \Hubzero\Auth\Domain::getInstance('authentication', 'shibboleth', $session_data['idp']);
@@ -134,10 +147,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 			else
 			{
 				$hzal = \Hubzero\Auth\Link::find_or_create('authentication', 'shibboleth', $session_data['idp'], $username);
-				// if `$hzal` === false, then either:
-				//    the authenticator Domain couldn't be found,
-				//    no username was provided,
-				//    or the Link record failed to be created
+				// update the actual information
 				if ($hzal)
 				{
 					$hzal->set('user_id', User::get('id'));
@@ -146,6 +156,11 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 				}
 				else
 				{
+					// if `$hzal` === false, then either:
+					//    the authenticator Domain couldn't be found,
+					//    no username was provided,
+					//    or the Link record failed to be created
+					// TODO: change this to a useful user facing error
 					Log::error(sprintf('Hubzero\Auth\Link::find_or_create("authentication", "shibboleth", %s, %s) returned false', $session_data['idp'], $username));
 				}
 			}
@@ -153,7 +168,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		else
 		{
 			// User somehow got redirect back without being authenticated (not sure how this would happen?)
-			App::redirect(Route::url('index.php?option=com_members&id=' . User::get('id') . '&active=account'), 'There was an error linking your account, please try again later.', 'error');
+			App::redirect(Route::url('index.php?option=com_members&id=' . User::get('id') . '&active=account'), 'No shibboleth session data present to link your account.', 'error');
 		}
 	}
 
@@ -181,9 +196,9 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 			$db = App::get('db');
 			$db->setQuery('SELECT data FROM `#__shibboleth_sessions` WHERE session_key = '.$db->quote($key));
 			$db->execute();
-			if (($sess = $db->loadResult()))
+			if (($sessionData = $db->loadResult()))
 			{
-				return json_decode($sess, true);
+				return json_decode($sessionData, true);
 			}
 		}
 		return array();
@@ -206,110 +221,34 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		return $inst;
 	}
 
+
 	/**
-	 * Gets the link domain name
-	 *
-	 * @param   int  $adid  The auth domain ID
-	 * @return  string
-	 **/
-	public static function getLinkIndicator($adid)
+	 * Generate HTML for IDP button selection
+	 */
+	public static function onRenderOption($return = null, $title = 'Sign in with an identity provider :')
 	{
-		\Hubzero\Document\Assets::addPluginStylesheet('authentication', 'shibboleth', 'shibboleth.css');
-		$dbh = App::get('db');
-		$dbh->setQuery('SELECT domain FROM `#__auth_domain` WHERE id = '.(int)$adid);
-
-		// oops ... hopefully not reachable
-		if (!($idp = $dbh->loadResult()) || !($label = self::getInstitutionByEntityId($idp, 'label')))
-		{
-			return 'InCommon';
-		}
-
-		return $label;
-	}
-
-	public static function onRenderOption($return = null, $title = 'With an affiliated institution:')
-	{
-		$params = Plugin::params('authentication', 'shibboleth');
-		// Saved id provider? Use it as the default
-		$prefill = isset($_COOKIE['shib-entity-id']) ? $_COOKIE['shib-entity-id'] : null;
-		if (!$prefill && // no cookie
-				($host = self::getHostByAddress(isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'], $params->get('dns', '8.8.8.8'))) && // can get a host
-				preg_match('/[.]([^.]*?[.][a-z0-9]+?)$/', $host, $ma))
-		{ // Hostname lookup seems php jsonrational (not an ip address, has a few dots in it)
-			// Try to look up a provider to pre-select based on the user's hostname
-			foreach (self::getInstitutions() as $inst)
-			{
-				if (fnmatch('*'.$ma[1], $inst['host']))
-				{
-					$prefill = $inst['entity_id'];
-					break;
-				}
-			}
-		}
-
 		// Attach style and scripts
-		foreach (array('bootstrap-select.min.js', 'shibboleth.js', 'bootstrap-select.min.css', 'bootstrap-theme.min.css', 'shibboleth.css') as $asset)
+		$assets = array('bootstrap-select.min.js', 'shibboleth.js', 'bootstrap-select.min.css', 'bootstrap-theme.min.css', 'shibboleth.css');
+		foreach ($assets as $asset)
 		{
 			$mtd = 'addPlugin'.(preg_match('/[.]js$/', $asset) ? 'script': 'stylesheet');
 			\Hubzero\Document\Assets::$mtd('authentication', 'shibboleth', $asset);
 		}
 
-		list($a, $h) = self::htmlify();
-
 		// Make a dropdown/button combo that (hopefully) gets prettied up client-side into a bootstrap dropdown
-		$html = ['<div class="shibboleth account incommon-color" data-placeholder="'.$a($title).'">'];
+		$html[] = '<div class="shibboleth account incommon-color" data-placeholder="' . str_replace('"', '&quot;', $title) . '">';
 		$html[] = '<h3>Select an affiliated institution</h3>';
 		$html[] = '<ol>';
-		$html = array_merge($html, array_map(function($idp) use($h, $a) {
-			return '<li data-entityid="'.$a($idp['entity_id']).'" data-content="'.(isset($idp['logo_data']) ? $a($idp['logo_data']) : '').' '.$h($idp['label']).'"><a href="'.Route::url('index.php?option=com_users&view=login&authenticator=shibboleth&idp='.$a($idp['entity_id'])).'">'.$h($idp['label']).'</a></li>';
-		}, self::getInstitutions()));
+		foreach(self::getInstitutions() as $idp)
+		{
+			$entityId = str_replace('"', '&quot;', $idp['entity_id']);
+			$label = htmlentities($idp['label']);
+			$html[] = '<li data-entityid="'. $entityId . '" ' . $label . '"><a href="' . Route::url('index.php?option=com_users&view=login&authenticator=shibboleth&idp=' . $entityId) . '">' . $label . '</a></li>';
+		}
 		$html[] = '</ol></div>';
 		return $html;
 	}
 
-	/**
-	 * Looks up a hostname by ip address to see if we can infer and institution
-	 *
-	 * We use this instead of standard php function gethostbyaddr because we need
-	 * the timeout to prevent load issues.
-	 *
-	 * @param   string        $ip       the ip address to look up
-	 * @param   string|array  $dns      the dns server to use
-	 * @param   int           $timeout  the timeout after which requests should expire
-	 * @return  string
-	 **/
-	private static function getHostByAddress($ip, $dns, $timeout=2)
-	{
-		try
-		{
-			$resolver = new Net_DNS2_Resolver(['nameservers' => (array) $dns, 'timeout' => $timeout]);
-			$result   = $resolver->query($ip, 'PTR');
-		}
-		catch (Net_DNS2_Exception $e)
-		{
-			return $ip;
-		}
-
-		if ($result
-		 && isset($result->answer)
-		 && count($result->answer) > 0
-		 && isset($result->answer[0]->ptrdname))
-		{
-			return $result->answer[0]->ptrdname;
-		}
-
-		return $ip;
-	}
-
-
-	private static function htmlify()
-	{
-		return array(
-			function($str) { return str_replace('"', '&quot;', $str); },
-			function($str) { return htmlentities($str); }
-		);
-	}
-	
 	/**
 	 * Summary
 	 *
@@ -342,13 +281,8 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	 */
 	public static function onGetLinkDescription()
 	{
-		$sess = App::get('session')->get('shibboleth.session', null);
-		if ($sess && $sess['idp'] && ($rv = self::getInstitutionByEntityId($sess['idp'], 'label')))
-		{
-			return $rv;
-		}
 		// Probably only possible if the user abruptly deletes their cookies
-		return 'InCommon';
+		return 'Elixir';
 	}
 
 	/**
@@ -375,15 +309,20 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 
 	/**
 	 * Actions to perform when logging out a user session
+	 * CMS handles redirection.
 	 *
 	 * @return  void
 	 */
 	public function logout()
 	{
-		/**
-		 * Placeholder if Shibboleth needs to perform any cleanup.
-		 * CMS handles redirection.
-		 **/
+		// invalidate session when logging out
+		if (isset($_GET['shib-session']))
+		{
+			$key = trim($_GET['shib-session']);
+			$db = App::get('db');
+			$db->setQuery('DELETE FROM `#__shibboleth_sessions` WHERE ' . $db->quote($key) . ')');
+			$db->execute();
+		}
 	}
 
 	/**
@@ -427,43 +366,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		{
 			setcookie('shib-entity-id', $_GET['idp'], time()+60*60*24, '/');
 		}
-		// Send the request to mod_shib.
-		//
-		// This path should be set up in your configuration something like this:
-		//
-		// <Location /login/shibboleth>
-		// 	AuthType shibboleth
-		// 	ShibRequestSetting requireSession 1
-		// 	Require valid-user
-		// 	RewriteRule (.*) /index.php?option=com_users&authenticator=shibboleth&task=user.login [L]
-		// </Location>
-		//
-		// mod_shib protects the path, and in doing so it looks at your SessionInitiators.
-		// in shibobleth2.xml. ithis is what we use:
-		//
-		// <SessionInitiator type="Chaining" Location="/login/shibboleth" isDefault="true" id="Login">
-		// 	<SessionInitiator type="SAML2" template="bindingTemplate.html"/>
-		// 	<SessionInitiator type="Shib1"/>
-		// 	<SessionInitiator type="SAMLDS" URL="https://dev06.hubzero.org/login?authenticator=shibboleth&amp;wayf"/>
-		// </SessionInitiator>
-		//
-		// The important part here is the SAMLDS line pointing mod_shib right back
-		// here, but with &wayf in the query string. We look for that a little bit
-		// above here and feed the appropriate entity-id back to mod_shib with
-		// another redirect. I wouldn't be at all surprised if there is a cleaner
-		// way to communicate this that avoids the network hop. Pull request, pls
-		//
-		// (if you are only using one ID provider you can avoid configuring
-		// SessionInitiators at all and just define that service like:
-		//
-		//	<SSO entityID="https://idp.testshib.org/idp/shibboleth">
-		// 	SAML2 SAML1
-		// </SSO>
-		//
-		// in which case mod_shib will not need to do discovery, having only one
-		// option.
-		//
-		// Either way, the rewrite directs us back here to our login() method
+		// The rewrite directs us back here to our login() method
 		// where we can extract info about the authn from mod_shib
 		App::redirect($service.'/login/shibboleth');
 	}
