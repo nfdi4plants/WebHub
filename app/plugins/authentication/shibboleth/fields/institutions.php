@@ -18,10 +18,9 @@ class Institutions extends Field
 	 */
 	protected function getInput()
 	{
-		Document::addScript('/core/plugins/authentication/shibboleth/assets/js/admin.js');
-		// Commented out due to interfering with admin styles
-		//Document::addStyleSheet('/core/plugins/authentication/shibboleth/assets/css/jquery-ui.css');
-		Document::addStyleSheet('/core/plugins/authentication/shibboleth/assets/css/admin.css');
+		// TODO: change to relative path
+		Document::addScript('/app/plugins/authentication/shibboleth/assets/js/admin.js');
+		Document::addStyleSheet('/app/plugins/authentication/shibboleth/assets/css/admin.css');
 
 		$html = array();
 		$a = function($str)
@@ -30,12 +29,12 @@ class Institutions extends Field
 		};
 		$val = is_array($this->value) ? $this->value : json_decode($this->value, true);
 
-		$html[] = '<div class="shibboleth" data-iconify="'.$a(preg_replace('#^'.preg_quote(PATH_CORE).'#', '', __FILE__)).'">';
-		$html[] = '<p class="xml-source"><label>Shibboleth ID provider configuration file: <input type="text" name="xmlPath" value="'.$a($val['xmlPath']).'" /></label></p>';
+		$html[] = '<div class="shibboleth" data-iconify="' . $a(preg_replace('#^' . preg_quote(PATH_CORE) . '#', '', __FILE__)) . '">';
+		$html[] = '<p class="xml-source"><label>Shibboleth ID provider configuration file: <input type="text" name="xmlPath" value="' . $a($val['xmlPath']) . '" /></label></p>';
 		list($val['xmlRead'], $val['idps']) = self::getIdpList($val);
-		$html[] = '<p class="info">Save your changes to retry loading ID providers from this file</p>';
 		$html[] = '<input type="hidden" class="serialized" name="' . $this->name . '" value="' . $a(json_encode($val)) . '" />';
 		$html[] = '</div>';
+
 		// rest of the form is managed on the client side
 		return implode("\n", $html);
 	}
@@ -76,9 +75,7 @@ class Institutions extends Field
 
 			$item = array(
 				'entity_id' => $entityId,
-				'label'     => null,
-				'host'      => null,
-				'logo'      => null
+				'label'     => null
 			);
 
 			if (!($idp = curl_exec($curl)))
@@ -115,21 +112,6 @@ class Institutions extends Field
 			$rv[] = $item;
 		}
 		curl_close($curl);
-		$rv = array_merge($rv, self::getResearchAndScholarshipIdps($curl));
 		return array($mtime, $rv);
-	}
-
-	/**
-	 * Get a list of research and scholarship IDs
-	 *
-	 * @param   string  $ch
-	 * @return  array
-	 */
-	private static function getResearchAndScholarshipIdps($ch)
-	{
-		$out = array();
-		exec('php ' . __DIR__ . '/get-rs-entities.php', $out);
-		return $out;
-		// return json_decode(join('', $out));
 	}
 }

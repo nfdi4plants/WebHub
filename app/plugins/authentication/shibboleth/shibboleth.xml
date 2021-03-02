@@ -23,22 +23,10 @@
 					<option value="0">JNo</option>
 					<option value="1">JYes</option>
 				</field>
-				<field name="dns" type="text" size="15" label="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_DNS_LABEL" default="8.8.8.8" description="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_DNS_DESC" />
 				<field name="auto_approve" type="radio" label="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_AUTO_APPROVE_LABEL" default="0" description="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_AUTO_APPROVE_DESC">
 					<option value="0">JNo</option>
 					<option value="1">JYes</option>
 				</field>
-			</fieldset>
-			<fieldset name="Debug">
-				<field name="debug_enabled" type="radio" label="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_ENABLE_DEBUGGING_LABEL" default="0" description="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_ENABLE_DEBUGGING_DESC">
-					<option value="0">JNo</option>
-					<option value="1">JYes</option>
-				</field>
-				<field name="debug_location" type="text" size="35" label="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_DEBUG_LOCATION_LABEL" default="/var/log/apache2/php/shibboleth.log" description="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_DEBUG_LOCATION_DESC" />
-				<field name="testkey" type="text" size="20" label="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_TESTING_MODE_LABEL" description="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_TESTING_MODE_DESC" />
-			</fieldset>
-			<fieldset name="Links">
-				<field name="links" type="links" default="[]" />
 			</fieldset>
 			<fieldset name="Institutions">
 				<field name="institutions" type="institutions" default='{"xmlPath": "/etc/shibboleth/shibboleth2.xml", "xmlRead": null, "idps": [], "activeIdps": []}' />

@@ -1,10 +1,9 @@
 // auth link invalidation form
 jQuery(function ($) {
-	var prnt = $('.shibboleth')
-	serialized = prnt.children('.serialized'),
-		val = JSON.parse(serialized.val())
-		;
-	prnt.find('li').each(function (_, li) {
+	var form = $('.shibboleth')
+	serialized = form.children('.serialized'),
+		val = JSON.parse(serialized.val());
+	form.find('li').each(function (_, li) {
 		li = $(li);
 		li.append(
 			$('<button>Invalidate</button>')
@@ -45,11 +44,9 @@ jQuery(function ($) {
 					inp = $(inp);
 					var name = inp.attr('name');
 					idp[name] = inp.val();
-					thisInvalid = thisInvalid || (name == 'entity_id' && !idp[name].replace(/\s/g, '')) || (name == 'label' && !idp[name].replace(/\s/g, ''));
+					// Only entity_id and label need to be set and not empty 
+					thisInvalid = thisInvalid || name == 'entity_id' && !idp[name].replace(/\s/g, '') || name == 'label' && !idp[name].replace(/\s/g, '');
 					anyInvalid = anyInvalid || thisInvalid;
-					if (name == 'logo') {
-						//idp.logo_data = inp.data('logo_data');
-					}
 				});
 				if (!thisInvalid) {
 					val.activeIdps.push(idp);
@@ -64,8 +61,7 @@ jQuery(function ($) {
 			// propagate to JSON representation
 			update();
 		},
-		idpWarning = $('<p class="warning">Not all ID providers will be saved! Each entry must have an entity ID and a label.</p>').hide()
-		;
+		idpWarning = $('<p class="warning">Not all ID providers will be saved! Each entry must have an entity ID and a label.</p>').hide();
 	// link xml input to JSON encoding
 	$('.shibboleth input[name="xmlPath"]').change(function () {
 		val.xmlPath = $(this).val();
@@ -75,34 +71,6 @@ jQuery(function ($) {
 	// make idp attribute keys slightly more presentable
 	var keyToLabel = function (str) {
 		return str[0].toUpperCase() + str.substr(1).replace('_', ' ') + ': ';
-	};
-
-	// try to show a preview of the given logo URL
-	var updateLogo = function (li) {
-		return;
-		var logoInp = li.find('input[name="logo"]'),
-			href = logoInp ? logoInp.val() : null;
-		if (!href || !href.replace(/s+/g, '')) {
-			return;
-		}
-		var imgData;
-		li.find('.preview').remove();
-		if (href != logoInp.data('orig') || !(imgData = logoInp.data('logo_data'))) {
-			$.ajax({
-				'url': '/core/plugins/authentication/shibboleth/fields/institutions.php',
-				'data': { 'img': href },
-				'success': function (res) {
-					li.append($('<img class="preview">').attr('src', res));
-					logoInp.data('logo_data', res);
-					updateIdps();
-				},
-				'error': updateIdps
-			})
-		}
-		else {
-			li.append($('<img class="preview">').attr('src', imgData));
-			updateIdps();
-		}
 	};
 
 	// make a new entry in the idp list
@@ -123,26 +91,13 @@ jQuery(function ($) {
 			}
 			var control = mkInp(k, idp[k]);
 			if (k == 'logo') {
-				//				control.input.change(function() {
-				//					updateLogo(li);
-				//				});
+
 			}
 			else {
 				control.input.change(updateIdps);
 			}
 			li.append(control.label);
 		}
-		//		if (idp.logo_data) {
-		//			li.find('input[name="logo"]').data('logo_data', idp.logo_data);
-		//		}
-		updateLogo(li);
-	};
-
-	var normalizeUniversity = function (x) {
-		if (!x) {
-			return '';
-		}
-		return x.toLowerCase().replace(/^((the|of|university|college)\W)+/, '');
 	};
 
 	var addedEntities = {};
@@ -153,20 +108,9 @@ jQuery(function ($) {
 	}
 	// list entities read from the shibboleth conf, if any
 	if (val.xmlRead) {
-		var ul = $('<ul class="metadata">');
-		var addAll = $('<button>Add all</button>').click(function (evt) {
-			evt.stopPropagation();
-			ul.find('.add.icon').click();
-			setTimeout(function () {
-				console.log(serialized.val());
-			}, 5000);
-			return false;
-		});
-		prnt.append($('<h4>ID providers in metadata</h4>').append(addAll));
-		ul.appendTo(prnt);
 		val.idps.sort(function (a, b) {
-			a = normalizeUniversity(a.label);
-			b = normalizeUniversity(b.label);
+			a = a.label.toLowerCase();
+			b = b.label.toLowerCase();
 			return a > b ? 1 : -1;
 		}).forEach(function (idp) {
 			if (idp.error || addedEntities[idp.entity_id]) {
@@ -186,7 +130,6 @@ jQuery(function ($) {
 				li.append($('<p>').append($('<label>').append($('<span>').text(keyToLabel(k))).append(document.createTextNode(idp[k]))))
 			}
 			ul.append(li);
-			updateLogo(li);
 		});
 	}
 	else {

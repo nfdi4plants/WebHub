@@ -38,7 +38,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		if (!User::get('guest'))
 		{
 			list($service, $com_user, $task) = self::getLoginParams();
-			App::redirect($service . '/index.php?option=' . $com_user . '&task=' . $task . '&authenticator=shibboleth&shib-session=' . urlencode($session->get('shibboleth_key')));
+			App::redirect($service . '/index.php?option=' . $com_user . '&task=' . $task . '&authenticator=shibboleth');
 		}
 
 		// Get session id, default to null
@@ -91,17 +91,11 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 			$attributes['displayName'] = $attributes['givenName'] . ' ' . $attributes['sn'];
 			// Strip domain and - from email adress for tentative user name
 			$attributes['username'] = preg_replace(['/@.*$/', '~-~'], ['', ''], $attributes['email']);
+			// Write data into user session
+			$session->set('shibboleth_data', json_encode($attributes));
 
-			// fill in for use 
+			// Write data into options (TODO: can this be safely removed?) 
 			$options['shibboleth'] = $attributes;
-
-			// Write key into global session, data into shibboleth session
-			$key = trim(base64_encode(openssl_random_pseudo_bytes(128)));
-			$session->set('shibboleth_key', $key);
-
-			$db = App::get('db');
-			$db->setQuery('INSERT INTO `#__shibboleth_sessions` (session_key, data) VALUES(' . $db->quote($key) . ', ' . $db->quote(json_encode($attributes)) . ')');
-			$db->execute();
 		}
 	}
 
@@ -132,7 +126,8 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	 */
 	public function link($options = array())
 	{
-		$session_data = $this->sessionData();
+		$session = App::get('session');
+		$session_data = json_decode($session->get('shibboleth_data'));
 
 		if (isset($session_data))
 		{	
@@ -177,41 +172,6 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	}
 
 	/**
-	 * Return session data from current session based on session key global session data
-	 *
-	 * @access  public
-	 * @return  Array session data
-	 */
-	public function sessionData()
-	{	
-		$session = App::get('session');
-		$shibbolethKey = $session->get('shibboleth_key');
-		// Get session key from either the global session or query paramter
-		if (isset($shibbolethKey))
-		{
-			$key = $shibbolethKey;
-		}
-		else if (isset($_GET['shib-session']))
-		{
-			$key = trim($_GET['shib-session']);
-		}
-		
-		// fetch session data for session key
-		if (isset($key))
-		{
-			$db = App::get('db');
-			$db->setQuery('SELECT data FROM `#__shibboleth_sessions` WHERE session_key = ' . $db->quote($key));
-			$db->execute();
-			if (($sessionData = $db->loadResult()))
-			{
-				return json_decode($sessionData, true);
-			}
-		}
-		return array();
-	}
-
-
-	/**
 	 * Fetches list of active IDPs set in admin area
 	 *
 	 * @return array Active IDPs to select from
@@ -231,7 +191,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	/**
 	 * Generate HTML for IDP button selection
 	 */
-	public static function onRenderOption($return = null, $title = 'Sign in with an identity provider :')
+	public static function onRenderOption($return = null, $title = 'Sign in with :')
 	{
 		// Attach style and scripts
 		$assets = array('bootstrap-select.min.js', 'shibboleth.js', 'bootstrap-select.min.css', 'bootstrap-theme.min.css', 'shibboleth.css');
@@ -255,24 +215,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		return $html;
 	}
 
-	/**
-	 * Summary
-	 *
-	 * @param   unknown  $eid ID compared to entity_id
-	 * @param   unknown  $key
-	 * @return  unknown
-	 */
-	public static function getInstitutionByEntityId($eid, $key = null)
-	{
-		foreach (self::getInstitutions() as $inst)
-		{
-			if ($inst['entity_id'] == $eid)
-			{
-				return $key ? $inst[$key] : $inst;
-			}
-		}
-		return null;
-	}
+
 
 	/**
 	 * When linking an account, by default a parameter of the plugin is used to
@@ -310,7 +253,26 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 
 		// if we couldn't figure out where they want to go to log in, we can't really help, so we redirect them with ?reset to get the full log-in provider list
 		list($service, $com_user, $task) = self::getLoginParams();
-		App::redirect($service . '/index.php?reset=1&option=' . $com_user . '&task=login' . (isset($_COOKIE['shib-return']) ? '&return=' . $_COOKIE['shib-return'] : $return));
+		App::redirect($service . '/index.php?reset=1&option=' . $com_user . '&task=login' . $return);
+	}
+
+	/**
+	 * Summary
+	 *
+	 * @param   unknown  $eid ID compared to entity_id
+	 * @param   unknown  $key
+	 * @return  unknown
+	 */
+	public static function getInstitutionByEntityId($eid, $key = null)
+	{
+		foreach (self::getInstitutions() as $inst)
+		{
+			if ($inst['entity_id'] == $eid)
+			{
+				return $key ? $inst[$key] : $inst;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -321,15 +283,8 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	 */
 	public function logout()
 	{
-		// invalidate session when logging out
-		$session = App::get('session');
-		$key = $session->get('shibboleth_key');
-		if (isset($key))
-		{
-			$db = App::get('db');
-			$db->setQuery('DELETE FROM `#__shibboleth_sessions` WHERE ' . $db->quote($key) . ')');
-			$db->execute();
-		}
+		// Session data should generally be invalidated on logout
+		// TODO: check if this is actually the case
 	}
 
 	/**
