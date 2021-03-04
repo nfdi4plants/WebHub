@@ -28,9 +28,7 @@ jQuery(function ($) {
 		val = JSON.parse(serialized.val()),
 		// update hidden input to reflect form state
 		update = function () {
-			console.log('upd');
 			serialized.val(JSON.stringify(val));
-			console.log('update', serialized.val());
 		},
 		// update active idp list state
 		updateIdps = function () {
@@ -62,11 +60,6 @@ jQuery(function ($) {
 			update();
 		},
 		idpWarning = $('<p class="warning">Not all ID providers will be saved! Each entry must have an entity ID and a label.</p>').hide();
-	// link xml input to JSON encoding
-	$('.shibboleth input[name="xmlPath"]').change(function () {
-		val.xmlPath = $(this).val();
-		update();
-	});
 
 	// make idp attribute keys slightly more presentable
 	var keyToLabel = function (str) {
@@ -106,35 +99,6 @@ jQuery(function ($) {
 			addedEntities[idp.entity_id] = 1;
 		});
 	}
-	// list entities read from the shibboleth conf, if any
-	if (val.xmlRead) {
-		val.idps.sort(function (a, b) {
-			a = a.label.toLowerCase();
-			b = b.label.toLowerCase();
-			return a > b ? 1 : -1;
-		}).forEach(function (idp) {
-			if (idp.error || addedEntities[idp.entity_id]) {
-				return;
-			}
-			var li = $('<li>');
-			li.append($('<span class="add icon">').click(function () {
-				addedEntities[idp.entity_id] = 1;
-				newActiveIdp(idp, true);
-				updateIdps();
-				$(this).parent().remove();
-			}));
-			for (var k in idp) {
-				if (k == 'logo') {
-					continue;
-				}
-				li.append($('<p>').append($('<label>').append($('<span>').text(keyToLabel(k))).append(document.createTextNode(idp[k]))))
-			}
-			ul.append(li);
-		});
-	}
-	else {
-		$('.shibboleth input[name="xmlPath"]').parent().append($('<p class="warning">').text(val.idps));
-	}
 
 	prnt.append($('<hr>'));
 	var mkInp = function (lbl, val) {
@@ -147,7 +111,7 @@ jQuery(function ($) {
 
 	// new idp entry form
 	var addNew = $('<div class="new idp">');
-	['entity_id', 'label', 'host', 'logo'].forEach(function (key) {
+	['entity_id', 'label'].forEach(function (key) {
 		var inp = mkInp(key);
 		addNew.append(inp.label);
 	});

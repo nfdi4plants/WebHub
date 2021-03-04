@@ -191,27 +191,26 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	/**
 	 * Generate HTML for IDP button selection
 	 */
-	public static function onRenderOption($return = null, $title = 'Sign in with :')
+	public static function onRenderOption($return = null)
 	{
 		// Attach style and scripts
-		$assets = array('bootstrap-select.min.js', 'shibboleth.js', 'bootstrap-select.min.css', 'bootstrap-theme.min.css', 'shibboleth.css');
+		$assets = array('shibboleth.js', 'shibboleth.css');
 		foreach ($assets as $asset)
 		{
 			$mtd = 'addPlugin'.(preg_match('/[.]js$/', $asset) ? 'script' : 'stylesheet');
 			\Hubzero\Document\Assets::$mtd('authentication', 'shibboleth', $asset);
 		}
 
-		// Make a dropdown/button combo that (hopefully) gets prettied up client-side into a bootstrap dropdown
-		$html[] = '<div class="shibboleth account incommon-color" data-placeholder="' . str_replace('"', '&quot;', $title) . '">';
-		$html[] = '<h3>Select an affiliated institution</h3>';
-		$html[] = '<ol>';
+		// Make a dropdown/button combo
+		$html[] = '<div class="shibboleth account">';
+		$html[] = '<ul>';
 		foreach(self::getInstitutions() as $idp)
 		{
 			$entityId = str_replace('"', '&quot;', $idp['entity_id']);
 			$label = htmlentities($idp['label']);
 			$html[] = '<li data-entityid="' . $entityId . '" ' . $label . '"><a href="' . Route::url('index.php?option=com_users&view=login&authenticator=shibboleth&idp=' . $entityId) . '">' . $label . '</a></li>';
 		}
-		$html[] = '</ol></div>';
+		$html[] = '</ul></div>';
 		return $html;
 	}
 

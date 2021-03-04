@@ -8,12 +8,12 @@
 	<copyright>Copyright 2005-2019 HUBzero Foundation, LLC.</copyright>
 	<license>http://opensource.org/licenses/MIT MIT</license>
 	<version>1.5</version>
-	<description>Handles user authentication with Shibboleth/InCommon</description>
+	<description>Handles user authentication with Shibboleth/Keycloak</description>
 	<files>
 		<filename plugin="shibboleth">shibboleth.php</filename>
 	</files>
 	<config>
-		<fields name="params" addfieldpath="/core/plugins/authentication/shibboleth/fields">
+		<fields name="params" addfieldpath="/app/plugins/authentication/shibboleth/fields">
 			<fieldset name="basic">
 				<field name="site_login" type="radio" label="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_SITELOGIN_LABEL" default="1" description="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_SITELOGIN_DESC">
 					<option value="0">JNo</option>
@@ -29,7 +29,7 @@
 				</field>
 			</fieldset>
 			<fieldset name="Institutions">
-				<field name="institutions" type="institutions" default='{"xmlPath": "/etc/shibboleth/shibboleth2.xml", "xmlRead": null, "idps": [], "activeIdps": []}' />
+				<field name="institutions" type="institutions" default='{idps": [], "activeIdps": []}' />
 			</fieldset>
 		</fields>
 	</config>
