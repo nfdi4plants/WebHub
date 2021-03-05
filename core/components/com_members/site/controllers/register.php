@@ -104,7 +104,7 @@ class Register extends SiteController
 		if (Request::getString('edit', '', 'post'))
 		{
 			// Load POSTed data
-			$xregistration->loadPOST();
+			$xregistration->loadPost();
 		}
 		else
 		{

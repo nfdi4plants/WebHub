@@ -187,11 +187,6 @@ class Registration
 		$this->_registration['usageAgreement'] = Request::getString('usageAgreement', null, 'post');
 		$this->_registration['sendEmail'] = Request::getString('sendEmail', '0', 'post');
 
-		if ($this->_registration['usageAgreement'] !== null)
-		{
-			$this->_registration['usageAgreement'] = ($this->_registration['usageAgreement'] === 'unset') ? false : true;
-		}
-
 		// Incoming profile edits
 		$profile = Request::getArray('profile', array(), 'post', 'none', 2);
 

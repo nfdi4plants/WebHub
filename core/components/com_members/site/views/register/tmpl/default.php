@@ -606,7 +606,7 @@ if (!$form_redirect && !in_array($current, array('/register/update', '/members/u
 
 				<div class="form-group">
 					<label for="usageAgreement"<?php echo (!empty($this->xregistration->_invalid['usageAgreement'])) ? ' class="fieldWithErrors"' : ''; ?>>
-						<input type="checkbox" class="option form-check-input" id="usageAgreement" value="1" name="usageAgreement"<?php if ($this->registration['usageAgreement']) { echo ' checked="checked"'; } ?>/>
+						<input type="checkbox" class="option form-check-input" id="usageAgreement" name="usageAgreement" <?php if ($this->registration['usageAgreement']) { echo ' checked="checked"'; } ?>/>
 						<?php echo Lang::txt('COM_MEMBERS_REGISTER_TOS', Request::base(true)); ?>
 						<?php echo ($this->registrationTOU == Field::STATE_REQUIRED) ? '<span class="required">'.Lang::txt('COM_MEMBERS_REGISTER_FORM_REQUIRED').'</span>' : ''; ?>
 					</label>
