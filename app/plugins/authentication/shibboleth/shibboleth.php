@@ -295,8 +295,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	{
 		if (isset($options['shibboleth']['username']))
 		{
-			$method = Component::params('com_members')->get('allowUserRegistration', false) ? 'find_or_create' : 'find';
-			$hzal = Hubzero\Auth\Link::$method('authentication', 'shibboleth', $options['shibboleth']['idp'], $options['shibboleth']['username']);
+			$hzal = Hubzero\Auth\Link::find_or_create('authentication', 'shibboleth', $options['shibboleth']['idp'], $options['shibboleth']['username']);
 
 			if ($hzal === false)
 			{
