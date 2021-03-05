@@ -1,11 +1,12 @@
-.auth .shibboleth {
-	background: #007db1;
+.primary:active {
+	box-shadow: none;
 }
 
 .shibboleth.account {
-	max-height  : 20em;
-	height      : auto;
-	overflow    : hidden;
+	background: #007db1;
+	max-height: 20em;
+	height    : auto;
+	overflow  : hidden;
 }
 
 .shibboleth.account:hover {
@@ -16,23 +17,18 @@
 	content: '';
 }
 
-.shibboleth.account select {
+.shibboleth.account button {
+	width             : 100%;
 	text-align        : center;
 	font-size         : 16px;
 	font-weight       : bold;
 	line-height       : 26px;
 	text-shadow       : none;
 	background        : transparent;
+	background-color  : #007db1;
 	color             : #fff;
 	border            : 0;
-	margin-left       : 1px;
 	-webkit-box-shadow: none;
 	-moz-box-shadow   : none;
 	box-shadow        : none;
 }
-
-option {
-	background-color  : #007db1;
-	color             : #fff;
-}
-

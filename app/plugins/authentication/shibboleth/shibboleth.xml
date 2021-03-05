@@ -28,8 +28,8 @@
 					<option value="1">JYes</option>
 				</field>
 			</fieldset>
-			<fieldset name="Institutions">
-				<field name="institutions" type="institutions" default='{idps": [], "activeIdps": []}' />
+			<fieldset name="keycloak">
+				<field name="endpoint" type="text" label="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_ENDPOINT_LABEL" description="PLG_AUTHENTICATION_SHIBBOLETH_PARAM_ENDPOINT_DESC" />
 			</fieldset>
 		</fields>
 	</config>

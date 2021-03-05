@@ -68,9 +68,8 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 				'id' => $sid,
 				'idp' => $idp
 			);
-			
-			// original: array('email', 'eppn', 'displayName', 'givenName', 'sn', 'mail');
-			// 
+	
+			// see /etc/shibboleth/attribute-map.xml and /etc/shibboleth/shibboleth2.xml
 			// sn = surname, eduPersonUniqueID = elixir id
 			$shibbolethAttributes = array('email', 'givenName', 'sn', 'eppn', 'eduPersonUniqueID');
 
@@ -127,7 +126,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	public function link($options = array())
 	{
 		$session = App::get('session');
-		$session_data = json_decode($session->get('shibboleth_data'));
+		$session_data = json_decode($session->get('shibboleth_data'), true);
 
 		if (isset($session_data))
 		{	
@@ -172,19 +171,17 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	}
 
 	/**
-	 * Fetches list of active IDPs set in admin area
+	 * Fetches Keycloak endpoint URL
 	 *
-	 * @return array Active IDPs to select from
+	 * @return string Keycloak URL
 	 */
-	private static function getInstitutions()
+	private static function getEndpointURL()
 	{
 		// Get plugin data in static context
 		$plugin = Plugin::byType('authentication', 'shibboleth');
-		// Get institutions as associative array
+		// Get keycloak data from admin area options
 		$params = json_decode($plugin->params);
-		$inst = json_decode($params->institutions, true);
-		$inst = isset($inst['activeIdps']) ? $inst['activeIdps'] : [];
-		return $inst;
+		return $params->endpoint;
 	}
 
 
@@ -194,23 +191,17 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	public static function onRenderOption($return = null)
 	{
 		// Attach style and scripts
-		$assets = array('shibboleth.js', 'shibboleth.css');
-		foreach ($assets as $asset)
-		{
-			$mtd = 'addPlugin'.(preg_match('/[.]js$/', $asset) ? 'script' : 'stylesheet');
-			\Hubzero\Document\Assets::$mtd('authentication', 'shibboleth', $asset);
-		}
+		Hubzero\Document\Assets::addPluginScript('authentication', 'shibboleth', 'shibboleth.js');
+		Hubzero\Document\Assets::addPluginStyleSheet('authentication', 'shibboleth', 'shibboleth.css');
 
-		// Make a dropdown/button combo
+		// fetch necessary data
+		$endpoint = str_replace('"', '&quot;', self::getEndpointURL());
+		$label = 'Keycloak';
+
+		// Create a button for redirection to keycloak
 		$html[] = '<div class="shibboleth account">';
-		$html[] = '<ul>';
-		foreach(self::getInstitutions() as $idp)
-		{
-			$entityId = str_replace('"', '&quot;', $idp['entity_id']);
-			$label = htmlentities($idp['label']);
-			$html[] = '<li data-entityid="' . $entityId . '" ' . $label . '"><a href="' . Route::url('index.php?option=com_users&view=login&authenticator=shibboleth&idp=' . $entityId) . '">' . $label . '</a></li>';
-		}
-		$html[] = '</ul></div>';
+		$html[] = '<button type="button" onclick=\'window.location.href="' .  Route::url('index.php?option=com_users&view=login&authenticator=shibboleth&idp=' . $endpoint) . '"\'>' . $label . '</button>';
+		$html[] = '</div>';
 		return $html;
 	}
 
@@ -221,21 +212,14 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	 * determine the text "link your <something> account", and failing that the
 	 * plugin name is used (EX: "link your Shibboleth account").
 	 *
-	 * Neither is appropriate here because we want to vary the text based on the
-	 * ID provider used. I don't think the average user knows what InCommon or
-	 * Shibboleth mean in this context.
-	 *
 	 * @return  string
 	 */
 	public static function onGetLinkDescription()
 	{
-		// Probably only possible if the user abruptly deletes their cookies
 		return 'Elixir';
 	}
 
 	/**
-	 * Similar justification to that for onGetLinkDescription.
-	 *
 	 * We want to show a button with the name of the previously-used ID
 	 * provider on it instead of something generic like "Shibboleth"
 	 *
@@ -244,34 +228,8 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	 */
 	public static function onGetSubsequentLoginDescription($return)
 	{
-		// look up id provider
-		if (isset($_COOKIE['shib-entity-id']) && ($idp = self::getInstitutionByEntityId($_COOKIE['shib-entity-id'])))
-		{
-			return '<input type="hidden" name="idp" value="' . $idp['entity_id'] . '" />Sign in with ' . htmlentities($idp['label']);
-		}
-
-		// if we couldn't figure out where they want to go to log in, we can't really help, so we redirect them with ?reset to get the full log-in provider list
-		list($service, $com_user, $task) = self::getLoginParams();
-		App::redirect($service . '/index.php?reset=1&option=' . $com_user . '&task=login' . $return);
-	}
-
-	/**
-	 * Summary
-	 *
-	 * @param   unknown  $eid ID compared to entity_id
-	 * @param   unknown  $key
-	 * @return  unknown
-	 */
-	public static function getInstitutionByEntityId($eid, $key = null)
-	{
-		foreach (self::getInstitutions() as $inst)
-		{
-			if ($inst['entity_id'] == $eid)
-			{
-				return $key ? $inst[$key] : $inst;
-			}
-		}
-		return null;
+		return '<input type="hidden" name="idp" value="' . self::getEndpointURL() . '" />Sign in with Keycloak';
+	
 	}
 
 	/**
@@ -283,7 +241,6 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	public function logout()
 	{
 		// Session data should generally be invalidated on logout
-		// TODO: check if this is actually the case
 	}
 
 	/**
@@ -299,30 +256,11 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		list($service, $com_user, $task) = self::getLoginParams();
 		$return = $view->return ? '&return=' . $view->return : '';
 
-		// fetch idp id
-		$eid = null;
-		if (isset($_GET['idp']))
+		// Check if endpoint URL is set
+		if (!self::getEndpointURL())
 		{
-			$eid = $_GET['idp'];
-		}
-		else if($_COOKIE['shib-entity-id'])
-		{
-			$eid = $_COOKIE['shib-entity-id'];
-		}
-		if (!isset($eid) || !self::getInstitutionByEntityId($eid))
-		{
-			// Invalid idp in request, send back to login landing
+			// missing idp in request, send back to login landing
 			App::redirect($service . '/index.php?option=' . $com_user . '&task=login' . $return);
-		}
-
-		// We're about to do at least a few redirects, some of which are out of our
-		// control, so save a bit of state for when we get back
-		//
-		// We don't use the session store because we'd like it to outlive the
-		// session so we can suggest this idp next time
-		if (isset($_GET['idp']))
-		{
-			setcookie('shib-entity-id', $_GET['idp'], time()+60*60*24, '/');
 		}
 		// The rewrite directs us back here to our login() method
 		// where we can extract info about the authn from mod_shib
