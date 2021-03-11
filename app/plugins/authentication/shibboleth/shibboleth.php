@@ -8,6 +8,8 @@
 // No direct access
 defined('_HZEXEC_') or die();
 
+use Hubzero\Utility\Cookie;
+
 /**
  * Authentication Plugin class for Shibboleth/InCommon
  */
@@ -34,9 +36,32 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		}
 		$options['return'] = $return;
 
+		// We need the eppn to do something meaningful here
+		if(!isset($_SERVER['REDIRECT_eppn'])){
+			App::redirect(Route::url('index.php'),
+				'eppn not received, contact the administrator.',
+				'error');
+		}
+
+		// derive username from eppn
+		$username = $_SERVER['REDIRECT_eppn'];
+		// strip namespace
+		$username = preg_replace('/@.*$/', '', $username);
+		// replace invalid characters
+		$username = preg_replace('/\.|-/', '_', $username);
+
 		// If someone is logged in already, then we're linking an account
 		if (!User::get('guest'))
 		{
+			// pass derived username through for linking
+			$namespace = 'shib_user';
+			if (!Cookie::eat($namespace))
+			{
+				// max 2 minutes
+				$lifetime = time() + 2 * 60;
+				$data = array('username' => $username);
+				Cookie::bake($namespace, $lifetime, $data);
+			}
 			list($service, $com_user, $task) = self::getLoginParams();
 			App::redirect($service . '/index.php?option=' . $com_user . '&task=' . $task . '&authenticator=shibboleth');
 		}
@@ -47,22 +72,14 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		{
 			$sid = $_SERVER['REDIRECT_Shib-Session-ID'];
 		}
-		else if (isset($_SERVER['Shib-Session-ID']))
-		{
-			$sid = $_SERVER['Shib-Session-ID'];
-		}
 
 		// Extract variables set by mod_shib, if any
 		if (isset($sid))
 		{
-			// Fetch identity provider (what is the difference here?)
+			// Fetch identity provider
 			if(isset($_SERVER['REDIRECT_Shib-Identity-Provider']))
 			{
 				$idp = $_SERVER['REDIRECT_Shib-Identity-Provider'];
-			}
-			else 
-			{
-				$idp = $_SERVER['Shib-Identity-Provider'];
 			}
 			$attributes = array( 
 				'id' => $sid,
@@ -76,24 +93,21 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 			// fetch selected attributes from mod_shib
 			foreach ( $shibbolethAttributes as $key)
 			{
-				if (isset($_SERVER[$key]))
+				if (isset($_SERVER['REDIRECT_' . $key]))
 				{
-					$attributes[$key] = $_SERVER[$key];
-				}
-				elseif (isset($_SERVER['REDIRECT_'.$key]))
-				{
-					$attributes[$key] = $_SERVER['REDIRECT_'.$key];
+					$attributes[$key] = $_SERVER['REDIRECT_' . $key];
 				}
 			}
 
+			$attributes['username'] = $username;
+
 			// set from fetched information
 			$attributes['displayName'] = $attributes['givenName'] . ' ' . $attributes['sn'];
-			// Strip domain and - from email adress for tentative user name
-			$attributes['username'] = preg_replace(['/@.*$/', '~-~'], ['', ''], $attributes['email']);
+
 			// Write data into user session
 			$session->set('shibboleth_data', json_encode($attributes));
 
-			// Write data into options (TODO: can this be safely removed?) 
+			// Write data into options
 			$options['shibboleth'] = $attributes;
 		}
 	}
@@ -125,48 +139,35 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	 */
 	public function link($options = array())
 	{
-		$session = App::get('session');
-		$session_data = json_decode($session->get('shibboleth_data'), true);
+		if(!Cookie::eat('shib_user')){
+			App::redirect(Route::url('index.php'),
+				'Data might have expired. Try again or contact the administrator.',
+				'error');
+		}
+		$data = Cookie::eat('shib_user');
+		$username = $data->username;
+		$idp = self::getEndpointURL();
 
-		if (isset($session_data))
-		{	
-			// Get unique username
-			$username = $session_data['username'];
-			$hzad = \Hubzero\Auth\Domain::getInstance('authentication', 'shibboleth', $session_data['idp']);
+		$hzad = \Hubzero\Auth\Domain::getInstance('authentication', 'shibboleth', $idp);
 
-			if (\Hubzero\Auth\Link::getInstance($hzad->id, $username))
-			{
-				App::redirect(
-					Route::url('index.php?option=com_members&id=' . User::get('id') . '&active=account'),
-					'This account appears to already be linked to a hub account',
-					'error'
-				);
-			}
-			else
-			{
-				$hzal = \Hubzero\Auth\Link::find_or_create('authentication', 'shibboleth', $session_data['idp'], $username);
-				// update the actual information
-				if ($hzal)
-				{
-					$hzal->set('user_id', User::get('id'));
-					$hzal->set('email', $session_data['email']);
-					$hzal->update();
-				}
-				else
-				{
-					// if `$hzal` === false, then either:
-					//    the authenticator Domain couldn't be found,
-					//    no username was provided,
-					//    or the Link record failed to be created
-					// TODO: change this to a useful user facing error
-					Log::error(sprintf('Hubzero\Auth\Link::find_or_create("authentication", "shibboleth", %s, %s) returned false', $session_data['idp'], $username));
-				}
-			}
+		if (\Hubzero\Auth\Link::getInstance($hzad->id, $username))
+		{
+			App::redirect(
+				Route::url('index.php?option=com_members&id=' . User::get('id') . '&active=account'),
+				'This keycloak account is already linked to a hub account',
+				'error'
+			);
 		}
 		else
 		{
-			// User somehow got redirect back without being authenticated (not sure how this would happen?)
-			App::redirect(Route::url('index.php?option=com_members&id=' . User::get('id') . '&active=account'), 'No shibboleth session data present to link your account.', 'error');
+			$hzal = \Hubzero\Auth\Link::find_or_create('authentication', 'shibboleth', $idp, $username);
+			// update the actual information
+			if ($hzal)
+			{
+				$hzal->set('user_id', User::get('id'));
+				$hzal->set('email', User::get('email'));
+				$hzal->update();
+			}
 		}
 	}
 
@@ -181,7 +182,13 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		$plugin = Plugin::byType('authentication', 'shibboleth');
 		// Get keycloak data from admin area options
 		$params = json_decode($plugin->params);
-		return $params->endpoint;
+		$endpoint = $params->endpoint;
+		// remove trailing '/', else this wont work
+		if (substr($endpoint, -1) === '/')
+		{
+			$endpoint = substr($endpoint, -1);
+		}
+		return $endpoint;
 	}
 
 
@@ -303,7 +310,6 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 				$response->error_message = 'Unknown user and new user registration is not permitted.';
 				return;
 			}
-
 			$hzal->email = $options['shibboleth']['email'];
 
 			$response->auth_link = $hzal;
@@ -345,7 +351,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 				$namespace = 'authenticator';
 				$lifetime  = time() + 365*24*60*60;
 
-				\Hubzero\Utility\Cookie::bake($namespace, $lifetime, $prefs);
+				Cookie::bake($namespace, $lifetime, $prefs);
 			}
 		}
 		else
@@ -354,5 +360,4 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 			$response->error_message = 'An error occurred verifying your credentials.';
 		}
 	}
-
 }
