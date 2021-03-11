@@ -54,16 +54,8 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		if (!User::get('guest'))
 		{
 			// pass derived username through for linking
-			$namespace = 'shib_user';
-			if (!Cookie::eat($namespace))
-			{
-				// max 2 minutes
-				$lifetime = time() + 2 * 60;
-				$data = array('username' => $username);
-				Cookie::bake($namespace, $lifetime, $data);
-			}
-			list($service, $com_user, $task) = self::getLoginParams();
-			App::redirect($service . '/index.php?option=' . $com_user . '&task=' . $task . '&authenticator=shibboleth');
+			$session->set('shibboleth_user', $username);
+			App::redirect(Route::url('index.php?option=com_users&task=link&authenticator=shibboleth'));
 		}
 
 		// Get session id, default to null
@@ -113,39 +105,16 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	}
 
 	/**
-	 * Fetch triple of service URL, component and task (login or link)
-	 *
-	 * @return  array  Array of service, user, and task
-	 */
-	private static function getLoginParams()
-	{
-		$service = rtrim(Request::base(), '/');
-
-		if (empty($service))
-		{
-			$service = $_SERVER['HTTP_HOST'];
-		}
-
-		$com_user = 'com_users';
-		$task     = (User::isGuest()) ? 'user.login' : 'user.link';
-
-		return array($service, $com_user, $task);
-	}
-
-	/**
 	 * @access  public
 	 * @param   array  $options
 	 * @return  void
 	 */
 	public function link($options = array())
 	{
-		if(!Cookie::eat('shib_user')){
-			App::redirect(Route::url('index.php'),
-				'Data might have expired. Try again or contact the administrator.',
-				'error');
-		}
-		$data = Cookie::eat('shib_user');
-		$username = $data->username;
+		$session = App::get('session');
+		$username = $session->get('shibboleth_user');
+		// no longer needed, unset
+		$session->clear('shibboleth_user');
 		$idp = self::getEndpointURL();
 
 		$hzad = \Hubzero\Auth\Domain::getInstance('authentication', 'shibboleth', $idp);
@@ -260,18 +229,17 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	 */
 	public function display($view, $tpl)
 	{
-		list($service, $com_user, $task) = self::getLoginParams();
 		$return = $view->return ? '&return=' . $view->return : '';
 
 		// Check if endpoint URL is set
 		if (!self::getEndpointURL())
 		{
 			// missing idp in request, send back to login landing
-			App::redirect($service . '/index.php?option=' . $com_user . '&task=login' . $return);
+			App::redirect(Route::url('index.php?option=com_users&task=login' . $return));
 		}
 		// The rewrite directs us back here to our login() method
 		// where we can extract info about the authn from mod_shib
-		App::redirect($service . '/login/shibboleth');
+		App::redirect(Route::url('login/shibboleth'));
 	}
 
 	/**
