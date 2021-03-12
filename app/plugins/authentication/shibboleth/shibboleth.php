@@ -36,18 +36,25 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		}
 		$options['return'] = $return;
 
-		// We need the eppn to do something meaningful here
-		if(!isset($_SERVER['REDIRECT_eppn'])){
-			App::redirect(Route::url('index.php'),
-				'eppn not received, contact the administrator.',
+		// If coming from elixir, this is the elixir ID
+		if(!isset($_SERVER['REDIRECT_eduPersonUniqueID'])){
+			App::redirect('index.php',
+				'Your Keycloak account does not have an Elixir ID associated with it. Please link an Elixir ID to your Keycloak account first.',
+				'error');
+		}
+		// We need the eppn to derive the username (preferred_username from Elixir)
+		if(!isset($_SERVER['REDIRECT_eppn']))
+		{
+			App::redirect('index.php',
+				'Could not retrieve eppn from Keycloak. Contact the administrator.',
 				'error');
 		}
 
-		// derive username from eppn
+		// derive username from eppn for now (elixir id is to long)
 		$username = $_SERVER['REDIRECT_eppn'];
-		// strip namespace
+		// strip @elixir-europe.com namespace
 		$username = preg_replace('/@.*$/', '', $username);
-		// replace invalid characters
+		// replace invalid characters - might cause duplicates
 		$username = preg_replace('/\.|-/', '_', $username);
 
 		// If someone is logged in already, then we're linking an account
@@ -55,7 +62,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		{
 			// pass derived username through for linking
 			$session->set('shibboleth_user', $username);
-			App::redirect(Route::url('index.php?option=com_users&task=link&authenticator=shibboleth'));
+			App::redirect('index.php?option=com_users&task=link&authenticator=shibboleth');
 		}
 
 		// Get session id, default to null
@@ -122,7 +129,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		if (\Hubzero\Auth\Link::getInstance($hzad->id, $username))
 		{
 			App::redirect(
-				Route::url('index.php?option=com_members&id=' . User::get('id') . '&active=account'),
+				'index.php?option=com_members&id=' . User::get('id') . '&active=account',
 				'This keycloak account is already linked to a hub account',
 				'error'
 			);
@@ -235,11 +242,11 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		if (!self::getEndpointURL())
 		{
 			// missing idp in request, send back to login landing
-			App::redirect(Route::url('index.php?option=com_users&task=login' . $return));
+			App::redirect('index.php?option=com_users&task=login' . $return);
 		}
 		// The rewrite directs us back here to our login() method
 		// where we can extract info about the authn from mod_shib
-		App::redirect(Route::url('login/shibboleth'));
+		App::redirect('login/shibboleth');
 	}
 
 	/**

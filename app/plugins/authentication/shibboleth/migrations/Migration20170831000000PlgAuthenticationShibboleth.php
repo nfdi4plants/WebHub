@@ -20,7 +20,7 @@ class Migration20170831000000PlgAuthenticationShibboleth extends Base
 	 **/
 	public function up()
 	{
-		$this->addPluginEntry('authentication', 'shibboleth', 1);
+		$this->addPluginEntry('authentication', 'shibboleth', 0);
 	}
 
 	/**
