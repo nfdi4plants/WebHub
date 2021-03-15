@@ -1,5 +1,5 @@
 {
-	"name": "hubzero/plg_authentication_shibboleth",
+	"name": "hubzero/plg_authentication_keycloak",
 	"description": "Shibboleth authentication plugin for the HUBzero CMS",
 	"type": "hubzero-plugin",
 	"keywords": ["hubzero"],
@@ -19,6 +19,6 @@
 		"php" : "^5.4"
 	},
 	"extra": {
-		"install-directory": "/plugins/authentication/shibboleth/"
+		"install-directory": "/plugins/authentication/keycloak/"
 	}
 }

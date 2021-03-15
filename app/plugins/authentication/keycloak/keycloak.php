@@ -11,9 +11,9 @@ defined('_HZEXEC_') or die();
 use Hubzero\Utility\Cookie;
 
 /**
- * Authentication Plugin class for Shibboleth/InCommon
+ * Authentication Plugin class for Shibboleth/Keycloak
  */
-class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
+class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 {
 	/**
 	 * Actions to perform when logging in a user session
@@ -62,7 +62,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		{
 			// pass derived username through for linking
 			$session->set('shibboleth_user', $username);
-			App::redirect('index.php?option=com_users&task=link&authenticator=shibboleth');
+			App::redirect('index.php?option=com_users&task=link&authenticator=keycloak');
 		}
 
 		// Get session id, default to null
@@ -124,7 +124,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		$session->clear('shibboleth_user');
 		$idp = self::getEndpointURL();
 
-		$hzad = \Hubzero\Auth\Domain::getInstance('authentication', 'shibboleth', $idp);
+		$hzad = \Hubzero\Auth\Domain::getInstance('authentication', 'keycloak', $idp);
 
 		if (\Hubzero\Auth\Link::getInstance($hzad->id, $username))
 		{
@@ -136,7 +136,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		}
 		else
 		{
-			$hzal = \Hubzero\Auth\Link::find_or_create('authentication', 'shibboleth', $idp, $username);
+			$hzal = \Hubzero\Auth\Link::find_or_create('authentication', 'keycloak', $idp, $username);
 			// update the actual information
 			if ($hzal)
 			{
@@ -155,7 +155,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	private static function getEndpointURL()
 	{
 		// Get plugin data in static context
-		$plugin = Plugin::byType('authentication', 'shibboleth');
+		$plugin = Plugin::byType('authentication', 'keycloak');
 		// Get keycloak data from admin area options
 		$params = json_decode($plugin->params);
 		$endpoint = $params->endpoint;
@@ -174,8 +174,8 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	public static function onRenderOption($return = null)
 	{
 		// Attach style and scripts
-		Hubzero\Document\Assets::addPluginScript('authentication', 'shibboleth', 'shibboleth.js');
-		Hubzero\Document\Assets::addPluginStyleSheet('authentication', 'shibboleth', 'shibboleth.css');
+		Hubzero\Document\Assets::addPluginScript('authentication', 'keycloak', 'keycloak.js');
+		Hubzero\Document\Assets::addPluginStyleSheet('authentication', 'keycloak', 'keycloak.css');
 
 		// fetch necessary data
 		$endpoint = str_replace('"', '&quot;', self::getEndpointURL());
@@ -183,7 +183,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 
 		// Create a button for redirection to keycloak
 		$html[] = '<div class="shibboleth account">';
-		$html[] = '<button type="button" onclick=\'window.location.href="' .  Route::url('index.php?option=com_users&view=login&authenticator=shibboleth&idp=' . $endpoint) . '"\'>' . $label . '</button>';
+		$html[] = '<button type="button" onclick=\'window.location.href="' .  Route::url('index.php?option=com_users&view=login&authenticator=keycloak&idp=' . $endpoint) . '"\'>' . $label . '</button>';
 		$html[] = '</div>';
 		return $html;
 	}
@@ -246,7 +246,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 		}
 		// The rewrite directs us back here to our login() method
 		// where we can extract info about the authn from mod_shib
-		App::redirect('login/shibboleth');
+		App::redirect('login/keycloak');
 	}
 
 	/**
@@ -277,7 +277,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 	{
 		if (isset($options['shibboleth']['username']))
 		{
-			$hzal = Hubzero\Auth\Link::find_or_create('authentication', 'shibboleth', $options['shibboleth']['idp'], $options['shibboleth']['username']);
+			$hzal = Hubzero\Auth\Link::find_or_create('authentication', 'keycloak', $options['shibboleth']['idp'], $options['shibboleth']['username']);
 
 			if ($hzal === false)
 			{
@@ -288,7 +288,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 			$hzal->email = $options['shibboleth']['email'];
 
 			$response->auth_link = $hzal;
-			$response->type = 'shibboleth';
+			$response->type = 'keycloak';
 			$response->status = \Hubzero\Auth\Status::SUCCESS;
 			$response->fullname = ucwords(strtolower($options['shibboleth']['displayName']));
 
@@ -320,7 +320,7 @@ class plgAuthenticationShibboleth extends \Hubzero\Plugin\Plugin
 				$prefs = array(
 					'user_id'       => $user->get('id'),
 					'user_img'      => $user->picture(0, false),
-					'authenticator' => 'shibboleth'
+					'authenticator' => 'keycloak'
 				);
 
 				$namespace = 'authenticator';

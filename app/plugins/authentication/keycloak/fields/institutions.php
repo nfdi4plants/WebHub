@@ -19,8 +19,8 @@ class Institutions extends Field
 	protected function getInput()
 	{
 		// TODO: change to relative path
-		Document::addScript('/app/plugins/authentication/shibboleth/assets/js/admin.js');
-		Document::addStyleSheet('/app/plugins/authentication/shibboleth/assets/css/admin.css');
+		Document::addScript('/app/plugins/authentication/keycloak/assets/js/admin.js');
+		Document::addStyleSheet('/app/plugins/authentication/keycloak/assets/css/admin.css');
 
 		$html = array();
 		$a = function($str)

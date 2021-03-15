@@ -11,16 +11,16 @@ use Hubzero\Content\Migration\Base;
 defined('_HZEXEC_') or die();
 
 /**
- * Migration script for adding Authentication - Shibboleth plugin
+ * Migration script for adding Authentication - Keycloak plugin
  **/
-class Migration20170831000000PlgAuthenticationShibboleth extends Base
+class Migration20170831000000PlgAuthenticationKeycloak extends Base
 {
 	/**
 	 * Up
 	 **/
 	public function up()
 	{
-		$this->addPluginEntry('authentication', 'shibboleth', 0);
+		$this->addPluginEntry('authentication', 'keycloak', 0);
 	}
 
 	/**
@@ -28,6 +28,6 @@ class Migration20170831000000PlgAuthenticationShibboleth extends Base
 	 **/
 	public function down()
 	{
-		$this->deletePluginEntry('authentication', 'shibboleth');
+		$this->deletePluginEntry('authentication', 'keycloak');
 	}
 }
