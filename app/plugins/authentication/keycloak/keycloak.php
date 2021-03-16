@@ -8,8 +8,6 @@
 // No direct access
 defined('_HZEXEC_') or die();
 
-use Hubzero\Utility\Cookie;
-
 /**
  * Authentication Plugin class for Shibboleth/Keycloak
  */
@@ -57,14 +55,6 @@ class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 		// replace invalid characters - might cause duplicates
 		$username = preg_replace('/\.|-/', '_', $username);
 
-		// If someone is logged in already, then we're linking an account
-		if (!User::get('guest'))
-		{
-			// pass derived username through for linking
-			$session->set('shibboleth_user', $username);
-			App::redirect('index.php?option=com_users&task=link&authenticator=keycloak');
-		}
-
 		// Get session id, default to null
 		$sid = null;
 		if (isset($_SERVER['REDIRECT_Shib-Session-ID']))
@@ -108,6 +98,14 @@ class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 
 			// Write data into options
 			$options['shibboleth'] = $attributes;
+		}
+
+		// If someone is logged in already, then we're linking an account
+		if (!User::get('guest'))
+		{
+			// pass derived username through for linking
+			$session->set('shibboleth_user', $username);
+			App::redirect('index.php?option=com_users&task=link&authenticator=keycloak');
 		}
 	}
 
@@ -199,7 +197,7 @@ class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 	 */
 	public static function onGetLinkDescription()
 	{
-		return 'Elixir';
+		return 'Keycloak';
 	}
 
 	/**
@@ -312,22 +310,6 @@ class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 			}
 
 			$hzal->update();
-
-			// If we have a real user, drop the authenticator cookie
-			if (isset($user) && is_object($user))
-			{
-				// Set cookie with login preference info
-				$prefs = array(
-					'user_id'       => $user->get('id'),
-					'user_img'      => $user->picture(0, false),
-					'authenticator' => 'keycloak'
-				);
-
-				$namespace = 'authenticator';
-				$lifetime  = time() + 365*24*60*60;
-
-				Cookie::bake($namespace, $lifetime, $prefs);
-			}
 		}
 		else
 		{

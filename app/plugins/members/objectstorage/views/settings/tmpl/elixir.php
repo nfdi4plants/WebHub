@@ -9,8 +9,22 @@
 // No direct access
 defined('_HZEXEC_') or die('Restricted access');
 
+$session = App::get('session');
+$data = json_decode($session->get('shibboleth_data'));
+if (isset($data))
+{
+        $elixirID = $data->eduPersonUniqueID;
+}
+
 $this->css()
-	->js();
+        ->js();
 ?>
 
-<p>Hier könnte ihre Elixir-ID stehen<p>
+<?php if (isset($elixirID))
+{
+        echo  'Your Elixir ID is: <p>' . $elixirID . '</p>';
+}
+else
+{
+        echo 'You are not logged in with an account linked to an Elixir ID';
+}
