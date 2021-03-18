@@ -149,10 +149,6 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 		$db->query();
 		$key = $db->loadResult();
 
-		if(!isset($key)) {
-			$key = '';
-		}
-
 		return $key;
 	}
 
@@ -170,6 +166,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 
 	private function getS3View()
 	{
+		$session = User::get('session');
 		$view  = $this->view('test', 'index');
 
 		$access_key = $this->getKey('access_key');
@@ -182,19 +179,35 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 		}
 
 		$connector = new S3($access_key, $secret_key);
-		$response = $connector->getBucket('deep');
-
-		if(isset($response->error) || isset($response->code) && $response->code != 200)
-		{
-			// TODO: handle failure
-			return $view->set('missing_keys', true);
-		}
-		
-		// Everything ok, fetch actual content
+		// Top level, buckets are stored under root
+		$response = $connector->getBucket('');
 		$body = $response->body;
 
-		// Get bucket name and all files
+		// Handle error and display a message accordingly
+		if(isset($response->error) || isset($response->code) && $response->code != 200)
+		{
+			//TODO: check if anything of this actually exists in all cases
+			$error_code = $response->code . ' - ' . $body->Code;
+			$error = array($error_code, $body->Message, $body->Resource);
+			return $view->set('error', $error);
+		}
+		
+		$buckets = $body->Buckets;
+		// Handle top level return, i.e. we are not in any bucket here
+		if(isset($buckets) && !empty($buckets))
+		{	
+			// Pass array of buckets to view for displaying - buckets is the xml object, bucket the actual array
+			return $view->set('buckets', $buckets->Bucket);
+		}
+
+		// TODO: handle marker and prefix 
+		// $marker = $body->Marker;
+		// $prefix = $body->Prefix;
+		// $is_truncated = $body->Truncated;
+
+		// get bucket name
 		$current = $body->Name;
+		
 		$files = array();
 		foreach($body->Contents as $content){
 				$files[] = new File($content);
