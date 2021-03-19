@@ -29,14 +29,20 @@ $this->css()
         echo '<h4>Available buckets:</h4>';
         foreach($this->buckets as $bucket)
         {
-            echo '<pre>' . $bucket->Name . '  ' . $bucket->CreationDate . '</pre>';
+            echo '<p class="bucket">' . $bucket->Name . '<p/>';
         }
     }
     else
     {
-       //echo '<h4>Current Bucket: ' . $this->$current . '</h4>';
-       foreach($this->files as $file)
-       {
-           echo '<pre>' . $file->name . '  ' . $file->size . '  ' . $file->modified . '</pre>';
-       } 
+        echo '<h4>Folders:</h4>';
+        echo '<p class="folder">..</p>';
+        foreach($this->folders as $folder)
+        {
+            echo '<p class="folder">' . $folder . '</p>';
+        }
+        echo '<h4>Files:</h4>';
+        foreach($this->files as $file)
+        {
+            echo '<p class="file">' . $file->name . '</p>';
+        } 
     }

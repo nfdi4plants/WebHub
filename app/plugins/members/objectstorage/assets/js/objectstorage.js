@@ -21,28 +21,54 @@ HUB.Plugins.ObjectStorage = {
     jQuery: jq,
 
     initialize: function () {
-        // Set up all click event listeners
-        // add click listeners to file list title
-        var titles = $(".item-title");
-        for (var i = 0; i < titles.length; i++) {
-            titles[i].addEventListener('click', this.toggle, false);
+        // add click listeners to buckets
+        var buckets = $(".bucket");
+        for (var i = 0; i < buckets.length; i++) {
+            buckets[i].addEventListener('click', this.chooseBucket, false);
+        }
+        // add click listeners to folders
+        var buckets = $(".folder");
+        for (var i = 0; i < buckets.length; i++) {
+            buckets[i].addEventListener('click', this.chooseFolder, false);
+        }
+        // add click listeners to files
+        var buckets = $(".file");
+        for (var i = 0; i < buckets.length; i++) {
+            buckets[i].addEventListener('click', this.chooseFile, false);
         }
     },
 
-    toggle: function (e) {
-        // get p toggle element to set correct text
-        var p = $($(this).find(".toggle-visibility"));
-        // get container div, i.e. parent of event source
-        var itemTitle = $($(this).parent());
-        // file list is the second child
-        var fileList = $(itemTitle.children()[1]);
-        if (fileList.is(":hidden")) {
-            fileList.show();
-            p.text("Hide");
-        } else {
-            fileList.hide();
-            p.text("Show");
-        }
+    chooseBucket: function(e) {
+        $.ajax({
+            type: "POST",
+            url: "objectstorage",
+            data: { "bucket" : $(this).html()},
+            success: function() {
+                location.reload();
+            }
+        });
+    },
+
+    chooseFolder: function(e) {
+        $.ajax({
+            type: "POST",
+            url: "objectstorage",
+            data: { "folder" : $(this).html()},
+            success: function() {
+                location.reload();
+            }
+        });
+    },
+
+    chooseFile: function(e) {
+        $.ajax({
+            type: "POST",
+            url: "objectstorage",
+            data: { "file" : $(this).html()},
+            success: function() {
+                location.reload();
+            }
+        });
     }
 
 }

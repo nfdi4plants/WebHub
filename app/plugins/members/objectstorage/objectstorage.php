@@ -166,11 +166,19 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 
 	private function getS3View()
 	{
-		$session = User::get('session');
 		$view  = $this->view('test', 'index');
 
 		$access_key = $this->getKey('access_key');
 		$secret_key = $this->getKey('secret_key');
+
+		// Debug stuff
+		$clear = Request::getVar('clear');
+		if (isset($clear))
+		{
+			$session = App::get('session');
+			$session->clear('S3Bucket');
+			$session->clear('S3Prefix');
+		}
 
 		// Both access-key and secret key need to be set for this to work, pass information to template if one of them is missing
 		if(!isset($access_key) || !isset($secret_key))
@@ -180,7 +188,55 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 
 		$connector = new S3($access_key, $secret_key);
 		// Top level, buckets are stored under root
-		$response = $connector->getBucket('');
+
+		if(Request::method() === 'POST')
+		{
+			$bucket = urldecode(Request::getVar('bucket', '', 'POST'));
+			$folder = urldecode(Request::getVar('folder', '', 'POST'));
+			$file = urldecode(Request::getVar('file', '', 'POST'));
+		}
+
+		$session = App::get('session');
+
+		$bucket = isset($bucket) && !empty($bucket) ? $bucket : $session->get('S3Bucket');
+		
+		if (isset($bucket))
+		{
+			$session->set('S3Bucket', $bucket);
+		}
+	
+		$prefix = isset($folder) && !empty($folder) ? $folder : $session->get('S3Prefix');
+
+		if (isset($folder) && $folder === '..'){
+			$last = substr($session->get('S3Prefix'), 0, -1);
+			if (!isset($last))
+			{
+				$folder = '';
+			}
+			else
+			{
+				$parts = explode('/', $last);
+				$tail = array_pop($parts);
+				if (is_null($tail))
+				{
+					$folder = '';
+				}
+				else
+				{
+					$folder = implode('/', $parts) . '/';
+				}
+			}
+			$prefix = $folder;
+		}
+
+		$url_params = array('delimiter' => '/');
+		if(isset($prefix))
+		{
+			$url_params['prefix'] = $prefix;
+			$session->set('S3Prefix', $prefix);
+		}
+
+		$response = $connector->getBucket($bucket, $url_params);
 		$body = $response->body;
 
 		// Handle error and display a message accordingly
@@ -192,27 +248,49 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 			return $view->set('error', $error);
 		}
 		
-		$buckets = $body->Buckets;
 		// Handle top level return, i.e. we are not in any bucket here
+		$buckets = $body->Buckets;
 		if(isset($buckets) && !empty($buckets))
 		{	
 			// Pass array of buckets to view for displaying - buckets is the xml object, bucket the actual array
 			return $view->set('buckets', $buckets->Bucket);
 		}
 
-		// TODO: handle marker and prefix 
+		// TODO: handle marker and truncated 
 		// $marker = $body->Marker;
-		// $prefix = $body->Prefix;
 		// $is_truncated = $body->Truncated;
-
+		
 		// get bucket name
 		$current = $body->Name;
-		
-		$files = array();
-		foreach($body->Contents as $content){
-				$files[] = new File($content);
+		// process objects on the specified level
+		$contents = $body->Contents;
+		// only single object present -> pack into array
+		if (!isset($contents[1]))
+		{
+			$contents = array($contents);
 		}
 
-		return $view->set('current', $current)->set('files', $files);
+		if (isset($contents))
+		{
+			$files = array();
+			foreach($contents as $content)
+			{
+				$files[] = new File($content);
+			}
+		}
+
+		// process prefixes on the specified level
+		$common_prefixes = $body->CommonPrefixes;
+		if (isset($common_prefixes))
+		{
+			$folders = array();
+			foreach($common_prefixes as $prefix)
+			{
+				$folders[] = $prefix->Prefix;
+			}
+
+		}
+
+		return $view->set('current', $current)->set('files', $files)->set('folders', $folders);
 	}
 }

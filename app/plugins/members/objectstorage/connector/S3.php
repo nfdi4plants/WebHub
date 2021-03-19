@@ -61,12 +61,13 @@ class S3
 		return $request->getResponse();
 	}
 
-	public function getObjectInfo($bucket, $path, $headers = array())
+	public function getObjectInfo($bucket, $path, $params = array(), $headers = array())
 	{
 		$uri = "$bucket/$path";
 
 		$request = (new S3Request('HEAD', $this->endpoint, $uri))
 			->setHeaders($headers)
+			->setURLParamters($params)
 			->useMultiCurl($this->multi_curl)
 			->useCurlOpts($this->curl_opts)
 			->sign($this->access_key, $this->secret_key);
@@ -78,13 +79,15 @@ class S3
 		$bucket,
 		$path,
 		$resource = null,
-		$headers = array()
+		$headers = array(),
+		$params = array()
 	) 
 	{
 		$uri = "$bucket/$path";
 
 		$request = (new S3Request('GET', $this->endpoint, $uri))
 			->setHeaders($headers)
+			->setURLParamters($params)
 			->useMultiCurl($this->multi_curl)
 			->useCurlOpts($this->curl_opts)
 			->sign($this->access_key, $this->secret_key);
@@ -110,10 +113,11 @@ class S3
 		return $request->getResponse();
 	}
 
-	public function getBucket($bucket, $headers = array())
+	public function getBucket($bucket, $params = array(), $headers = array())
 	{
 		$request = (new S3Request('GET', $this->endpoint, $bucket))
 			->setHeaders($headers)
+			->setURLParamters($params)
 			->useMultiCurl($this->multi_curl)
 			->useCurlOpts($this->curl_opts)
 			->sign($this->access_key, $this->secret_key);
@@ -141,6 +145,7 @@ class S3Request
 	private $endpoint;
 	private $uri;
 	private $headers;
+	private $params;
 	private $curl;
 	private $response;
 
@@ -195,6 +200,24 @@ class S3Request
 	public function setHeaders($custom_headers)
 	{
 		$this->headers = array_merge($this->headers, $custom_headers);
+		return $this;
+	}
+
+	public function setURLParamters($params){
+		// filter out invalid 
+		$valid_params = array('delimiter', 'encoding-type', 'marker', 'max-keys', 'prefix');
+		$transformed = array();
+		foreach($params as $param => $value)
+		{
+			if (in_array($param, $valid_params))
+			{
+				$transformed[] = $param . '=' . $value; 
+			}
+		}
+		if (isset($transformed))
+		{
+			$this->params = '?' . urlencode(implode('&', $transformed));
+		}
 		return $this;
 	}
 
@@ -263,6 +286,13 @@ class S3Request
 		));
 
 		switch ($this->action) {
+			case 'GET':
+				if (isset($this->params))
+				{
+					//append get params to current url
+					curl_setopt($this->curl, CURLOPT_URL, curl_getinfo($this->curl, CURLINFO_EFFECTIVE_URL) . $this->params);
+				}
+				break;
 			case 'DELETE':
 				curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
 				break;
