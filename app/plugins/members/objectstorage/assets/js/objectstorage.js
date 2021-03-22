@@ -65,9 +65,7 @@ HUB.Plugins.ObjectStorage = {
             type: "POST",
             url: "objectstorage",
             data: { "file" : $(this).html()},
-            success: function() {
-                location.reload();
-            }
+            success: function() {}
         });
     }
 

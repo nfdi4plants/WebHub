@@ -99,17 +99,10 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 			// convert to array
 			$parts = explode('/', $path);
 			
-			//check if expected task parts are present (0 is component name, 1 user id, 2 plugin name)
+			//check if expected task parts are present (0 is component name, 1 user id, 2 plugin name, 3 task)
 			if (isset($parts[3]) && $parts[3] === 'settings') 
 			{
-				if (isset($parts[4]) && $parts[4] === 'api') 
-				{
-					return $this->getSettingsAPI();
-				} 
-				else if (isset($parts[4]) && $parts[4]  === 'elixir') 
-				{
-					return $this->view('elixir', 'settings');
-				}
+				return $this->getSettingsAPI(); 
 			}
 		}
 		return $this->getS3View();
@@ -117,7 +110,6 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 
 	private function getSettingsAPI(){
 		// get key from POST Request triggered by form, set to empty string if no Var set
-		
 		$keys['access_key'] = Request::getVar('access-key', '', 'POST'); 
 		$keys['secret_key'] = Request::getVar('secret-key', '', 'POST');
 		
@@ -132,7 +124,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 			}
 		}
 		// Load correct view and make api key available
-		return $this->view('api', 'settings')
+		return $this->view('default', 'settings')
 			->set('access_key', $keys['access_key'])
 			->set('secret_key', $keys['secret_key']);
 	}
@@ -186,9 +178,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 			return $view->set('missing_keys', true);
 		}
 
-		$connector = new S3($access_key, $secret_key);
-		// Top level, buckets are stored under root
-
+		// retrieve results from ajax posts in objectstorage.js
 		if(Request::method() === 'POST')
 		{
 			$bucket = urldecode(Request::getVar('bucket', '', 'POST'));
@@ -198,51 +188,69 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 
 		$session = App::get('session');
 
-		$bucket = isset($bucket) && !empty($bucket) ? $bucket : $session->get('S3Bucket');
-		
+		// fetch bucket name from POST or session
+		$bucket = empty($bucket) ? $session->get('S3Bucket') : $bucket;
+		// not empty, write current bucket to session
 		if (isset($bucket))
 		{
 			$session->set('S3Bucket', $bucket);
 		}
 	
-		$prefix = isset($folder) && !empty($folder) ? $folder : $session->get('S3Prefix');
+		// same as with bucket, fetch from POST oder from session
+		$prefix = empty($folder) ? $session->get('S3Prefix') : $folder;
 
+		// traverse upwards through prefixes
 		if (isset($folder) && $folder === '..'){
+			// get current common prefix without trailing /
 			$last = substr($session->get('S3Prefix'), 0, -1);
-			if (!isset($last))
+			// folder is already empty, return to bucket overview
+			if (empty($last))
 			{
 				$folder = '';
+				$bucket = '';
+				$session->set('S3Bucket', $bucket);
 			}
 			else
 			{
+				// get all prefix parts
 				$parts = explode('/', $last);
 				$tail = array_pop($parts);
-				if (is_null($tail))
+				// empty after removal, i.e. we are at the top level of the bucket
+				if (empty($parts))
 				{
 					$folder = '';
 				}
 				else
 				{
+					// set path without the last part
 					$folder = implode('/', $parts) . '/';
 				}
 			}
 			$prefix = $folder;
 		}
 
+		// apparently this needs to be set before the prefix, else traversal is not working
 		$url_params = array('delimiter' => '/');
+		// persist prefix in User session for next call and add to params for S3 call 
 		if(isset($prefix))
 		{
 			$url_params['prefix'] = $prefix;
 			$session->set('S3Prefix', $prefix);
 		}
+		else
+		{
+			$session->clear('S3Prefix');
+		}
 
+		// fetch actual response
+		$connector = new S3($access_key, $secret_key);
 		$response = $connector->getBucket($bucket, $url_params);
 		$body = $response->body;
 
 		// Handle error and display a message accordingly
 		if(isset($response->error) || isset($response->code) && $response->code != 200)
 		{
-			//TODO: check if anything of this actually exists in all cases
+			//TODO: check if all of this actually exists in all cases
 			$error_code = $response->code . ' - ' . $body->Code;
 			$error = array($error_code, $body->Message, $body->Resource);
 			return $view->set('error', $error);
@@ -265,6 +273,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 		// process objects on the specified level
 		$contents = $body->Contents;
 		// only single object present -> pack into array
+		// -> the returned content for multiple items is not actually an array, but an iterable object
 		if (!isset($contents[1]))
 		{
 			$contents = array($contents);
@@ -283,6 +292,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 		$common_prefixes = $body->CommonPrefixes;
 		if (isset($common_prefixes))
 		{
+			// TODO: check if a similar thing is necessary as with the files, when only one 
 			$folders = array();
 			foreach($common_prefixes as $prefix)
 			{
@@ -291,6 +301,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 
 		}
 
+		// pass necessary data to view
 		return $view->set('current', $current)->set('files', $files)->set('folders', $folders);
 	}
 }
