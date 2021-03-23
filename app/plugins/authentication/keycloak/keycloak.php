@@ -40,20 +40,13 @@ class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 				'Your Keycloak account does not have an Elixir ID associated with it. Please link an Elixir ID to your Keycloak account first.',
 				'error');
 		}
-		// We need the eppn to derive the username (preferred_username from Elixir)
-		if(!isset($_SERVER['REDIRECT_eppn']))
-		{
-			App::redirect('index.php',
-				'Could not retrieve eppn from Keycloak. Contact the administrator.',
-				'error');
-		}
 
-		// derive username from eppn for now (elixir id is to long)
-		$username = $_SERVER['REDIRECT_eppn'];
+		// derive username from Elixir ID
+		$username = $_SERVER['REDIRECT_eduPersonUniqueID'];
 		// strip @elixir-europe.com namespace
 		$username = preg_replace('/@.*$/', '', $username);
-		// replace invalid characters - might cause duplicates
-		$username = preg_replace('/\.|-/', '_', $username);
+		// truncate Elixir ID to fit requirements
+		$username = substr($username, 0, 32);
 
 		// Get session id, default to null
 		$sid = null;
@@ -77,7 +70,7 @@ class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 	
 			// see /etc/shibboleth/attribute-map.xml and /etc/shibboleth/shibboleth2.xml
 			// sn = surname, eduPersonUniqueID = elixir id
-			$shibbolethAttributes = array('email', 'givenName', 'sn', 'eppn', 'eduPersonUniqueID');
+			$shibbolethAttributes = array('email', 'givenName', 'sn', 'eduPersonUniqueID');
 
 			// fetch selected attributes from mod_shib
 			foreach ( $shibbolethAttributes as $key)
