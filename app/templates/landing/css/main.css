@@ -108,11 +108,28 @@ body {
 
 /*Card container*/
 .container-md {
-    width:85%;
     padding-right:15px;
     padding-left:15px;
     margin-right:auto;
     margin-left:auto;
+}
+
+@media (max-width: 500px) {
+    .container-md, .news-container {
+        width: 95%;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 1000px) {
+    .container-md, .news-container {
+        width: calc(95% - 0.6 * (100vw - 500px));
+    }
+}
+
+@media (min-width: 1001px) {
+    .container-md, .news-container {
+        width: 66%;
+    }
 }
 
 /*Outer container content*/
@@ -126,7 +143,7 @@ body {
     border-radius:.3rem;
 }
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 1000px){
     a.learn-more {
         display: block;
         margin-left: auto;
@@ -180,7 +197,7 @@ body {
     
 }
 
-@media screen and (min-width: 801px){
+@media screen and (min-width: 1001px){
     .hero{
         flex-direction: row;
     }
@@ -239,7 +256,6 @@ body {
 }
 
 .news-container {
-	width: 85%;
 	padding-top: 15px;
 	padding-right: 15px;
 	padding-left: 15px;
