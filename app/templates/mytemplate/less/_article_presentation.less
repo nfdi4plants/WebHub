@@ -15,7 +15,9 @@
 }
 
 @media (max-width: 500px) {
-    .blog>.pagination, .inner .contentpaneopen>* {
+
+    .blog>.pagination,
+    .inner .contentpaneopen>* {
         width: 100%;
     }
 
@@ -25,35 +27,57 @@
 }
 
 @media (min-width: 501px) and (max-width: 1000px) {
-    .blog>.pagination, .inner:not(.withmenu) .contentpaneopen>* {
-        width: ~"calc(100% - 0.6 * (100vw - 500px))";
-        margin-left: auto;
+
+    .blog>.pagination,
+    .inner:not(.withmenu) .contentpaneopen>* {
+        width       : ~"calc(100% - 0.6 * (100vw - 500px))";
+        margin-left : auto;
         margin-right: auto;
     }
 
-    .inner.withmenu .contentpaneopen>*:not(img) {
-        width: ~"calc(100% - 0.6 * (100vw - 500px))";
+    .inner.withmenu .contentpaneopen>* {
+        width       : ~"calc(100% - 0.6 * (100vw - 500px))";
         margin-right: auto;
     }
-    
+
     .items-leading>[class^="leading-"] {
         width: ~"calc(100% - 0.6 * (100vw - 500px))";
     }
 }
 
 @media (min-width: 1001px) {
-    .blog>.pagination, .inner:not(.withmenu) .contentpaneopen>* {
-        width: 66%;
-        margin-left: auto;
+
+    .blog>.pagination,
+    .inner:not(.withmenu) .contentpaneopen>* {
+        width       : 66%;
+        margin-left : auto;
         margin-right: auto;
     }
 
-    .inner.withmenu .contentpaneopen>*:not(img) {
-        width: 66%;
+    .inner.withmenu .contentpaneopen>* {
+        width       : 66%;
         margin-right: auto;
     }
 
     .items-leading>[class^="leading-"] {
         width: 66%;
     }
+}
+
+
+.inner.withmenu {
+
+    .logo-list,
+    table {
+        width: 100% !important;
+    }
+}
+
+#content-header,
+.content-header {
+    display: none;
+}
+
+#content.com_content .withmenu {
+    padding-top: 0;
 }
