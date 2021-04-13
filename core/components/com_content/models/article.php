@@ -1312,6 +1312,10 @@ class Article extends Relational implements \Hubzero\Search\Searchable
 		{
 			$query->whereEquals('a.id', (int) $filters['id']);
 		}
+		if (isset($filters['category_id']))
+		{
+			$query->whereEquals('c.id', (int) $filters['category_id']);
+		}
 
 		if (!User::authorise('core.edit.state', 'com_content')
 		 && !User::authorise('core.edit', 'com_content'))
