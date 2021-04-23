@@ -121,7 +121,7 @@ class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 		{
 			App::redirect(
 				'index.php?option=com_members&id=' . User::get('id') . '&active=account',
-				'This keycloak account is already linked to a hub account',
+				'This ELIXIR account is already linked to a hub account',
 				'error'
 			);
 		}
@@ -170,15 +170,21 @@ class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 
 		// fetch necessary data
 		$endpoint = str_replace('"', '&quot;', self::getEndpointURL());
-		$label = 'Keycloak';
 
 		// Create a button for redirection to keycloak
 		$html[] = '<div class="shibboleth account">';
-		$html[] = '<button type="button" onclick=\'window.location.href="' .  Route::url('index.php?option=com_users&view=login&authenticator=keycloak&idp=' . $endpoint) . '"\'>' . $label . '</button>';
+		$html[] = '<button type="button" onclick=\'window.location.href="' .  Route::url('index.php?option=com_users&view=login&authenticator=keycloak&idp=' . $endpoint) . '"\'><img src="' . self::getButton() . '"></button>';
 		$html[] = '</div>';
 		return $html;
 	}
 
+	/**
+	 * Path to button image, as $this->img("elixir_button.png") does not work in a static context
+	 */
+	private static function getButton()
+	{
+		return '/app/plugins/authentication/keycloak/assets/img/elixir_button.png';
+	}
 
 
 	/**

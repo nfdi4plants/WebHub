@@ -3,7 +3,7 @@
 }
 
 .shibboleth.account {
-	background: #007db1;
+	background: inherit;
 	max-height: 20em;
 	height    : auto;
 	overflow  : hidden;
@@ -18,17 +18,28 @@
 }
 
 .shibboleth.account button {
-	width             : 100%;
-	text-align        : center;
-	font-size         : 16px;
-	font-weight       : bold;
-	line-height       : 26px;
-	text-shadow       : none;
-	background        : transparent;
-	background-color  : #007db1;
-	color             : #fff;
+	display           : block;
 	border            : 0;
+	margin-left       : auto;
+	margin-right      : auto;
+	text-shadow       : none;
+	background        : inherit;
 	-webkit-box-shadow: none;
 	-moz-box-shadow   : none;
 	box-shadow        : none;
+}
+
+.shibboleth.account button>img {
+	background: unset;
+}
+
+.sub-section-content.auth .shibboleth.account button {
+	display     : unset;
+	margin-left : unset;
+	margin-right: unset;
+}
+
+.shibboleth.account button:hover {
+	color     : none;
+	background: none;
 }
