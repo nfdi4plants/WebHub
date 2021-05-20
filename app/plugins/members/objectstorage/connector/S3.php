@@ -56,7 +56,7 @@ class S3
 			->setHeaders($headers)
 			->useMultiCurl($this->multi_curl)
 			->useCurlOpts($this->curl_opts)
-			->sign($this->access_key, $this->secret_key);
+			->sign($this->access_key, $this->secret_key, true);
 
 		return $request->getResponse();
 	}
@@ -73,6 +73,24 @@ class S3
 			->sign($this->access_key, $this->secret_key);
 
 		return $request->getResponse();
+	}
+
+	public function getPresignedObjectURL(
+		$bucket,
+		$path,
+		$method = 'GET',
+		$headers = array(),
+		$params = array()
+	)
+	{
+		$uri = "$bucket/$path";
+
+		return (new S3Request($method, $this->endpoint, $uri))
+			->setHeaders($headers)
+			->setURLParamters($params)
+			->useMultiCurl($this->multi_curl)
+			->useCurlOpts($this->curl_opts)
+			->presign($this->access_key, $this->secret_key);
 	}
 
 	public function getObject(
@@ -221,6 +239,23 @@ class S3Request
 		return $this;
 	}
 
+	public function presign($access_key, $secret_key)
+	{
+		// see https://docs.aws.amazon.com/general/latest/gr/signature-version-2.html
+		$parts = array();
+		$parts['Action'] = $this->action;
+		$parts['AWSAccessKeyId'] = $access_key;
+		$parts['SignatureMethod'] = 'HmacSHA1';
+		$parts['SignatureVersion'] = '2';
+		$parts['Timestamp'] = urlencode($this->Date);
+
+		// Todo, todo, todo, todo, todo ....
+		$string_to_sign = 'GET\n';
+
+
+		return 'https://' . $this->endpoint . '/' . $this->uri .  '?X-Amz-Credential=' . $access_key . '&X-Amz-Signature=' . $signature;
+	}
+
 	public function sign($access_key, $secret_key)
 	{
 		$canonical_amz_headers = $this->getCanonicalAmzHeaders();
@@ -240,9 +275,7 @@ class S3Request
 		$signature = base64_encode(
 			hash_hmac('sha1', $string_to_sign, $secret_key, true)
 		);
-
 		$this->headers['Authorization'] = "AWS $access_key:$signature";
-
 		return $this;
 	}
 
