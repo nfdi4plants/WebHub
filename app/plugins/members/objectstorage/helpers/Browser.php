@@ -23,10 +23,11 @@ class Browser {
         $prefix = urldecode(Request::getVar('prefix'));
         $object = urldecode(Request::getVar('object'));
 		
-		$action = self::handleAction();
+		// $action = self::handleAction();
 
 		if (isset($action)) {
-			
+			list($func, $args) = $action;
+			call_user_func('self::' . $func, $args);
 		}
 
 		// generate new path 
@@ -72,8 +73,39 @@ class Browser {
 		{
 			return array('deleteFolder', $deleteFolder);	
 		}
+	}
 
+	public static function downloadFolder($path){
+		$connector = self::getConnector();
+		$url_params = array('prefix', urldecode($path->getPrefix()) . '/');
 
+		$response = $connector->getBucket(urldecode($path->getBucket()), $url_params);
+		$error = self::handleError($response);
+		if (isset($error)){
+			return $error;
+		}
+		$body = $response->body;
+		// get bucket name
+		$bucket = $body->Name;
+		// process objects on the specified level
+		$contents = $body->Contents;
+		// only single object present -> pack into array
+		// -> the returned content for multiple items is not actually an array, but an iterable object
+		if (isset($contents[0]) && !isset($contents[1]))
+		{
+			$contents = array($contents);
+		}
+		
+		if (isset($contents))
+		{
+			foreach($contents as $content)
+			{
+				$prefix = explode('/', $content->Key);
+				$object = array_pop($prefix);
+				$path = new S3Path($bucket, implode('/', $prefix), $object);
+				self::downloadFile($path); 
+			}
+		}
 	}
 
 
@@ -102,9 +134,9 @@ class Browser {
 		$url_params = array('delimiter' => '/');
 		if (!empty($path->getPrefix()))
 		{
-		 	$url_params['prefix'] = $path->getPrefix() . '/';
+		 	$url_params['prefix'] = urldecode($path->getPrefix()) . '/';
 		}
-		$response = $connector->getBucket($path->getBucket(), $url_params);
+		$response = $connector->getBucket(urldecode($path->getBucket()), $url_params);
 		$error = self::handleError($response);
 		if (isset($error)){
 			return $error;
@@ -158,7 +190,7 @@ class Browser {
 		$url = $connector->getPresignedObjectURL($path->getBucket(), $path->getPrefix() . '/' . $path->getObject());
 		App::redirect($url);
 
-		$path->resetObject();
+		//$path->resetObject();
         //return self::getFileSelection($path);
     }
 

@@ -37,12 +37,18 @@ $this->css()
     }
     else if(isset($this->folders) && isset($this->files))
     {
-        echo '<h4>Folders:</h4>';
-        echo '<ul>';
-        echo '<li><a href="' . $base . '&bucket=' . urlencode($this->bucket) . '&prefix=' . urlencode($this->prefix) . '&object=..">..</p>';
+        echo '<div class="actions">
+        <ul>
+        <li class="uploadFile">Download folder</li>
+        <li class="uploadFile">Upload a file</li>
+        <li class="uploadFolder">Upload a folder</li>
+        </ul>';
+        echo '<h4>Folders:</h4>
+        <ul>';
+        echo '<li><a href="' . $base . '&bucket=' .$this->bucket . '&prefix=' . $this->prefix . '&object=..">..</p>';
         foreach($this->folders as $folder)
         {
-            echo '<li><a href="' . $base . '&bucket=' . urlencode($this->bucket) . '&prefix=' . urlencode($folder->getPrefix()) . '">' . $folder->getPrefix() .  '</li></a>';
+            echo '<li><a href="' . $base . '&bucket=' . $folder->getBucket() . '&prefix=' . $folder->getPrefix() . '">' . urldecode($folder->getPrefix()) .  '</li></a>';
         }
         if(!empty($this->files))
         {
@@ -51,7 +57,7 @@ $this->css()
             echo '<ul>';
             foreach($this->files as $file)
             {
-                echo '<li><a href="' . $base . '&bucket=' . urlencode($this->bucket) . '&prefix=' . urlencode($file->getPrefix()) . '&object=' . urlencode($file->getObject()) . '">' . $file->getPrefix() . '/' . $file->getObject() .  '</a></li>';
+                echo '<li><a href="' . $base . '&bucket=' . $file->getBucket() . '&prefix=' . $file->getPrefix() . '&object=' . $file->getObject() . '">' . urldecode($file->getPrefix()) . '/' . urldecode($file->getObject()) .  '</a></li>';
             } 
             echo '</ul>';
         }

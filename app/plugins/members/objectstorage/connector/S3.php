@@ -85,12 +85,14 @@ class S3
 	{
 		$uri = "$bucket/$path";
 
-		return (new S3Request($method, $this->endpoint, $uri))
+		$request =  (new S3Request($method, $this->endpoint, $uri))
 			->setHeaders($headers)
 			->setURLParamters($params)
 			->useMultiCurl($this->multi_curl)
 			->useCurlOpts($this->curl_opts)
-			->presign($this->access_key, $this->secret_key);
+			->sign($this->access_key, $this->secret_key, true);
+
+		return $request->getUri($this->access_key);
 	}
 
 	public function getObject(
@@ -239,24 +241,7 @@ class S3Request
 		return $this;
 	}
 
-	public function presign($access_key, $secret_key)
-	{
-		// see https://docs.aws.amazon.com/general/latest/gr/signature-version-2.html
-		$parts = array();
-		$parts['Action'] = $this->action;
-		$parts['AWSAccessKeyId'] = $access_key;
-		$parts['SignatureMethod'] = 'HmacSHA1';
-		$parts['SignatureVersion'] = '2';
-		$parts['Timestamp'] = urlencode($this->Date);
-
-		// Todo, todo, todo, todo, todo ....
-		$string_to_sign = 'GET\n';
-
-
-		return 'https://' . $this->endpoint . '/' . $this->uri .  '?X-Amz-Credential=' . $access_key . '&X-Amz-Signature=' . $signature;
-	}
-
-	public function sign($access_key, $secret_key)
+	public function sign($access_key, $secret_key, $tourl = false)
 	{
 		$canonical_amz_headers = $this->getCanonicalAmzHeaders();
 
@@ -264,6 +249,10 @@ class S3Request
 		$string_to_sign .= "{$this->action}\n";
 		$string_to_sign .= "{$this->headers['Content-MD5']}\n";
 		$string_to_sign .= "{$this->headers['Content-Type']}\n";
+		if($tourl)
+		{
+			$this->headers['Date'] = time() + 60;
+		}
 		$string_to_sign .= "{$this->headers['Date']}\n";
 
 		if (!empty($canonical_amz_headers)) {
@@ -291,6 +280,22 @@ class S3Request
 
 		return $this;
 	}
+
+	public function getUri($access_key)
+	{
+		$url = "https://{$this->endpoint}/{$this->uri}?";
+		foreach ($this->headers as $header => $value)
+		if (strpos($header, 'x-amz-') === 0)
+		{
+			$url = $url . $header . "=" . $value . "&";
+		}
+		$signature = $this->headers["Authorization"];
+		$signature = explode(":",$signature)[1];
+		$expire =  $this->headers["Date"];
+		return $url . "AWSAccessKeyId=" . $access_key . "&Signature=" . urlencode($signature) . "&Expires=" . $expire;
+
+	}
+
 
 	public function getResponse()
 	{

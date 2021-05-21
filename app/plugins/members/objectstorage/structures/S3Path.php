@@ -37,11 +37,31 @@ class S3Path {
             $this->prefix = $prefix;
             $this->object = $object;
         }
+
+        $this->encode();
     }
 
     public function asPath()
     {
         return implode('/', array_filter($this->getParts()));
+    }
+
+
+    private function encode()
+    {
+        $this->bucket = urlencode($this->bucket);
+        if (strpos($this->prefix, '/'))
+        {
+            $parts = explode('/', $this->prefix);
+            $parts = array_map('urlencode', $parts);
+            $this->prefix = implode('/', $parts);
+        }
+        else
+        {
+            $this->prefix = urlencode($this->prefix);
+        }
+
+        $this->object = urlencode($this->object);
     }
 
     public function getBucket()
