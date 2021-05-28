@@ -11,6 +11,7 @@ defined('_HZEXEC_') or die();
 
 include_once __DIR__ . DS . 'connector' . DS . 'S3.php';
 include_once __DIR__ . DS . 'helpers' . DS . 'Browser.php';
+include_once __DIR__ . DS . 'helpers' . DS . 'Presigning.php';
 include_once __DIR__ . DS . 'helpers' . DS . 'Settings.php';
 
 /**
@@ -71,7 +72,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 		if ($returnhtml) {
 			$params = $this->params;
 
-			// get html by task (none, elixir-settings, api-settings)
+			// get html by task (none, settings, sign)
 			$view = $this->processRoute()
 				->set('option', 'com_members')
 				->set('params', $params)
@@ -104,12 +105,17 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 			{
 
 				$params = Settings::getSettingsAPI(); 
-				$view = $this->view('default', 'settings');
+				$view = $this->view('settings', 'endpoint');
+			}
+			else if (isset($parts[3]) && $parts[3] === 'sign') 
+			{
+				Presigning::sign();
+				exit();
 			}
 			else
 			{
 				$params = Browser::getS3View();
-				$view = $this->view('default', 'index');
+				$view = $this->view('default', 'endpoint');
 			}
 
 			foreach ($params as $key => $value)

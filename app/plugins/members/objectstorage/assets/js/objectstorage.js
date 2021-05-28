@@ -17,58 +17,84 @@ if (!jq) {
     var jq = $;
 }
 
+
+// aliases for later use
+const chunk_size = 500*1024*1024*1024;
+
+handleFiles = function(files){
+    for (var i = 0; i < files.length; i++){
+        var file = files.item(i);
+        if(file.size > 0)
+        {
+            presign(file);
+        }
+    }
+}
+
+presign = function(file) {
+    var name = file.name;
+    var data = {};
+    var path = $("#up").attr("href").split('?')[1];
+    path.split("&").forEach(function(arg){
+        if (arg.includes("=")){
+            var parts = arg.split("=");
+            if (parts.length == 2){
+                data[parts[0]] = parts[1];
+            }
+        }
+    })
+    data["name"] = name;
+    var url = window.location.href;
+    if (url.includes("?")){
+        url = url.split("?")[0];
+    }
+
+    const endpoint = url + "/sign";
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: endpoint,
+        data: data,
+        success: function(url){
+            upload(url, file);
+        },
+        error: function(jqxhr, exception){
+            console.log(exception);
+        }
+        
+    })
+}
+
+upload = function(url, file){
+    var formdata = new FormData();
+    formdata.set('file', file);
+
+    var request = new XMLHttpRequest();
+    request.open("PUT", url);
+    request.send(formdata);
+}
+
 HUB.Plugins.ObjectStorage = {
     jQuery: jq,
 
-    initialize: function () {
-        // add click listeners to buckets
-        var buckets = $(".bucket");
-        for (var i = 0; i < buckets.length; i++) {
-            buckets[i].addEventListener('click', this.chooseBucket, false);
-        }
-        // add click listeners to folders
-        var buckets = $(".folder");
-        for (var i = 0; i < buckets.length; i++) {
-            buckets[i].addEventListener('click', this.chooseFolder, false);
-        }
-        // add click listeners to files
-        var buckets = $(".file");
-        for (var i = 0; i < buckets.length; i++) {
-            buckets[i].addEventListener('click', this.chooseFile, false);
-        }
+    initialize: function(e){
+        // attach upload functionality to button
+        $("#upload").click(this.prepareFileUpload);
     },
 
-    chooseBucket: function(e) {
-        $.ajax({
-            type: "POST",
-            url: "objectstorage",
-            data: { "bucket" : $(this).html()},
-            success: function() {
-                location.reload();
-            }
-        });
+    prepareFileUpload: function(e) {
+        // collect input for files and folder upload, both a FileList
+        var files = $("input[name=uploadFiles]").prop('files');
+        var folder = $("input[name=uploadFolder]").prop('files');
+
+		if (typeof files !== 'undefined'){
+            handleFiles(files);
+        }
+        if (typeof folder !== 'undefined'){
+            handleFiles(folder);
+        }
+        e.preventDefault();
     },
-
-    chooseFolder: function(e) {
-        $.ajax({
-            type: "POST",
-            url: "objectstorage",
-            data: { "folder" : $(this).html()},
-            success: function() {
-                location.reload();
-            }
-        });
-    },
-
-    chooseFile: function(e) {
-        $.ajax({
-            type: "POST",
-            url: "objectstorage",
-            data: { "file" : $(this).html()},
-            success: function() {}
-        });
-    }
-
 }
 
 jQuery(document).ready(function ($) {

@@ -92,7 +92,9 @@ class S3
 			->useCurlOpts($this->curl_opts)
 			->sign($this->access_key, $this->secret_key, true);
 
-		return $request->getUri($this->access_key);
+		$url = $request->getUri($this->access_key);
+		file_put_contents('/var/www/biodatenhub4/curl.log', print_r($url, true));
+		return $url;
 	}
 
 	public function getObject(
@@ -284,13 +286,13 @@ class S3Request
 	public function getUri($access_key)
 	{
 		$url = "https://{$this->endpoint}/{$this->uri}?";
-		foreach ($this->headers as $header => $value)
-		if (strpos($header, 'x-amz-') === 0)
-		{
-			$url = $url . $header . "=" . $value . "&";
+		foreach ($this->headers as $header => $value){
+			if (strpos($header, 'x-amz-') === 0)
+			{
+				$url = $url . $header . "=" . $value . "&";
+			}
 		}
-		$signature = $this->headers["Authorization"];
-		$signature = explode(":",$signature)[1];
+		$signature = explode(":", $this->headers["Authorization"])[1];
 		$expire =  $this->headers["Date"];
 		return $url . "AWSAccessKeyId=" . $access_key . "&Signature=" . urlencode($signature) . "&Expires=" . $expire;
 
@@ -323,13 +325,13 @@ class S3Request
 			)
 		));
 
+		if (isset($this->params))
+		{
+			//append get params to current url
+			curl_setopt($this->curl, CURLOPT_URL, curl_getinfo($this->curl, CURLINFO_EFFECTIVE_URL) . $this->params);
+		}
 		switch ($this->action) {
 			case 'GET':
-				if (isset($this->params))
-				{
-					//append get params to current url
-					curl_setopt($this->curl, CURLOPT_URL, curl_getinfo($this->curl, CURLINFO_EFFECTIVE_URL) . $this->params);
-				}
 				break;
 			case 'DELETE':
 				curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, 'DELETE');

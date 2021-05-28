@@ -3,8 +3,8 @@
 // No direct access
 defined('_HZEXEC_') or die();
 
-include dirname(__DIR__) . DS . 'structures' . DS . 'S3Path.php'; 
-include __DIR__ . DS . 'Settings.php';
+include_once dirname(__DIR__) . DS . 'structures' . DS . 'S3Path.php'; 
+include_once __DIR__ . DS . 'Settings.php';
 
 class Browser {
     public static function getS3View()
@@ -23,13 +23,6 @@ class Browser {
         $prefix = urldecode(Request::getVar('prefix'));
         $object = urldecode(Request::getVar('object'));
 		
-		// $action = self::handleAction();
-
-		if (isset($action)) {
-			list($func, $args) = $action;
-			call_user_func('self::' . $func, $args);
-		}
-
 		// generate new path 
         $path = new S3Path($bucket, $prefix, $object);
 
@@ -49,31 +42,6 @@ class Browser {
             return self::downloadFile($path);
         }
     }
-
-	private static function handleAction(){
-
-		$uploadFile = urldecode(Request::getVar('upload_file'));
-		$deleteFile = urldecode(Request::getVar('delete_file'));
-		$uploadFolder = urldecode(Request::getVar('upload_folder'));
-		$deleteFolder = urldecode(Request::getVar('upload_file'));
-
-		if (isset($uploadFile))
-		{
-			return array('uploadFile', $uploadFile);
-		}
-		else if (isset($deleteFile))
-		{
-			return array('deleteFile', $deleteFile);
-		}
-		else if (isset($uploadFolder))
-		{
-			return array('uploadFolder', $uploadFolder);
-		}
-		else if (isset($deleteFolder))
-		{
-			return array('deleteFolder', $deleteFolder);	
-		}
-	}
 
 	public static function downloadFolder($path){
 		$connector = self::getConnector();
@@ -209,10 +177,16 @@ class Browser {
 	{
 		// Handle error and display a message accordingly
 		if(isset($response->error) || isset($response->code) && $response->code != 200)
-		{
+		{	
 			$body = $response->body;
-			$error_code = $response->code . ' - ' . $body->Code;
-			$error = array($error_code, $body->Message, $body->Resource);
+			if (isset($response->body))
+			{
+				$error_code = $response->code . ' - ' . $body->Code;
+				$error = array($error_code, $body->Message, $body->Resource);
+			}
+			else {
+				$error = array($response->error['code'], $response->error['message'], '');
+			}
 			return array('error' => $error);
 		}
 	}

@@ -38,17 +38,20 @@ $this->css()
     else if(isset($this->folders) && isset($this->files))
     {
         echo '<div class="actions">
-        <ul>
-        <li class="uploadFile">Download folder</li>
-        <li class="uploadFile">Upload a file</li>
-        <li class="uploadFolder">Upload a folder</li>
-        </ul>';
+        <form enctype="multipart/form-data" method="POST">
+        <label for="uploadFiles">Choose files: </label>
+        <input type="file" name="uploadFiles" multiple>
+        <label for="uploadFolder">Choose folder: </label>
+        <input type="file" name="uploadFolder" webkitdirectory directory>
+        <button id="upload"/>Upload Files</li>
+        </form>
+        </div>';
         echo '<h4>Folders:</h4>
         <ul>';
-        echo '<li><a href="' . $base . '&bucket=' .$this->bucket . '&prefix=' . $this->prefix . '&object=..">..</p>';
+        echo '<li><a id="up" href="' . $base . '&bucket=' .$this->bucket . '&prefix=' . $this->prefix . '&object=..">..</a></li>';
         foreach($this->folders as $folder)
         {
-            echo '<li><a href="' . $base . '&bucket=' . $folder->getBucket() . '&prefix=' . $folder->getPrefix() . '">' . urldecode($folder->getPrefix()) .  '</li></a>';
+            echo '<li><a href="' . $base . '&bucket=' . $folder->getBucket() . '&prefix=' . $folder->getPrefix() . '">' . urldecode($folder->getPrefix()) .  '</a></li>';
         }
         if(!empty($this->files))
         {
