@@ -93,7 +93,6 @@ handleFiles = function(files){
 
 upload = function(file){
     var formdata = new FormData();
-    console.log(file);
     formdata.set("file", file);
     if (file.webkitRelativePath !== "undefined"){
         formdata.set("path", file.webkitRelativePath);
@@ -115,7 +114,10 @@ upload = function(file){
         data: formdata,
         cache: false,
         contentType: false,
-        processData: false
+        processData: false,
+        success: function(){
+            $("progress").trigger("change");
+        }
     });
 }
 
@@ -133,6 +135,26 @@ HUB.Plugins.ObjectStorage = {
         var files = $("input[name=uploadFiles]").prop('files');
         var folder = $("input[name=uploadFolder]").prop('files');
 
+        $(".actions").append('<label for="file">Upload progress:</label><progress max="100" value="0">0</progress>');
+        $("progress").on("change", function(){
+            var progress = 1/total*100 + parseInt($("progress").attr("value"));
+            $("progress").attr("value", progress);
+            $("progress").text(progress + " %");
+        });
+        $("progress").on("click", function(){
+            if ( 99.5 <= parseFloat($("progress").attr("value")) <= 100){
+                window.location.reload(), 3000;
+            }
+        })
+
+        var total = 0;
+        if (typeof files !== 'undefined'){
+            total += files.length;
+        }
+        if (typeof folder !== 'undefined'){
+            total += folder.length;
+        }
+        
 		if (typeof files !== 'undefined'){
             handleFiles(files);
         }
