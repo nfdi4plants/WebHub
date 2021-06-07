@@ -43,7 +43,7 @@ $this->css()
         <input type="file" name="uploadFiles" multiple>
         <label for="uploadFolder">Choose folder: </label>
         <input type="file" name="uploadFolder" webkitdirectory directory>
-        <button id="upload"/>Upload Files</li>
+        <button id="upload">Upload Files</button>
         </form>
         </div>';
         echo '<h4>Folders:</h4>
@@ -55,12 +55,12 @@ $this->css()
         }
         if(!empty($this->files))
         {
-            echo '</ul>';
-            echo '<h4>Files:</h4>';
-            echo '<ul>';
+            echo '</ul>
+            <h4>Files:</h4>
+            <ul>';
             foreach($this->files as $file)
             {
-                echo '<li><a href="' . $base . '&bucket=' . $file->getBucket() . '&prefix=' . $file->getPrefix() . '&object=' . $file->getObject() . '">' . urldecode($file->getPrefix()) . '/' . urldecode($file->getObject()) .  '</a></li>';
+                echo '<li><div><a href="' . $base . '&bucket=' . $file->getBucket() . '&prefix=' . $file->getPrefix() . '&object=' . $file->getObject() . '">' . urldecode($file->getObject()) .  '</a><button onclick="deleteItem(this)">Delete</button></div></li>';
             } 
             echo '</ul>';
         }

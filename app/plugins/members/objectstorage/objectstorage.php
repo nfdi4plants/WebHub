@@ -11,7 +11,7 @@ defined('_HZEXEC_') or die();
 
 include_once __DIR__ . DS . 'connector' . DS . 'S3.php';
 include_once __DIR__ . DS . 'helpers' . DS . 'Browser.php';
-include_once __DIR__ . DS . 'helpers' . DS . 'Presigning.php';
+include_once __DIR__ . DS . 'helpers' . DS . 'Endpoints.php';
 include_once __DIR__ . DS . 'helpers' . DS . 'Settings.php';
 
 /**
@@ -107,9 +107,19 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 				$params = Settings::getSettingsAPI(); 
 				$view = $this->view('settings', 'endpoint');
 			}
-			else if (isset($parts[3]) && $parts[3] === 'sign') 
+			// else if (isset($parts[3]) && $parts[3] === 'sign') 
+			// {
+			// 	Endpoints::sign();
+			// 	exit();
+			// }
+			else if (isset($parts[3]) && $parts[3] === 'delete') 
 			{
-				Presigning::sign();
+				Endpoints::delete();
+				exit();
+			}
+			else if (isset($parts[3]) && $parts[3] === 'upload') 
+			{
+				Endpoints::upload();
 				exit();
 			}
 			else

@@ -3,8 +3,8 @@
 // No direct access
 defined('_HZEXEC_') or die();
 
-include_once dirname(__DIR__) . DS . 'structures' . DS . 'S3Path.php'; 
 include_once __DIR__ . DS . 'Settings.php';
+include_once dirname(__DIR__) . DS . 'structures' . DS . 'S3Path.php'; 
 
 class Browser {
     public static function getS3View()

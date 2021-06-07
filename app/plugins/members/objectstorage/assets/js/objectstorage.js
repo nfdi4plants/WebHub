@@ -19,59 +19,104 @@ if (!jq) {
 
 
 // aliases for later use
-const chunk_size = 500*1024*1024*1024;
+// const chunk_size = 500*1024*1024*1024;
+
+deleteItem = function(item){
+    // extract arguments from item url
+    var args = item.previousSibling.href.split("?")[1];
+    var parts = {};
+    args.split("&").forEach((arg) => {var arg = arg.split("="); parts[arg[0]] = arg[1]});
+    
+    if (typeof parts["bucket"] !== "undefined" && typeof parts["prefix"] !== "undefined"){
+        var url = window.location.href;
+        if (url.includes("?")){
+            url = url.split("?")[0];
+        }
+    
+        const endpoint = url + "/delete";
+        $.ajax({
+            type: 'POST',
+            url: endpoint,
+            data: parts,
+            cache: false,
+            success: function(){
+                window.location.reload();
+            }
+        });
+    }
+
+}
 
 handleFiles = function(files){
     for (var i = 0; i < files.length; i++){
         var file = files.item(i);
         if(file.size > 0)
         {
-            presign(file);
+            upload(file);
         }
     }
 }
 
-presign = function(file) {
-    var name = file.name;
-    var data = {};
-    var path = $("#up").attr("href").split('?')[1];
-    path.split("&").forEach(function(arg){
-        if (arg.includes("=")){
-            var parts = arg.split("=");
-            if (parts.length == 2){
-                data[parts[0]] = parts[1];
-            }
-        }
-    })
-    data["name"] = name;
-    var url = window.location.href;
-    if (url.includes("?")){
-        url = url.split("?")[0];
-    }
+// presign = function(file) {
+//     var name = file.name;
+//     var data = {};
+//     var path = window.location.href.split('?')[1];
+//     path.split("&").forEach(function(arg){
+//         if (arg.includes("=")){
+//             var parts = arg.split("=");
+//             if (parts.length == 2){
+//                 data[parts[0]] = parts[1];
+//             }
+//         }
+//     })
+//     data["name"] = name;
+//     var url = window.location.href;
+//     if (url.includes("?")){
+//         url = url.split("?")[0];
+//     }
 
-    const endpoint = url + "/sign";
-    $.ajax({
-        type: 'GET',
-        dataType: 'json',
-        url: endpoint,
-        data: data,
-        success: function(url){
-            upload(url, file);
-        },
-        error: function(jqxhr, exception){
-            console.log(exception);
-        }
+//     const endpoint = url + "/sign";
+//     $.ajax({
+//         type: 'GET',
+//         dataType: 'json',
+//         url: endpoint,
+//         data: data,
+//         success: function(url){
+//             upload(url, file);
+//         },
+//         error: function(jqxhr, exception){
+//             console.log(exception);
+//         }
         
-    })
-}
+//     })
+// }
 
-upload = function(url, file){
+upload = function(file){
     var formdata = new FormData();
-    formdata.set('file', file);
+    console.log(file);
+    formdata.set("file", file);
+    if (file.webkitRelativePath !== "undefined"){
+        formdata.set("path", file.webkitRelativePath);
+    }
 
-    var request = new XMLHttpRequest();
-    request.open("PUT", url);
-    request.send(formdata);
+    var url = window.location.href;
+    parts = url.split("?");
+    url = parts[0];
+    const endpoint = url + "/upload";
+
+    // get current bucket and path
+    parts = parts[1].split("&");
+    formdata.set("bucket", parts[0].split("=")[1]);
+    formdata.set("prefix", parts[1].split("=")[1]);
+
+    $.ajax({
+        type: 'POST',
+        url: endpoint,
+        data: formdata,
+        cache: false,
+        contentType: false,
+        processData: false
+    });
 }
 
 HUB.Plugins.ObjectStorage = {
@@ -80,6 +125,7 @@ HUB.Plugins.ObjectStorage = {
     initialize: function(e){
         // attach upload functionality to button
         $("#upload").click(this.prepareFileUpload);
+        $(".delete").click(this.deleteFiles);
     },
 
     prepareFileUpload: function(e) {
@@ -93,6 +139,7 @@ HUB.Plugins.ObjectStorage = {
         if (typeof folder !== 'undefined'){
             handleFiles(folder);
         }
+        
         e.preventDefault();
     },
 }
