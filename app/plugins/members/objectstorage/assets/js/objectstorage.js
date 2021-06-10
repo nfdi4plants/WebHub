@@ -21,25 +21,25 @@ if (!jq) {
 // aliases for later use
 // const chunk_size = 500*1024*1024*1024;
 
-deleteItem = function(item){
+deleteItem = function (item) {
     // extract arguments from item url
     var args = item.previousSibling.href.split("?")[1];
     var parts = {};
-    args.split("&").forEach((arg) => {var arg = arg.split("="); parts[arg[0]] = arg[1]});
-    
-    if (typeof parts["bucket"] !== "undefined" && typeof parts["prefix"] !== "undefined"){
+    args.split("&").forEach((arg) => { var arg = arg.split("="); parts[arg[0]] = arg[1] });
+
+    if (typeof parts["bucket"] !== "undefined" && typeof parts["prefix"] !== "undefined") {
         var url = window.location.href;
-        if (url.includes("?")){
+        if (url.includes("?")) {
             url = url.split("?")[0];
         }
-    
+
         const endpoint = url + "/delete";
         $.ajax({
             type: 'POST',
             url: endpoint,
             data: parts,
             cache: false,
-            success: function(){
+            success: function () {
                 window.location.reload();
             }
         });
@@ -47,11 +47,10 @@ deleteItem = function(item){
 
 }
 
-handleFiles = function(files){
-    for (var i = 0; i < files.length; i++){
+handleFiles = function (files) {
+    for (var i = 0; i < files.length; i++) {
         var file = files.item(i);
-        if(file.size > 0)
-        {
+        if (file.size > 0) {
             upload(file);
         }
     }
@@ -87,14 +86,14 @@ handleFiles = function(files){
 //         error: function(jqxhr, exception){
 //             console.log(exception);
 //         }
-        
+
 //     })
 // }
 
-upload = function(file){
+upload = function (file) {
     var formdata = new FormData();
     formdata.set("file", file);
-    if (file.webkitRelativePath !== "undefined"){
+    if (file.webkitRelativePath !== "undefined") {
         formdata.set("path", file.webkitRelativePath);
     }
 
@@ -115,7 +114,7 @@ upload = function(file){
         cache: false,
         contentType: false,
         processData: false,
-        success: function(){
+        success: function () {
             $("progress").trigger("change");
         }
     });
@@ -124,44 +123,46 @@ upload = function(file){
 HUB.Plugins.ObjectStorage = {
     jQuery: jq,
 
-    initialize: function(e){
-        // attach upload functionality to button
+    initialize: function (e) {
+        // clear input on page reload
+        
+        // attach functionality to buttons
         $("#upload").click(this.prepareFileUpload);
         $(".delete").click(this.deleteFiles);
     },
 
-    prepareFileUpload: function(e) {
+    prepareFileUpload: function (e) {
         // collect input for files and folder upload, both a FileList
-        var files = $("input[name=uploadFiles]").prop('files');
-        var folder = $("input[name=uploadFolder]").prop('files');
-
-        $(".actions").append('<label for="file">Upload progress:</label><progress max="100" value="0">0</progress>');
-        $("progress").on("change", function(){
-            var progress = 1/total*100 + parseInt($("progress").attr("value"));
-            $("progress").attr("value", progress);
-            $("progress").text(progress + " %");
-        });
-        $("progress").on("click", function(){
-            if ( 99.5 <= parseFloat($("progress").attr("value")) <= 100){
-                window.location.reload(), 3000;
-            }
-        })
+        var files = $("input[name=uploadFiles]").prop("files");
+        var folder = $("input[name=uploadFolder]").prop("files");
 
         var total = 0;
-        if (typeof files !== 'undefined'){
+        if (typeof files !== 'undefined') {
             total += files.length;
         }
-        if (typeof folder !== 'undefined'){
+        if (typeof folder !== 'undefined') {
             total += folder.length;
         }
-        
-		if (typeof files !== 'undefined'){
+
+        if (total > 0) {
+            // add progress bar and change listeners for upload
+            $(".actions").append('<label for="file">Upload progress:</label><progress max="100" value="0">0</progress>');
+            $("progress").on("change", function () {
+                var progress = 1 / total * 100 + parseFloat($("progress").attr("value"));
+                $("progress").attr("value", progress);
+                $("progress").text(progress + " %");
+                if (99.9 <= parseFloat($("progress").attr("value")) <= 100.1) {
+                    setTimeout(function(){window.location.reload()}, 500);
+                }
+            });
+        }
+        if (typeof files !== 'undefined') {
             handleFiles(files);
         }
-        if (typeof folder !== 'undefined'){
+        if (typeof folder !== 'undefined') {
             handleFiles(folder);
         }
-        
+
         e.preventDefault();
     },
 }

@@ -39,10 +39,14 @@ $this->css()
     {
         echo '<div class="actions">
         <form enctype="multipart/form-data" method="POST">
+        <div class="fileUpload">
         <label for="uploadFiles">Choose files: </label>
         <input type="file" name="uploadFiles" multiple>
+        </div>
+        <div class="fileUpload">
         <label for="uploadFolder">Choose folder: </label>
         <input type="file" name="uploadFolder" webkitdirectory directory>
+        </div>
         <button id="upload">Upload Files</button>
         </form>
         </div>';
@@ -51,7 +55,7 @@ $this->css()
         echo '<li><a id="up" href="' . $base . '&bucket=' .$this->bucket . '&prefix=' . $this->prefix . '&object=..">..</a></li>';
         foreach($this->folders as $folder)
         {
-            echo '<li><a href="' . $base . '&bucket=' . $folder->getBucket() . '&prefix=' . $folder->getPrefix() . '">' . urldecode($folder->getPrefix()) .  '</a></li>';
+            echo '<li><div class="item"><a href="' . $base . '&bucket=' . $folder->getBucket() . '&prefix=' . $folder->getPrefix() . '">' . urldecode($folder->getPrefix()) .  '</a><button class="delete" onclick="deleteItem(this)">Delete</button></div></li>';
         }
         if(!empty($this->files))
         {
@@ -60,7 +64,7 @@ $this->css()
             <ul>';
             foreach($this->files as $file)
             {
-                echo '<li><div><a href="' . $base . '&bucket=' . $file->getBucket() . '&prefix=' . $file->getPrefix() . '&object=' . $file->getObject() . '">' . urldecode($file->getObject()) .  '</a><button onclick="deleteItem(this)">Delete</button></div></li>';
+                echo '<li><div class="item"><a href="' . $base . '&bucket=' . $file->getBucket() . '&prefix=' . $file->getPrefix() . '&object=' . $file->getObject() . '">' . urldecode($file->getObject()) .  '</a><button class="delete" onclick="deleteItem(this)">Delete</button></div></li>';
             } 
             echo '</ul>';
         }

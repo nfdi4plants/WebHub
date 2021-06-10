@@ -82,3 +82,57 @@ li::marker {
     color         : #fff;
     border-radius : .5em;
 }
+
+.item {
+    width: 30em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: transparent;
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: rgb(192,192,192);
+}
+
+.item > a { 
+    padding: 1em;
+}
+
+.item > a:hover{
+    border-bottom: none;
+}
+
+.item > button {
+    background-color: #777777;
+}
+
+.item > button:hover {
+    background-color: #ff1d1d;
+}
+
+.fileUpload {
+    display: flex;
+}
+
+.fileUpload > label {
+    width: 8em;
+}
+
+.fileUpload > input {
+    width: 24em;
+}
+	
+progress {
+  /* style rules */
+}
+progress::-webkit-progress-bar {
+  /* style rules */
+}
+progress::-webkit-progress-value {
+  /* style rules */
+}
+progress::-moz-progress-bar {
+  /* style rules */
+}
