@@ -30,8 +30,28 @@ class Endpoints {
             // TODO: handle response
         }
         else
-        {
-            //TODO: implement deletion for all objects under a prefix
+        {   
+            $url_params['prefix'] = $prefix . '/';
+            $response = $connector->getBucket($bucket, $url_params);
+            $body = $response->body;
+            // get bucket name
+            $bucket = $body->Name;
+            // process objects on the specified level
+            $contents = $body->Contents;
+            if (isset($contents[0]) && !isset($contents[1]))
+            {
+                $contents = array($contents);
+            }
+            
+            if (isset($contents))
+            {
+                foreach($contents as $content)
+                {
+                    $prefix = explode('/', $content->Key);
+                    $object = array_pop($prefix);
+                    $response = $connector->deleteObject($bucket, implode('/', $prefix) . '/' . $object);
+                }
+            }
         }
     }
     
