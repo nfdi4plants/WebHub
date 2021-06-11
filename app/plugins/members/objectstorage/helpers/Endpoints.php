@@ -16,15 +16,15 @@ class Endpoints {
     public static function delete(){
         $connector = self::getConnector();
 
-        $bucket = Request::getVar('bucket');
-        $prefix = Request::getVar('prefix');
-        $object = Request::getVar('object');
+        $bucket = Request::getVar('bucket', '', 'POST');
+        $prefix = Request::getVar('prefix', '', 'POST');
+        $object = Request::getVar('object', '', 'POST');
 
-        if (!isset($bucket) || !isset($prefix))
+        if (empty($bucket) || empty($prefix))
         {
             echo "Either bucket name or prefix is missing.";
         }
-        else if (isset($object))
+        else if (!empty($object))
         {
             $response = $connector->deleteObject($bucket, $prefix . '/' . $object);
             // TODO: handle response
@@ -76,9 +76,9 @@ class Endpoints {
     public static function upload (){
         $connector = self::getConnector();
 
-        $bucket = Request::getVar('bucket');
-        $prefix = Request::getVar('prefix');
-        $path = Request::getVar('path');
+        $bucket = Request::getVar('bucket', '', 'POST');
+        $prefix = Request::getVar('prefix', '', 'POST');
+        $path = Request::getVar('path', '', 'POST');
 
         if (!empty($_FILES))
         {
