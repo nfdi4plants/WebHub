@@ -309,6 +309,15 @@ class plgAuthenticationKeycloak extends \Hubzero\Plugin\Plugin
 			}
 
 			$hzal->update();
+
+			if (isset($user) && is_object($user))
+			{
+				// Link from cookie is wrong, unset cookie instead
+				$namespace = 'authenticator';
+				$lifetime  = time() - 24*60*60;
+
+				\Hubzero\Utility\Cookie::bake($namespace, $lifetime);
+			}
 		}
 		else
 		{
