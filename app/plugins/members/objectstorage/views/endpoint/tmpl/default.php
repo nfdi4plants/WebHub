@@ -37,7 +37,12 @@ $this->css()
     }
     else if(isset($this->folders) && isset($this->files))
     {
-        echo '<div class="actions">
+        $prefix = urldecode($this->prefix);
+        $prefix = empty($prefix) ? '/' : $prefix;
+        $upDesc = $prefix == '/' ? 'Back to bucket selection' : 'Back to parent folder';
+        echo 
+        '<div class="s3-content">
+        <div class="actions">
         <form enctype="multipart/form-data" method="POST">
         <div class="fileUpload">
         <label for="uploadFiles">Choose files: </label>
@@ -47,25 +52,36 @@ $this->css()
         <label for="uploadFolder">Choose folder: </label>
         <input type="file" name="uploadFolder" webkitdirectory directory>
         </div>
-        <button id="upload">Upload Files</button>
+        <button id="upload" class="icon-upload" title="Upload files"/>
         </form>
-        </div>';
-        echo '<h4>Folders:</h4>
+        </div>
+        <div class="filebrowser">
+        <div class="current">Your current location: ' . $prefix . '</div>
         <ul>';
-        echo '<li><a id="up" href="' . $base . '&bucket=' .$this->bucket . '&prefix=' . $this->prefix . '&object=..">..</a></li>';
+        echo '<li><a id="up" class="item icon-arrow-up" href="' . $base . '&bucket=' .$this->bucket . '&prefix=' . $this->prefix . '&object=..">' . $upDesc . '</a></li>';
         foreach($this->folders as $folder)
         {
-            echo '<li><div class="item"><a href="' . $base . '&bucket=' . $folder->getBucket() . '&prefix=' . $folder->getPrefix() . '">' . urldecode($folder->getPrefix()) .  '</a><button class="delete" onclick="deleteItem(this)">Delete</button></div></li>';
+            $prefix = urldecode($folder->getPrefix());
+            if (strpos($prefix, '/') !== false)
+            {
+                $parts = explode('/', $prefix);
+                $name = array_pop($parts);
+            }
+            else
+            {
+                $name = $prefix;
+            }
+            echo '<li><div class="item"><a class="icon-folder" href="' . $base . '&bucket=' . $folder->getBucket() . '&prefix=' . $folder->getPrefix() . '">' . $name .  '</a><button class="icon-delete" title="Delete folder" onclick="deleteItem(this)"/></div></li>';
         }
         if(!empty($this->files))
         {
             echo '</ul>
-            <h4>Files:</h4>
             <ul>';
             foreach($this->files as $file)
             {
-                echo '<li><div class="item"><a href="' . $base . '&bucket=' . $file->getBucket() . '&prefix=' . $file->getPrefix() . '&object=' . $file->getObject() . '">' . urldecode($file->getObject()) .  '</a><button class="delete" onclick="deleteItem(this)">Delete</button></div></li>';
+                echo '<li><div class="item"><a class="icon-file" href="' . $base . '&bucket=' . $file->getBucket() . '&prefix=' . $file->getPrefix() . '&object=' . $file->getObject() . '">' . urldecode($file->getObject()) .  '</a><div class="buttons"><button class="icon-download" title="Download file" onclick="downloadItem(this)"/><button class="icon-info" title="File information" onclick="itemInfo(this)"/><button class="icon-delete" title="Delete file" onclick="deleteItem(this)"/></div></div></li>';
             } 
             echo '</ul>';
         }
+        echo '</div></div>';
     }

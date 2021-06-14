@@ -19,9 +19,9 @@ class Browser {
             }    
         }
 
-        $bucket = urldecode(Request::getVar('bucket'));
-        $prefix = urldecode(Request::getVar('prefix'));
-        $object = urldecode(Request::getVar('object'));
+        $bucket = Request::getVar('bucket');
+        $prefix = Request::getVar('prefix');
+        $object = Request::getVar('object');
 		
 		// generate new path 
         $path = new S3Path($bucket, $prefix, $object);
@@ -154,8 +154,8 @@ class Browser {
  
     private static function downloadFile($path){
         $connector = self::getConnector();
-
 		$url = $connector->getPresignedObjectURL($path->getBucket(), $path->getPrefix() . '/' . $path->getObject());
+		
 		App::redirect($url);
 
 		//$path->resetObject();

@@ -117,6 +117,16 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 				Endpoints::delete();
 				exit();
 			}
+			else if (isset($parts[3]) && $parts[3] === 'info') 
+			{
+				Endpoints::info();
+				exit();
+			}
+			else if (isset($parts[3]) && $parts[3] === 'list') 
+			{
+				Endpoints::collectFileNames();
+				exit();
+			}
 			else if (isset($parts[3]) && $parts[3] === 'upload') 
 			{
 				Endpoints::upload();

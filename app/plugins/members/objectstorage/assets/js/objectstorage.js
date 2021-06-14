@@ -23,9 +23,7 @@ if (!jq) {
 
 deleteItem = function (item) {
     // extract arguments from item url
-    var args = item.previousSibling.href.split("?")[1];
-    var parts = {};
-    args.split("&").forEach((arg) => { var arg = arg.split("="); parts[arg[0]] = arg[1] });
+    var parts = extractArgs(item);
 
     if (typeof parts["bucket"] !== "undefined" && typeof parts["prefix"] !== "undefined") {
         var url = window.location.href;
@@ -41,6 +39,42 @@ deleteItem = function (item) {
             cache: false,
             success: function () {
                 window.location.reload();
+            }
+        });
+    }
+
+}
+
+downloadItem = function (item){
+    const url = item.parentNode.previousSibling.href;
+    window.open(url, '_blank');
+}
+
+extractArgs = function(item){
+    var args = item.parentNode.previousSibling.href.split("?")[1];
+    var parts = {};
+    args.split("&").forEach((arg) => { var arg = arg.split("="); parts[arg[0]] = arg[1] });
+    return parts;
+}
+
+itemInfo = function (item) {
+    // extract arguments from item url
+    var parts = extractArgs(item);
+
+    if (typeof parts["bucket"] !== "undefined" && typeof parts["prefix"] !== "undefined") {
+        var url = window.location.href;
+        if (url.includes("?")) {
+            url = url.split("?")[0];
+        }
+
+        const endpoint = url + "/info";
+        $.ajax({
+            type: 'POST',
+            url: endpoint,
+            data: parts,
+            cache: false,
+            success: function (response) {
+                console.log(response);
             }
         });
     }

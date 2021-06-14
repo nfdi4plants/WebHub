@@ -84,7 +84,7 @@ li::marker {
 }
 
 .item {
-    width: 30em;
+    width: 35em;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -92,24 +92,49 @@ li::marker {
     cursor: pointer;
 }
 
-.item:hover {
+.item:hover :not(.buttons, button)  {
+    border-radius: 5px;
     background-color: rgb(192,192,192);
 }
 
-.item > a { 
-    padding: 1em;
+.item > a {
+    flex: 1 1 75%; 
 }
 
-.item > a:hover{
+.item > a, .item button, #up { 
+    padding: 1em;
+    line-height: 2.5em;
+}
+
+.item > a::before, #up::before{
+    margin-right: .7em;
+}
+
+.item > a:hover, #up:hover{
     border-bottom: none;
 }
 
-.item > button {
-    background-color: #777777;
+.item button {
+    border-radius: 5px;
+    background-color: #ddd;
+    margin: 1px;
+    margin-left: .2em;
+    margin-bottom: .2em;
 }
 
-.item > button:hover {
+
+.item button:hover {
     background-color: #ff1d1d;
+}
+
+.item#up {
+    justify-content: flex-start;
+}
+
+.buttons {
+    display: flex;
+    flex: 1 0 20%;
+    flex-wrap: nowrap;
 }
 
 .fileUpload {
@@ -123,7 +148,27 @@ li::marker {
 .fileUpload > input {
     width: 24em;
 }
-	
+
+ul li {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.s3-content {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: left;
+}
+
+.s3-content .actions {
+    margin-left: 2em;
+    padding: 1em;
+}
+
+.s3-content .filebrowser {
+    padding: 1em;
+}
+
 progress {
   /* style rules */
 }
