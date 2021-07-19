@@ -31,7 +31,7 @@ $this->css()
 	}
 	else
 	{
-		echo '<input type="text" id="secret-key" name="secret-key" value="' . $this->secret_key . '" minlength="32" maxlength="32">';
+		echo '<input type="password" id="secret-key" name="secret-key" value="' . $this->secret_key . '" minlength="32" maxlength="32">';
 	}
 	?>
 	<button>Submit</button>

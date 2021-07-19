@@ -31,7 +31,7 @@ $this->css()
         echo '<ul>';
         foreach($this->buckets as $bucket)
         {
-            echo '<li><a href="' . $base . '&bucket='. $bucket->Name . '">' . $bucket->Name . '</a></li>';
+            echo '<li><div class="item"><a class="icon-bucket" href="' . $base . '&bucket='. $bucket->Name . '">' . $bucket->Name . '</a></div></li>';
         }
         echo '</ul>';
     }
