@@ -8,6 +8,7 @@
 // No direct access.
 defined('_HZEXEC_') or die();
 
+
 Pathway::append(
 	Lang::txt('COM_WIKI_SPECIAL_NEW_PAGES'),
 	$this->page->link()
@@ -89,6 +90,11 @@ $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
 			{
 				foreach ($rows as $row)
 				{
+					// Don't show unwanted pages
+					if(!$row->access() && !$row->isAuthor())
+					{
+						continue;
+					}
 					$name = $this->escape(stripslashes($row->creator->get('name', Lang::txt('COM_WIKI_UNKNOWN'))));
 					if (in_array($row->creator->get('access'), User::getAuthorisedViewLevels()))
 					{

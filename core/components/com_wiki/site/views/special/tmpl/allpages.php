@@ -100,6 +100,11 @@ $namespaces = \Components\Wiki\Models\Page::all()
 							$k = 0;
 							foreach ($column as $row)
 							{
+								// Don't show unwanted pages
+								if(!$row->access() && !$row->isAuthor())
+								{
+									continue;
+								}
 								if (strtoupper(substr($row->title, 0, 1)) != $index)
 								{
 									$index = strtoupper(substr($row->title, 0, 1));

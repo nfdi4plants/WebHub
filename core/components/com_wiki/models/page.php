@@ -820,11 +820,6 @@ class Page extends Relational
 			$this->config()->set('access-comment-delete', false);
 			$this->config()->set('access-comment-edit', false);
 
-			if ($this->get('scope') == 'site' && $this->get('access') && !in_array($this->get('access'), User::getAuthorisedViewLevels()))
-			{
-				$this->config()->set('access-page-view', false);
-			}
-
 			// Check if they are logged in
 			if (User::isGuest())
 			{
@@ -871,6 +866,8 @@ class Page extends Relational
 							if ($this->get('created_by') == User::get('id')
 							 || $this->isAuthor(User::get('id')))
 							{
+								$this->config()->set('access-page-admin', true);
+								$this->config()->set('access-page-manage', true);
 								$this->config()->set('access-page-delete', true);
 								$this->config()->set('access-page-edit', true);
 							}
@@ -902,9 +899,14 @@ class Page extends Relational
 						break;
 					}
 				}
-				//print_r($this->config());
 				$this->config()->set('access-check-done', true);
 			}
+		}
+
+		// Check for correct view levels on site wiki
+		if ($this->get('scope') == 'site' && $this->get('access') && !in_array($this->get('access'), User::getAuthorisedViewLevels()))
+		{
+			$this->config()->set('access-page-view', false);
 		}
 
 		return $this->config('access-' . (string) $item . '-' . strtolower($action));

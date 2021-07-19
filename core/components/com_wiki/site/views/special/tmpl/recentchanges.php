@@ -76,6 +76,11 @@ $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
 			{
 				foreach ($rows as $row)
 				{
+					// Don't show unwanted pages
+					if(!$row->access() && !$row->isAuthor())
+					{
+						continue;
+					}
 					$name = $this->escape(stripslashes($row->version->creator->get('name', Lang::txt('COM_WIKI_UNKNOWN'))));
 					if (in_array($row->version->creator->get('access'), User::getAuthorisedViewLevels()))
 					{

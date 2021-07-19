@@ -52,6 +52,11 @@ $rows = $pages->rows();
 			{
 				foreach ($rows as $row)
 				{
+					// Don't show unwanted pages
+					if(!$row->access() && !$row->isAuthor())
+					{
+						continue;
+					}
 					$version = $row->versions()
 						->whereEquals('approved', 1)
 						->order('version', 'desc')

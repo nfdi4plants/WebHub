@@ -58,7 +58,12 @@ $rows = $this->book->pages($filters)
 			if ($rows->count())
 			{
 				foreach ($rows as $row)
-				{
+				{	
+					// Don't show unwanted pages
+					if(!$row->access() && !$row->isAuthor())
+					{
+						continue;
+					}
 					$name = $this->escape(stripslashes($row->creator->get('name', Lang::txt('COM_WIKI_UNKNOWN'))));
 					if (in_array($row->creator->get('access'), User::getAuthorisedViewLevels()))
 					{

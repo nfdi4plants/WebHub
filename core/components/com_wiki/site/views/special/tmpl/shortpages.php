@@ -5,6 +5,9 @@
  * @license    http://opensource.org/licenses/MIT MIT
  */
 
+use Hubzero\Pagination\Paginator;
+use Hubzero\View\Helper\Pagination;
+
 // No direct access.
 defined('_HZEXEC_') or die();
 
@@ -59,6 +62,11 @@ $rows = $this->book->pages($filters)
 			{
 				foreach ($rows as $row)
 				{
+					// Don't show unwanted pages
+					if(!$row->access() && !$row->isAuthor())
+					{	
+						continue;
+					}
 					$name = $this->escape(stripslashes($row->creator->get('name', Lang::txt('COM_WIKI_UNKNOWN'))));
 					if (in_array($row->creator->get('access'), User::getAuthorisedViewLevels()))
 					{
@@ -101,6 +109,7 @@ $rows = $this->book->pages($filters)
 		$pageNav = $rows->pagination;
 		$pageNav->setAdditionalUrlParam('scope', $this->page->get('scope'));
 		$pageNav->setAdditionalUrlParam('pagename', $this->page->get('pagename'));
+		file_put_contents('/var/www/nfdi4plants4/wiki.log', print_r($pageNav, true));
 
 		echo $pageNav;
 		?>

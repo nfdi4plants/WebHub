@@ -73,6 +73,11 @@ $rows = $this->book->pages($filters)
 				{
 					foreach ($rows as $row)
 					{
+						// Don't show unwanted pages
+						if(!$row->access() && !$row->isAuthor())
+						{
+							continue;
+						}
 						?>
 						<tr>
 							<td>

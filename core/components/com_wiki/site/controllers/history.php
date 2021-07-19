@@ -96,6 +96,12 @@ class History extends SiteController
 
 		$this->page = $this->book->page();
 
+		// We don't want guests viewing the site wiki
+		if($this->page->get('scope') == 'site' && User::isGuest())
+		{
+			App::abort(403, Lang::txt('ALERTNOTAUTH'));
+		}
+
 		if (in_array($this->page->getNamespace(), array('image', 'file')))
 		{
 			App::redirect(
@@ -188,6 +194,12 @@ class History extends SiteController
 	 */
 	public function compareTask()
 	{
+		// Check if the page is restricted and the user is not authorized
+		if ( $this->page->get('access') != 0 && !$this->page->access('view'))
+		{
+			App::abort(403, Lang::txt('COM_WIKI_WARNING_NOT_AUTH'));
+		}
+
 		include_once dirname(dirname(__DIR__)) . DS . 'helpers' . DS . 'Diff.php';
 
 		// Incoming

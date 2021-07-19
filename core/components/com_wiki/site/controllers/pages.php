@@ -98,6 +98,12 @@ class Pages extends SiteController
 		}
 
 		$this->page = $this->book->page();
+		
+		// We don't want guests viewing the site wiki
+		if($this->page->get('scope') == 'site' && User::isGuest())
+		{
+			App::abort(403, Lang::txt('ALERTNOTAUTH'));
+		}
 
 		if (in_array($this->page->getNamespace(), array('image', 'file')))
 		{
@@ -121,6 +127,7 @@ class Pages extends SiteController
 	 */
 	public function displayTask()
 	{
+
 		// Set the page's <title> tag
 		if ($this->page->get('scope') == 'site')
 		{

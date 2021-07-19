@@ -8,6 +8,8 @@
 // No direct access.
 defined('_HZEXEC_') or die();
 
+use Components\Wiki\Models\Page;
+
 Pathway::append(
 	Lang::txt('COM_WIKI_SPECIAL_FILE_LIST'),
 	$this->page->link()
@@ -86,6 +88,12 @@ $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
 			{
 				foreach ($rows as $row)
 				{
+					$page = Page::one($row->get('page_id'));
+					// Don't show unwanted pages
+					if(!$page->access() && !$page->isAuthor())
+					{
+						continue;
+					}
 					$fsize = Lang::txt('COM_WIKI_UNKNOWN');
 					if (is_file($row->filespace() . DS . $row->get('page_id') . DS . $row->get('filename')))
 					{

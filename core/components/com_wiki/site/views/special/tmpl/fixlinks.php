@@ -5,6 +5,8 @@
  * @license    http://opensource.org/licenses/MIT MIT
  */
 
+use Hubzero\Database\Pagination;
+
 // No direct access.
 defined('_HZEXEC_') or die();
 
@@ -50,6 +52,11 @@ $rows = $this->book->pages($filters)
 			{
 				foreach ($rows as $row)
 				{
+					// Don't show unwanted pages
+					if(!$row->access() && !$row->isAuthor())
+					{
+						continue;
+					}
 					$content = $row->version()->content();
 					?>
 					<tr>

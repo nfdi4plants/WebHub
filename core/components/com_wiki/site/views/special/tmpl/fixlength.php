@@ -50,6 +50,11 @@ $rows = $query
 			{
 				foreach ($rows as $row)
 				{
+					// Don't show unwanted pages
+					if(!$row->access() && !$row->isAuthor())
+					{
+						continue;
+					}
 					$row->set('length', strlen($row->get('pagetext')));
 					$row->save();
 					?>
