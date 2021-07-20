@@ -39,7 +39,6 @@ $rows = $this->book->pages($filters)
 	->join($versions, $versions . '.id', $pages . '.version_id')
 	->whereRaw($weight . ' > 0')
 	->order('weight', 'desc')
-	->paginated()
 	->rows();
 ?>
 <form action="<?php echo Route::url($this->page->link('base') . '&pagename=Special:Search'); ?>" method="get">
@@ -71,13 +70,31 @@ $rows = $this->book->pages($filters)
 				<?php
 				if ($rows->count())
 				{
+					$page_ids = array();
+					foreach ($rows as $row)
+					{	
+						// Don't show unwanted pages
+						if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor())
+						{
+							$page_ids[] = $row->get('id');
+						}
+					}
+					$filters['id'] = $page_ids;
+				}
+				$rows = $this->book->pages($filters)
+				->select($pages . '.*')
+				->select($versions . '.created_by')
+				->select($versions . '.summary')
+				->select($weight, 'weight')
+				->join($versions, $versions . '.id', $pages . '.version_id')
+				->whereRaw($weight . ' > 0')
+				->order('weight', 'desc')
+				->paginated()
+				->rows();
+				if ($rows->count())
+				{
 					foreach ($rows as $row)
 					{
-						// Don't show unwanted pages
-						if(!$row->access() && !$row->isAuthor())
-						{
-							continue;
-						}
 						?>
 						<tr>
 							<td>

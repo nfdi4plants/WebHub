@@ -5,7 +5,6 @@
  * @license    http://opensource.org/licenses/MIT MIT
  */
 
-use Hubzero\Database\Pagination;
 
 // No direct access.
 defined('_HZEXEC_') or die();
@@ -21,7 +20,6 @@ $start = Request::getInt('limitstart', 0);
 $filters = array('state' => array(0, 1));
 
 $rows = $this->book->pages($filters)
-	->paginated()
 	->rows();
 ?>
 <form method="get" action="<?php echo Route::url($this->page->link()); ?>">
@@ -50,13 +48,24 @@ $rows = $this->book->pages($filters)
 			<?php
 			if ($rows->count())
 			{
+				$page_ids = array();
+				foreach ($rows as $row)
+				{	
+					// Don't show unwanted pages
+					if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor())
+					{
+						$page_ids[] = $row->get('id');
+					}
+				}
+				$filters['id'] = $page_ids;
+			}
+			$rows = $this->book->pages($filters)
+			->paginated()
+			->rows();
+			if ($rows->count())
+			{
 				foreach ($rows as $row)
 				{
-					// Don't show unwanted pages
-					if(!$row->access() && !$row->isAuthor())
-					{
-						continue;
-					}
 					$content = $row->version()->content();
 					?>
 					<tr>
@@ -94,7 +103,7 @@ $rows = $this->book->pages($filters)
 		<?php
 		$pageNav = $rows->pagination;
 		$pageNav->setAdditionalUrlParam('scope', $this->page->get('scope'));
-		$pageNav->setAdditionalUrlParam('pagename', 'Special:' . $this->page->get('pagename'));
+		$pageNav->setAdditionalUrlParam('pagename', $this->page->get('pagename'));
 
 		echo $pageNav;
 		?>

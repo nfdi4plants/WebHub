@@ -28,7 +28,6 @@ $rows = $this->book->pages($filters)
 	->join($versions, $versions . '.id', $pages . '.version_id')
 	->order('length', 'desc')
 	->ordered()
-	->paginated()
 	->rows();
 ?>
 <form method="get" action="<?php echo Route::url($this->page->link('base') . '&pagename=Special:LongPages'); ?>">
@@ -57,13 +56,31 @@ $rows = $this->book->pages($filters)
 			<?php
 			if ($rows->count())
 			{
+				$page_ids = array();
 				foreach ($rows as $row)
 				{	
 					// Don't show unwanted pages
-					if(!$row->access() && !$row->isAuthor())
+					if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor())
 					{
-						continue;
+						$page_ids[] = $row->get('id');
 					}
+				}
+				$filters['id'] = $page_ids;
+			}
+			$rows = $this->book->pages($filters)
+			->select($pages . '.*')
+			->select($versions . '.created_by')
+			->select($versions . '.length')
+			->join($versions, $versions . '.id', $pages . '.version_id')
+			->order('length', 'desc')
+			->ordered()
+			->paginated()
+			->rows();
+			// result might have changed during second query
+			if ($rows->count())
+			{
+				foreach ($rows as $row)
+				{
 					$name = $this->escape(stripslashes($row->creator->get('name', Lang::txt('COM_WIKI_UNKNOWN'))));
 					if (in_array($row->creator->get('access'), User::getAuthorisedViewLevels()))
 					{

@@ -49,7 +49,6 @@ $rows = $this->book->pages($filters)
 		}
 	])
 	->order('created', $dir)
-	->paginated()
 	->rows();
 
 $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
@@ -88,13 +87,37 @@ $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
 			<?php
 			if ($rows)
 			{
+				$page_ids = array();
+				foreach ($rows as $row)
+				{	
+					// Don't show unwanted pages
+					if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor())
+					{
+						$page_ids[] = $row->get('id');
+					}
+				}
+				$filters['id'] = $page_ids;
+			}
+			$rows = $this->book->pages($filters)
+			->including([
+				'versions',
+				function ($version)
+				{
+					$version
+					->select('id')
+					->select('page_id')
+					->select('version')
+					->select('created_by')
+					->select('summary');
+				}
+			])
+			->order('created', $dir)
+			->paginated()
+			->rows();
+			if ($rows)
+			{
 				foreach ($rows as $row)
 				{
-					// Don't show unwanted pages
-					if(!$row->access() && !$row->isAuthor())
-					{
-						continue;
-					}
 					$name = $this->escape(stripslashes($row->creator->get('name', Lang::txt('COM_WIKI_UNKNOWN'))));
 					if (in_array($row->creator->get('access'), User::getAuthorisedViewLevels()))
 					{

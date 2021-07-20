@@ -5,9 +5,6 @@
  * @license    http://opensource.org/licenses/MIT MIT
  */
 
-use Hubzero\Pagination\Paginator;
-use Hubzero\View\Helper\Pagination;
-
 // No direct access.
 defined('_HZEXEC_') or die();
 
@@ -31,7 +28,6 @@ $rows = $this->book->pages($filters)
 	->join($versions, $versions . '.id', $pages . '.version_id')
 	->order('length', 'asc')
 	->ordered()
-	->paginated()
 	->rows();
 ?>
 <form method="get" action="<?php echo Route::url($this->page->link()); ?>">
@@ -60,13 +56,30 @@ $rows = $this->book->pages($filters)
 			<?php
 			if ($rows)
 			{
+				$page_ids = array();
+				foreach ($rows as $row)
+				{	
+					// Don't show unwanted pages
+					if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor())
+					{
+						$page_ids[] = $row->get('id');
+					}
+				}
+				$filters['id'] = $page_ids;
+			}
+			$rows = $this->book->pages($filters)
+			->select($pages . '.*')
+			->select($versions . '.created_by')
+			->select($versions . '.length')
+			->join($versions, $versions . '.id', $pages . '.version_id')
+			->order('length', 'asc')
+			->ordered()
+			->paginated()
+			->rows();
+			if ($rows)
+			{
 				foreach ($rows as $row)
 				{
-					// Don't show unwanted pages
-					if(!$row->access() && !$row->isAuthor())
-					{	
-						continue;
-					}
 					$name = $this->escape(stripslashes($row->creator->get('name', Lang::txt('COM_WIKI_UNKNOWN'))));
 					if (in_array($row->creator->get('access'), User::getAuthorisedViewLevels()))
 					{

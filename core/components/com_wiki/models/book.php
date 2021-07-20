@@ -322,6 +322,11 @@ class Book extends Obj
 	{
 		$pages = Page::all();
 
+		if (isset($filters['id']))
+		{
+			$pages->whereIn('id', $filters['id']);
+		}
+
 		if (!isset($filters['scope']))
 		{
 			$filters['scope'] = $this->get('scope');

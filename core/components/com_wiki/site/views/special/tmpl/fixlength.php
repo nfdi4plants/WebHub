@@ -51,7 +51,7 @@ $rows = $query
 				foreach ($rows as $row)
 				{
 					// Don't show unwanted pages
-					if(!$row->access() && !$row->isAuthor())
+					if(!in_array($row->get('access'), User::getAuthorisedViewLevels()) && !$row->isAuthor())
 					{
 						continue;
 					}

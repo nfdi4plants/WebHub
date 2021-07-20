@@ -37,6 +37,7 @@ $namespaces = \Components\Wiki\Models\Page::all()
 	->whereEquals('state', \Components\Wiki\Models\Page::STATE_PUBLISHED)
 	->whereEquals('scope', $this->book->get('scope'))
 	->whereEquals('scope_id', $this->book->get('scope_id'))
+	->whereIn('access', User::getAuthorisedViewLevels())
 	->group('namespace')
 	->order('namespace', 'asc')
 	->rows();
@@ -65,6 +66,23 @@ $namespaces = \Components\Wiki\Models\Page::all()
 
 	<div class="grid">
 		<?php
+		if ($rows->count())
+		{
+			$page_ids = array();
+			foreach ($rows as $row)
+			{	
+				// Don't show unwanted pages
+				if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor())
+				{
+					$page_ids[] = $row->get('id');
+				}
+			}
+			$filters['id'] = $page_ids;
+			$rows = $this->book->pages($filters)
+				->order('title', $dir)
+				->ordered()
+				->rows();
+		}
 		if ($rows->count())
 		{
 			$data = array();
@@ -100,11 +118,6 @@ $namespaces = \Components\Wiki\Models\Page::all()
 							$k = 0;
 							foreach ($column as $row)
 							{
-								// Don't show unwanted pages
-								if(!$row->access() && !$row->isAuthor())
-								{
-									continue;
-								}
 								if (strtoupper(substr($row->title, 0, 1)) != $index)
 								{
 									$index = strtoupper(substr($row->title, 0, 1));
