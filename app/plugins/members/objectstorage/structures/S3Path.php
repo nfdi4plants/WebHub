@@ -9,7 +9,7 @@ class S3Path {
 
     public function __construct($bucket, $prefix='', $object='')
     {
-        $this->bucket = $bucket;
+        $this->bucket = urldecode($bucket);
         // handle moving upwards
         if ($object == '..') 
         {
@@ -27,15 +27,15 @@ class S3Path {
             else
             {
                 // move upwards
-                $parts = explode('/', $prefix);
+                $parts = explode('/', urldecode($prefix));
                 array_pop($parts);
                 $this->prefix = implode('/', $parts);
             }
         }
         else
         {
-            $this->prefix = $prefix;
-            $this->object = $object;
+            $this->prefix = urldecode($prefix);
+            $this->object = urldecode($object);
         }
 
         $this->encode();

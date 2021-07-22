@@ -16,9 +16,14 @@ $this->css()
 	->js();
 ?>
 
+<?php 
+    echo '<a class="settings" href="' . $base . '/settings">Settings</a>';
+?>
 <?php if(isset($this->missing_keys) && $this->missing_keys) 
     { 
-        echo '<p class="error">Either the access or secret key are not set.</p>';
+        ?>
+        <p class="error">Either the access or secret key are not set.</p>
+        <?php
     }
     else if(isset($this->error))
     {
@@ -40,25 +45,27 @@ $this->css()
         $prefix = urldecode($this->prefix);
         $prefix = empty($prefix) ? '/' : $prefix;
         $upDesc = $prefix == '/' ? 'Back to bucket selection' : 'Back to parent folder';
-        echo 
-        '<div class="s3-content">
-        <div class="actions">
-        <form enctype="multipart/form-data" method="POST">
-        <div class="fileUpload">
-        <label for="uploadFiles">Choose files: </label>
-        <input type="file" name="uploadFiles" multiple>
+        echo '<div id="s3-content">
+            <div id="s3-header">
+            <div class="current">Your current location: <p class="location">' . $prefix . '</p></div>
+            <p id="section-upload"> Upload</p>
+            <div class="actions">
+                <form id="s3-upload" enctype="multipart/form-data" method="POST">
+                    <div class="fileUpload">
+                    <input type="file" name="uploadFiles" id="uploadFiles" class="hide-input" multiple>
+                        <label for="uploadFiles">Select files </label>
+                    </div>
+                    <div class="fileUpload">
+                    <input type="file" name="uploadFolder" id="uploadFolder" class="hide-input" webkitdirectory directory>
+                        <label for="uploadFolder">Select folder </label>
+                    </div>
+                    <button id="upload" class="icon-upload" title="Upload files"/>
+                </form>
+            </div>
         </div>
-        <div class="fileUpload">
-        <label for="uploadFolder">Choose folder: </label>
-        <input type="file" name="uploadFolder" webkitdirectory directory>
-        </div>
-        <button id="upload" class="icon-upload" title="Upload files"/>
-        </form>
-        </div>
-        <div class="filebrowser">
-        <div class="current">Your current location: ' . $prefix . '</div>
-        <ul>';
-        echo '<li><a id="up" class="item icon-arrow-up" href="' . $base . '&bucket=' .$this->bucket . '&prefix=' . $this->prefix . '&object=..">' . $upDesc . '</a></li>';
+        <p id="section-files"> Files</p><a id="up" class="item icon-arrow-up" href="' . $base . '&bucket=' .$this->bucket . '&prefix=' . $this->prefix . '&object=..">' . $upDesc . '</a>
+        <div id="filebrowser">
+            <ul>';
         foreach($this->folders as $folder)
         {
             $prefix = urldecode($folder->getPrefix());
@@ -79,9 +86,9 @@ $this->css()
             <ul>';
             foreach($this->files as $file)
             {
-                echo '<li><div class="item"><a class="icon-file" href="' . $base . '&bucket=' . $file->getBucket() . '&prefix=' . $file->getPrefix() . '&object=' . $file->getObject() . '">' . urldecode($file->getObject()) .  '</a><div class="buttons"><button class="icon-download" title="Download file" onclick="downloadItem(this)"/><button class="icon-info" title="File information" onclick="itemInfo(this)"/><button class="icon-delete" title="Delete file" onclick="deleteItem(this)"/></div></div></li>';
+                echo '<li><div class="item"><a class="icon-file" href="' . $base . '&bucket=' . $file->getBucket() . '&prefix=' . $file->getPrefix() . '&object=' . $file->getObject() . '">' . urldecode($file->getObject()) .  '</a><div class="buttons"><button class="icon-download" title="Download file" onclick="downloadItem(this)"/><button class="icon-info" title="" onmouseover="itemInfo(this)"/><button class="icon-delete" title="Delete file" onclick="deleteItem(this)"/></div></div></li>';
             } 
             echo '</ul>';
         }
-        echo '</div></div>';
+        echo '</div>';
     }

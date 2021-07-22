@@ -55,14 +55,35 @@ class Endpoints {
         $prefix = Request::getVar('prefix', '', 'POST');
         $object = Request::getVar('object', '', 'POST');
 
-        if (empty($bucket) || empty($prefix))
+        $path = new S3Path($bucket, $prefix, $object);
+        
+        $bucket = $path->getBucket();
+        $prefix = $path->getPrefix();
+        $object = $path->getObject();
+
+        if (empty($bucket))
         {
-            echo "Either bucket name or prefix is missing.";
+            $response = array();
+            $response['code'] = 400;
+            $response['error'] = "Either bucket name is missing.";
+            $response['success'] = false;
+            echo json_encode($response);
         }
         else if (!empty($object))
         {
-            $response = $connector->deleteObject($bucket, $prefix . '/' . $object);
-            // TODO: handle response
+            if (empty($prefix))
+            {
+                $location = $object;
+            }
+            else
+            {
+                $location = $prefix . '/' . $object;
+            }
+            $response = $connector->deleteObject($bucket, $location);
+            if ($response->error != null || $response->code < 200 || $response->code > 299){
+                $response->success = 'false';
+                echo json_encode($response);
+            }
         }
         else
         {   
@@ -80,11 +101,20 @@ class Endpoints {
             
             if (isset($contents))
             {
+                $responses = array();
                 foreach($contents as $content)
                 {
                     $prefix = explode('/', $content->Key);
                     $object = array_pop($prefix);
                     $response = $connector->deleteObject($bucket, implode('/', $prefix) . '/' . $object);
+                    if ($response->error != null || $response->code < 200 || $response->code > 299){
+                        $responses[] = $response;
+                    }
+                }
+                if (count($responses) > 0)
+                {
+                    $responses['success'] = 'false';
+                    echo json_encode($responses);
                 }
             }
         }
@@ -97,20 +127,36 @@ class Endpoints {
         $prefix = Request::getVar('prefix');
         $object = Request::getVar('object');
 
-        $response = $connector->getObjectInfo($bucket, $prefix . '/' . $object);
+        $path = new S3Path($bucket, $prefix, $object);
+        
+        $bucket = $path->getBucket();
+        $prefix = $path->getPrefix();
+        $object = $path->getObject();
+
+        if (empty($prefix))
+        {
+            $location = $object;
+        }
+        else
+        {
+            $location = $prefix . '/' . $object;
+        }
+
+        $response = $connector->getObjectInfo($bucket, $location);
+        
         if ($response->error == null && $response->code == 200)
         {
             $info = array();
             $info['File format'] = $response->headers['content-type'];
             $size = (int) $response->headers['content-length'];
-            $units = array('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB');
+            $units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
             for ($i = 0; $i < count($units); $i++)
             {
                 $current = $size / pow(1024, $i);
                 if( $current < 1){
-                    if ($i > 0)
+                    if ($i > 1)
                     {
-                        $info['File size']  = '' . round($current*1000, 3) . ' ' . $units[$i-1];
+                        $info['File size']  = '' . round($current*1024, 1) . ' ' . $units[$i-1];
                     }
                     else
                     {
@@ -120,6 +166,11 @@ class Endpoints {
                 }
             }
             echo json_encode($info);
+        }
+        else
+        {   
+            $response->success = 'false';
+            echo json_encode($response);
         }
     }
     
@@ -146,6 +197,7 @@ class Endpoints {
 
         $bucket = Request::getVar('bucket', '', 'POST');
         $prefix = Request::getVar('prefix', '', 'POST');
+        $object = Request::getVar('object', '', 'POST');
         $path = Request::getVar('path', '', 'POST');
 
         if (!empty($_FILES))
@@ -163,10 +215,23 @@ class Endpoints {
             {
                 $name = $file['name'];
             }
+            // use constructor to resolve .. correctly
+            $path = new S3Path($bucket, $prefix, $object);
             $data = fopen($file['tmp_name'], 'r');
-            $response = $connector->putObject($bucket, $prefix . '/' . $name, $data);
-            // TODO: handle errors
+            if(!empty($path->getPrefix()))
+            {
+                $location = $path->getPrefix() . '/' . $name;
+            }
+            else
+            {
+                $location = $name;
+            }
+            $response = $connector->putObject($path->getBucket(), $location, $data);
             fclose($data);
+            if ($response->error != null || $response->code < 200 || $response->code > 299){
+                $response->success = 'false';
+                echo json_encode($response);
+            }
         }
     }
     

@@ -82,6 +82,7 @@ class Browser {
 		$url_params = array('delimiter' => '/');
 
 		$response = $connector->getBucket('', $url_params);
+		file_put_contents('/var/www/biodatenhub4/s3.log', print_r($response, true));
 		$error = self::handleError($response);
 		if (isset($error)){
 			return $error;

@@ -13,7 +13,7 @@ $this->css()
 	->js();
 ?>
 
-<form method="POST">
+<form id="s3-settings" method="POST">
 	<label for="access-key"> de.NBI S3 Access Key:</label>
 	<?php if (empty($this->access_key))
 	{
@@ -34,5 +34,5 @@ $this->css()
 		echo '<input type="password" id="secret-key" name="secret-key" value="' . $this->secret_key . '" minlength="32" maxlength="32">';
 	}
 	?>
-	<button>Submit</button>
+	<button type="submit">Submit</button>
 </form>
