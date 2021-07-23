@@ -10,6 +10,7 @@ class Settings {
         $keys['access_key'] = Request::getVar('access-key', '', 'POST'); 
         $keys['secret_key'] = Request::getVar('secret-key', '', 'POST');
     
+        $updated = false;
         foreach($keys as $key_name => $key)
         {
             if (empty($key)){
@@ -18,10 +19,11 @@ class Settings {
             } else {
                 // update DB
                 self::updateKey($key_name, $key);
+                $updated = true;
             }
         }
         // Load correct view and make api key available
-        return array('access_key' => $keys['access_key'], 'secret_key' => $keys['secret_key']);
+        return array('access_key' => $keys['access_key'], 'secret_key' => $keys['secret_key'], 'updated' => $updated);
     }
 
     public static function getKey($key_name)

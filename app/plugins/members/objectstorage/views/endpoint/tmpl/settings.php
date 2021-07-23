@@ -35,4 +35,9 @@ $this->css()
 	}
 	?>
 	<button type="submit">Submit</button>
+	<?php if($this->updated)
+	{
+		echo '<p id="updated">Updated S3 key settings successfully.</p>';
+	}
+	?>
 </form>

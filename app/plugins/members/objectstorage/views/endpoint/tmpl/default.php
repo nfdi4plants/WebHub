@@ -22,7 +22,9 @@ $this->css()
 <?php if(isset($this->missing_keys) && $this->missing_keys) 
     { 
         ?>
-        <p class="error">Either the access or secret key are not set.</p>
+        <p class="error">Either the access or secret key are not set.<br/>
+        Keys can be obtained from your de.NBI dashboard under Project->API Access->View Credentials.<br/>
+        These can then be set here under settings to access your project buckets.</p>
         <?php
     }
     else if(isset($this->error))
@@ -33,12 +35,20 @@ $this->css()
     else if(isset($this->buckets))
     {
         echo '<h4>Available buckets:</h4>';
-        echo '<ul>';
-        foreach($this->buckets as $bucket)
+        if (empty($this->buckets))
         {
-            echo '<li><div class="item"><a class="icon-bucket" href="' . $base . '&bucket='. $bucket->Name . '">' . $bucket->Name . '</a></div></li>';
+            echo '<p id="no-buckets">No buckets found.<br/>Please create a bucket using a command line client first.</p>';
         }
-        echo '</ul>';
+        else
+        {
+            echo '<ul>';
+            foreach($this->buckets as $bucket)
+            {
+                echo '<li><div class="item"><a class="icon-bucket" href="' . $base . '&bucket='. $bucket->Name . '">' . $bucket->Name . '</a></div></li>';
+            }
+            echo '</ul>';
+        }
+
     }
     else if(isset($this->folders) && isset($this->files))
     {
