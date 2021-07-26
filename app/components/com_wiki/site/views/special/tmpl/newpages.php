@@ -8,47 +8,78 @@
 // No direct access.
 defined('_HZEXEC_') or die();
 
+
 Pathway::append(
-	Lang::txt('COM_WIKI_SPECIAL_SHORT_PAGES'),
+	Lang::txt('COM_WIKI_SPECIAL_NEW_PAGES'),
 	$this->page->link()
 );
+
+$sort = strtolower(Request::getString('sort', 'created'));
+if (!in_array($sort, array('created', 'title', 'summary', 'created_by')))
+{
+	$sort = 'created';
+}
+$dir = strtoupper(Request::getString('dir', 'DESC'));
+if (!in_array($dir, array('ASC', 'DESC')))
+{
+	$dir = 'DESC';
+}
 
 $limit = Request::getInt('limit', Config::get('list_limit'));
 $start = Request::getInt('limitstart', 0);
 
 $filters = array('state' => array(0, 1));
 
-$pages    = \Components\Wiki\Models\Page::blank()->getTableName();
-$versions = \Components\Wiki\Models\Version::blank()->getTableName();
+if ($space = Request::getString('namespace', ''))
+{
+	$filters['namespace'] = urldecode($space);
+}
 
 $rows = $this->book->pages($filters)
-	->select($pages . '.*')
-	->select($versions . '.created_by')
-	->select($versions . '.length')
-	->join($versions, $versions . '.id', $pages . '.version_id')
-	->order('length', 'asc')
-	->ordered()
+	->including([
+		'versions',
+		function ($version)
+		{
+			$version
+				->select('id')
+				->select('page_id')
+				->select('version')
+				->select('created_by')
+				->select('summary');
+		}
+	])
+	->order('created', $dir)
 	->rows();
+
+$altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
 ?>
 <form method="get" action="<?php echo Route::url($this->page->link()); ?>">
 	<p>
-		<?php echo Lang::txt('COM_WIKI_SPECIAL_SHORT_PAGES_ABOUT', Route::url($this->page->link('base') . '&pagename=Special:Longpages')); ?>
+		<?php echo Lang::txt('COM_WIKI_SPECIAL_NEW_PAGES_ABOUT'); ?>
 	</p>
 	<div class="container">
 		<table class="file entries">
 			<thead>
 				<tr>
 					<th scope="col">
-						<?php echo Lang::txt('COM_WIKI_COL_DATE'); ?>
+						<a<?php if ($sort == 'created') { echo ' class="active"'; } ?> href="<?php echo Route::url($this->page->link() . '&sort=created&dir=' . $altdir); ?>">
+							<?php if ($sort == 'created') { echo ($dir == 'ASC') ? '&uarr;' : '&darr;'; } ?> <?php echo Lang::txt('COM_WIKI_COL_DATE'); ?>
+						</a>
 					</th>
 					<th scope="col">
-						<?php echo Lang::txt('COM_WIKI_COL_TITLE'); ?>
+						<a<?php if ($sort == 'title') { echo ' class="active"'; } ?> href="<?php echo Route::url($this->page->link() . '&sort=title&dir=' . $altdir); ?>">
+							<?php if ($sort == 'title') { echo ($dir == 'ASC') ? '&uarr;' : '&darr;'; } ?> <?php echo Lang::txt('COM_WIKI_COL_TITLE'); ?>
+						</a>
 					</th>
 					<th scope="col">
-						<?php echo Lang::txt('COM_WIKI_COL_CREATOR'); ?>
+						<a<?php if ($sort == 'created_by') { echo ' class="active"'; } ?> href="<?php echo Route::url($this->page->link() . '&sort=created_by&dir=' . $altdir); ?>">
+							<?php if ($sort == 'created_by') { echo ($dir == 'ASC') ? '&uarr;' : '&darr;'; } ?> <?php echo Lang::txt('COM_WIKI_COL_CREATOR'); ?>
+						</a>
 					</th>
 					<th scope="col">
-						<?php echo Lang::txt('COM_WIKI_COL_LENGTH'); ?>
+						<a<?php if ($sort == 'summary') { echo ' class="active"'; } ?> href="<?php echo Route::url($this->page->link() . '&sort=summary&dir=' . $altdir); ?>">
+							<?php if ($sort == 'summary') { echo ($dir == 'ASC') ? '&uarr;' : '&darr;'; } ?> <?php echo Lang::txt('COM_WIKI_COL_EDIT_SUMMARY'); ?>
+						</a>
 					</th>
 				</tr>
 			</thead>
@@ -68,12 +99,19 @@ $rows = $this->book->pages($filters)
 				$filters['id'] = $page_ids;
 			}
 			$rows = $this->book->pages($filters)
-			->select($pages . '.*')
-			->select($versions . '.created_by')
-			->select($versions . '.length')
-			->join($versions, $versions . '.id', $pages . '.version_id')
-			->order('length', 'asc')
-			->ordered()
+			->including([
+				'versions',
+				function ($version)
+				{
+					$version
+					->select('id')
+					->select('page_id')
+					->select('version')
+					->select('created_by')
+					->select('summary');
+				}
+			])
+			->order('created', $dir)
 			->paginated()
 			->rows();
 			if ($rows)
@@ -99,7 +137,7 @@ $rows = $this->book->pages($filters)
 							<?php echo $name; ?>
 						</td>
 						<td>
-							<?php echo Lang::txt('COM_WIKI_HISTORY_BYTES', number_format($row->get('length'))); ?>
+							<span><?php echo $this->escape(stripslashes($row->version->get('summary'))); ?></span>
 						</td>
 					</tr>
 					<?php

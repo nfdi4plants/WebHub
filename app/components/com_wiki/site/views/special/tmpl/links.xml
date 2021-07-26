@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Special: What Links Here">
+		<message>
+			<![CDATA[Special: What Links Here]]>
+		</message>
+	</layout>
+	<state>
+		<name>Special: What Links Here</name>
+		<description>Special: What Links Here</description>
+		<params>
+	 		<param name="page" type="text" label="Page" description="Page to display links for" />
+		</params>
+	</state>
+</metadata>

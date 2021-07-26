@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Special: Fix page version">
+		<message>
+			<![CDATA[Special: Fix page version]]>
+		</message>
+	</layout>
+	<state>
+		<name>Special: Fix page version</name>
+		<description>Special: Fix page version</description>
+	</state>
+</metadata>

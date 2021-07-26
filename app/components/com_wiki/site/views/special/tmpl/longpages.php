@@ -9,8 +9,8 @@
 defined('_HZEXEC_') or die();
 
 Pathway::append(
-	Lang::txt('COM_WIKI_SPECIAL_SHORT_PAGES'),
-	$this->page->link()
+	Lang::txt('COM_WIKI_SPECIAL_LONG_PAGES'),
+	$this->page->link('base') . '&pagename=Special:LongPages'
 );
 
 $limit = Request::getInt('limit', Config::get('list_limit'));
@@ -26,13 +26,13 @@ $rows = $this->book->pages($filters)
 	->select($versions . '.created_by')
 	->select($versions . '.length')
 	->join($versions, $versions . '.id', $pages . '.version_id')
-	->order('length', 'asc')
+	->order('length', 'desc')
 	->ordered()
 	->rows();
 ?>
-<form method="get" action="<?php echo Route::url($this->page->link()); ?>">
+<form method="get" action="<?php echo Route::url($this->page->link('base') . '&pagename=Special:LongPages'); ?>">
 	<p>
-		<?php echo Lang::txt('COM_WIKI_SPECIAL_SHORT_PAGES_ABOUT', Route::url($this->page->link('base') . '&pagename=Special:Longpages')); ?>
+		<?php echo Lang::txt('COM_WIKI_SPECIAL_LONG_PAGES_ABOUT', Route::url($this->page->link('base') . '&pagename=Special:ShortPages')); ?>
 	</p>
 	<div class="container">
 		<table class="file entries">
@@ -54,7 +54,7 @@ $rows = $this->book->pages($filters)
 			</thead>
 			<tbody>
 			<?php
-			if ($rows)
+			if ($rows->count())
 			{
 				$page_ids = array();
 				foreach ($rows as $row)
@@ -72,11 +72,12 @@ $rows = $this->book->pages($filters)
 			->select($versions . '.created_by')
 			->select($versions . '.length')
 			->join($versions, $versions . '.id', $pages . '.version_id')
-			->order('length', 'asc')
+			->order('length', 'desc')
 			->ordered()
 			->paginated()
 			->rows();
-			if ($rows)
+			// result might have changed during second query
+			if ($rows->count())
 			{
 				foreach ($rows as $row)
 				{
@@ -120,7 +121,7 @@ $rows = $this->book->pages($filters)
 		</table>
 		<?php
 		$pageNav = $rows->pagination;
-		$pageNav->setAdditionalUrlParam('scope', $this->page->get('scope'));
+		$pageNav->setAdditionalUrlParam('scope', $this->page->get('path'));
 		$pageNav->setAdditionalUrlParam('pagename', $this->page->get('pagename'));
 
 		echo $pageNav;
