@@ -123,11 +123,6 @@ if ($this->getTitle() != Config::get('sitename'))
 							</nav>
 
 							<nav id="nav" class="main-navigation" aria-label="<?php echo Lang::txt('TPL_MYTEMPLATE_MAINMENU'); ?>">
-								<ul id="external">
-									<li><a href="https://twitter.com/nfdi4plants"><img src="/third_party_logos/2021_twitter_logo_white.png"></a></li>
-									<li><a href="https://github.com/nfdi4plants"><img src="/third_party_logos/GitHub-Mark-Light-120px-plus.png"></a></li>
-									<!-- <li><a href="https://zenodo.org/communities/nfdi4plants"><img src=""></a>Z</li> -->
-								</ul>
 								<jdoc:include type="modules" name="user3" />
 							</nav>
 						</header>

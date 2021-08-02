@@ -32,12 +32,10 @@
 	}
 
 	ul.menu {
-		float       : right;
-		z-index     : 797;
-		padding     : 0;
-		font-weight : 400;
-		width       : 45%;
-		margin-right: auto;
+		position   : absolute;
+		left       : 42%;
+		padding    : 0;
+		font-weight: 400;
 
 		span.separator {
 			display: block;
@@ -163,28 +161,6 @@
 				content: "\2304";
 			}
 		}
-	}
-}
-
-#external {
-	float: right;
-
-	li {
-		display   : inline;
-		list-style: none;
-	}
-
-	a:hover {
-		border-bottom: none;
-	}
-
-	img {
-		// compliance with branding requirements, but don't make it larger
-		min-width : 32px;
-		min-height: 32px;
-		max-width : 32px;
-		max-height: 32px;
-		margin    : 16px;
 	}
 }
 
