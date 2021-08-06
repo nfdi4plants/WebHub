@@ -90,7 +90,7 @@ $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
 				{	
 					$page = Page::one($row->get('page_id'));
 					// Don't show unwanted pages
-					if(in_array($page->get('access'), User::getAuthorisedViewLevels()) || $page->isAuthor())
+					if(in_array($page->get('access'), User::getAuthorisedViewLevels()) || $page->isAuthor() && $page->param('mode') == 'knol')
 					{
 						$page_ids[] = $row->get('id');
 					}

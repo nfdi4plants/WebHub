@@ -77,7 +77,6 @@ class RecentPageMacro extends WikiMacro
 
 		$pages = \Components\Wiki\Models\Page::all()
 			->whereEquals('state', \Components\Wiki\Models\Page::STATE_PUBLISHED)
-			->whereIn('access', User::getAuthorisedViewLevels())
 			->order('modified', 'desc')
 			->limit($limit)
 			->start($limitstart);
@@ -92,6 +91,19 @@ class RecentPageMacro extends WikiMacro
 
 		$html = '';
 
+		// Check access
+		if ($rows)
+		{
+			$new_rows = array();
+			foreach ($rows as $row)
+			{
+				if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor() && $row->param('mode') == 'knol')
+				{
+					$new_rows[] = $row;
+				}
+			}
+			$rows = $new_rows;
+		}
 		// Did we get a result from the database?
 		if ($rows)
 		{

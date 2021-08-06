@@ -318,17 +318,11 @@ class Pages extends SiteController
 		}
 
 		// Check if the page is locked and the user is authorized
-		$access_denied = $this->page->isLocked() && !$this->page->access('manage') 
-			&& !$this->page->access('edit') 
-			&& !$this->page->exists() && !$this->page->access('create');
+		$has_access = $this->page->access('manage') || $this->page->access('edit') && !$this->page->isLocked() || $this->page->access('create') && !$this->page->exists();
 
-		if ($access_denied)
+		if (!$has_access)
 		{
-			App::redirect(
-				Route::url($this->page->link()),
-				Lang::txt('COM_WIKI_WARNING_NOT_AUTH_EDITOR'),
-				'warning'
-			);
+			App::abort(403, Lang::txt('COM_WIKI_WARNING_NOT_AUTH_EDITOR'));
 		}
 
 		// Load the page

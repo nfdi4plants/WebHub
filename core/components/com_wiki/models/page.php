@@ -806,6 +806,7 @@ class Page extends Relational
 	 */
 	public function access($action='view', $item='page')
 	{
+
 		if (!$this->config('access-check-done', false))
 		{
 			$this->config()->set('access-page-view', true);
@@ -904,7 +905,11 @@ class Page extends Relational
 		}
 
 		// Check for correct view levels on site wiki
-		if ($this->get('scope') == 'site' && $this->get('access') && !in_array($this->get('access'), User::getAuthorisedViewLevels()))
+		$noView = $this->get('scope') == 'site' 
+				&& $this->get('access') 
+				&& !in_array($this->get('access'), User::getAuthorisedViewLevels())
+				&& !($this->isAuthor() && $this->param('mode') == 'knol');
+		if ($noView)
 		{
 			$this->config()->set('access-page-view', false);
 		}

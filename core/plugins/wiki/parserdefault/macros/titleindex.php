@@ -91,6 +91,20 @@ class TitleIndexMacro extends WikiMacro
 
 		$rows = $pages->rows();
 
+		// Check access
+		if ($rows)
+		{
+			$new_rows = array();
+			foreach ($rows as $row)
+			{
+				if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor() && $row->param('mode') == 'knol')
+				{
+					$new_rows[] = $row;
+				}
+			}
+			$rows = $new_rows;
+		}
+
 		// Did we get a result from the database?
 		if ($rows)
 		{

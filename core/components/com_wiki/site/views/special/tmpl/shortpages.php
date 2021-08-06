@@ -60,7 +60,7 @@ $rows = $this->book->pages($filters)
 				foreach ($rows as $row)
 				{	
 					// Don't show unwanted pages
-					if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor())
+					if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor() && $row->param('mode') == 'knol')
 					{
 						$page_ids[] = $row->get('id');
 					}
