@@ -9,6 +9,7 @@
 // --------------------------------------------------
 
 #nav {
+	display: flex;
 	padding: 0;
 	margin : 0;
 
@@ -26,9 +27,11 @@
 	ul.menu,
 	ul.menu li,
 	ul.menu ul {
-		list-style: none;
-		margin    : 0;
-		padding   : 0;
+		display    : flex;
+		align-items: center;
+		list-style : none;
+		margin     : 0;
+		padding    : 0;
 	}
 
 	ul.menu {
@@ -42,24 +45,19 @@
 		}
 
 		a {
-			display       : block;
 			border        : none;
 			color         : rgb(255, 255, 255);
 			text-transform: uppercase;
 			font-weight   : 500;
-			letter-spacing: 0.075em;
+			letter-spacing: 0.025em;
+			font-size     : 14px;
 			padding       : 0 1em;
-			line-height   : 64px;
 		}
 
 		li {
-			float         : left;
-			line-height   : 1.3em;
-			vertical-align: middle;
-			position      : relative;
-			zoom          : 1;
-			padding       : 0;
-			border        : none;
+			zoom   : 1;
+			padding: 0;
+			border : none;
 
 			&:hover,
 			&:focus {
@@ -181,16 +179,17 @@
 		}
 
 		ul.menu {
-			float     : none;
-			width     : 100%;
-			position  : absolute;
-			top       : 100%;
-			left      : 0;
-			right     : 0;
-			background: rgba(255, 255, 255, 0.75);
+			flex-direction: column;
+			align-items   : stretch;
+			line-height   : 4em;
+			width         : 100%;
+			position      : absolute;
+			top           : 100%;
+			left          : 0;
+			right         : 0;
+			background    : rgba(255, 255, 255, 0.75);
 
 			&>li {
-				float     : none;
 				display   : none;
 				border-top: 1px solid #f1f1f1;
 			}
@@ -201,8 +200,12 @@
 				}
 
 				&:hover>a {
-					color: #4FB3D9;
+					display        : flex;
+					justify-content: center;
+					align-items    : center;
+					color          : #4FB3D9;
 				}
+
 			}
 
 			ul {

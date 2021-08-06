@@ -166,6 +166,12 @@ jQuery(document).ready(function($){
 		$('#top').css('padding-top', header.height());
 	}
 
+	document.body.onresize = function() {
+		if ($('#top').length) {
+			$('#top').css('padding-top', header.height());
+		}
+	}
+
 	// Append a toggle (for smaller screens)
 	header.find('li.parent>a').each(function (i, el) {
 		$('<a class="toggle" href="#">&nbsp;</a>').on('click', function(e){
