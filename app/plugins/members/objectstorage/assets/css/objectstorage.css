@@ -202,14 +202,33 @@ ul li {
 }
 
 .settings {
-    float: right;
-    font-size: medium;
+    float           : right;
+    font-size       : medium;
     background-color: #ddd;
-    padding: .5em;
-    border: solid rgba(0,0,0,0.15) 1px;
+    padding         : .5em;
+    border          : solid rgba(0, 0, 0, 0.15) 1px;
+    border-radius   : .5em;
+}
+
+#updated,
+#no-buckets {
+    font-weight: bold;
+}
+
+#bucket-creation {
+    display: flex;
+    width  : 30em;
+}
+
+#bucket-name,
+#create-bucket {
     border-radius: .5em;
 }
 
-#updated, #no-buckets {
-    font-weight: bold;
+#create-bucket {
+    flex-basis: 40%;
+}
+
+#apply-settings {
+    margin-right: 14.9em;
 }

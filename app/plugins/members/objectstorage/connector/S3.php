@@ -47,10 +47,21 @@ class S3
 		return $this;
 	}
 
+
+	public function createBucket($bucket, $headers = array())
+	{
+		$request = (new S3Request('PUT', $this->endpoint, $bucket))
+			->setHeaders($headers)
+			->useMultiCurl($this->multi_curl)
+			->useCurlOpts($this->curl_opts)
+			->sign($this->access_key, $this->secret_key, true);
+		
+		return $request->getResponse();
+	}
+
 	public function putObject($bucket, $path, $file, $headers = array())
 	{
 		$uri = "$bucket/$path";
-
 		$request = (new S3Request('PUT', $this->endpoint, $uri))
 			->setFileContents($file)
 			->setHeaders($headers)

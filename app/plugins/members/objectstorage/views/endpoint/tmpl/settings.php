@@ -9,6 +9,8 @@
 // No direct access
 defined('_HZEXEC_') or die('Restricted access');
 
+$base = $this->member->link() . '/' . $this->name;
+
 $this->css()
 	->js();
 ?>
@@ -34,7 +36,12 @@ $this->css()
 		echo '<input type="password" id="secret-key" name="secret-key" value="' . $this->secret_key . '" minlength="32" maxlength="32">';
 	}
 	?>
-	<button type="submit">Submit</button>
+	<button id="apply-settings" type="submit">Submit</button>
+	<?php if (!empty($_SERVER['HTTP_REFERER'] && !$this->updated)) { ?>
+		<button type="button" onclick="window.location.assign('<?php echo $_SERVER['HTTP_REFERER']; ?>')">Back</button>
+	<?php } else if ($this->updated) { ?>
+		<button type="button" onclick="window.location.assign('<?php echo $base; ?>')">Back</button>
+	<?php } ?>
 	<?php if($this->updated)
 	{
 		echo '<p id="updated">Updated S3 key settings successfully.</p>';

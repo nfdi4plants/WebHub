@@ -36,8 +36,8 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 			// defines for sidemenu button
 			// first key should be plugin name for text to display on button
 			$areas['objectstorage'] = 'Object Storage';
-			$areas['icon'] = '2709';
-			$areas['icon-class'] = 'icon-envelope';
+			$areas['icon'] = 'f0a0';
+			$areas['icon-class'] = 'icon-hdd';
 			// should button be shown?
 			$areas['menu'] = $this->params->get('display_tab', 1);
 		}
@@ -107,11 +107,11 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 				$params = Settings::getSettingsAPI(); 
 				$view = $this->view('settings', 'endpoint');
 			}
-			// else if (isset($parts[3]) && $parts[3] === 'sign') 
-			// {
-			// 	Endpoints::sign();
-			// 	exit();
-			// }
+			else if (isset($parts[3]) && $parts[3] === 'createBucket') 
+			{
+				Endpoints::createBucket();
+				exit();
+			}
 			else if (isset($parts[3]) && $parts[3] === 'delete') 
 			{
 				Endpoints::delete();

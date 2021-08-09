@@ -16,7 +16,7 @@ class Browser {
             if(!isset($key))
             {
                 return array('missing_keys' => true);
-            }    
+            }
         }
 
         $bucket = Request::getVar('bucket');

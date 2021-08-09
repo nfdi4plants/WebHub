@@ -34,10 +34,14 @@ $this->css()
     }
     else if(isset($this->buckets))
     {
+        echo '<form id="bucket-creation" method="POST">
+        <input type="text" id="bucket-name" name="bucket-name">
+        <button type="submit" id="create-bucket" title="Create bucket">Create bucket</button>
+        </form>';
         echo '<h4>Available buckets:</h4>';
         if (empty($this->buckets))
         {
-            echo '<p id="no-buckets">No buckets found.<br/>Please create a bucket using a command line client first.</p>';
+            echo '<p id="no-buckets">No buckets found.<br/>Please create a bucket first.</p>';
         }
         else
         {
@@ -54,7 +58,7 @@ $this->css()
     {
         $prefix = urldecode($this->prefix);
         $prefix = empty($prefix) ? '/' : $prefix;
-        $upDesc = $prefix == '/' ? 'Back to bucket selection' : 'Back to parent folder';
+        $upDesc = $prefix == '/' ? 'Back to bucket selection' : '';
         echo '<div id="s3-content">
             <div id="s3-header">
             <div class="current">Your current location: <p class="location">' . $prefix . '</p></div>
@@ -69,7 +73,7 @@ $this->css()
                     <input type="file" name="uploadFolder" id="uploadFolder" class="hide-input" webkitdirectory directory>
                         <label for="uploadFolder">Select folder </label>
                     </div>
-                    <button id="upload" class="icon-upload" title="Upload files"/>
+                    <button id="upload" class="icon-upload" title="Upload files">Upload files</button>
                 </form>
             </div>
         </div>
