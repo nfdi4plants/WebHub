@@ -226,9 +226,23 @@ ul li {
 }
 
 #create-bucket {
-    flex-basis: 40%;
+    flex-basis : 40%;
+    margin-left: 0.25em;
 }
 
 #apply-settings {
     margin-right: 14.9em;
+}
+
+.ul-frame {
+    width           : 31em;
+    height          : 1em;
+    background-color: #ccc;
+    border-radius   : 1em;
+}
+
+div[class*="progress-"] {
+    height          : 100%;
+    background-color: #2add00;
+    border-radius   : 1em;
 }

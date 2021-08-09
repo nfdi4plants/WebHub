@@ -55,7 +55,7 @@ class S3
 			->useMultiCurl($this->multi_curl)
 			->useCurlOpts($this->curl_opts)
 			->sign($this->access_key, $this->secret_key, true);
-		
+
 		return $request->getResponse();
 	}
 

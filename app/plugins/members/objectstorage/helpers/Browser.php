@@ -32,7 +32,7 @@ class Browser {
                 return self::getBucketSelection();
         }
         // somewhere inside a bucket, but not an object event
-        else if (empty($path->getPrefix()) || empty($path->getObject()))
+        else if (empty($path->getObject()))
         {
             return self::getFileSelection($path);
         }
@@ -129,7 +129,10 @@ class Browser {
 			{
 				$prefix = explode('/', $content->Key);
 				$object = array_pop($prefix);
-				$files[] = new S3Path($bucket, implode('/', $prefix), $object);
+				if(!empty($object))
+				{
+					$files[] = new S3Path($bucket, implode('/', $prefix), $object);
+				}
 			}
 		}
 
@@ -155,7 +158,15 @@ class Browser {
  
     private static function downloadFile($path){
         $connector = self::getConnector();
-		$url = $connector->getPresignedObjectURL($path->getBucket(), $path->getPrefix() . '/' . $path->getObject());
+		if (empty($path->getPrefix()))
+		{
+			$location = $path->getObject();
+		}
+		else
+		{
+			$location = $path->getPrefix() . '/' . $path->getObject();
+		}
+		$url = $connector->getPresignedObjectURL($path->getBucket(), $location);
 		
 		App::redirect($url);
 

@@ -58,7 +58,7 @@ $this->css()
     {
         $prefix = urldecode($this->prefix);
         $prefix = empty($prefix) ? '/' : $prefix;
-        $upDesc = $prefix == '/' ? 'Back to bucket selection' : '';
+        $upDesc = $prefix == '/' ? 'Back to bucket selection' : 'Back one level';
         echo '<div id="s3-content">
             <div id="s3-header">
             <div class="current">Your current location: <p class="location">' . $prefix . '</p></div>

@@ -107,7 +107,7 @@ class plgMembersObjectstorage extends \Hubzero\Plugin\Plugin
 				$params = Settings::getSettingsAPI(); 
 				$view = $this->view('settings', 'endpoint');
 			}
-			else if (isset($parts[3]) && $parts[3] === 'createBucket') 
+			else if (isset($parts[3]) && $parts[3] === 'createBucket')
 			{
 				Endpoints::createBucket();
 				exit();

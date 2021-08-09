@@ -20,11 +20,11 @@ if (!jq) {
 
 createBucket = function (bucket) {
     var url = window.location.href;
-    if (url.includes('?')){
+    if (url.includes('?')) {
         url = url.split('?')[0];
     }
     var endpoint = url + '/createBucket';
-    var parts =  {bucket: bucket};
+    var parts = { bucket: bucket };
     console.log(parts);
     $.ajax({
         type: 'POST',
@@ -63,17 +63,20 @@ deleteItem = function (item) {
     // extract arguments from item url
     var parts = extractArgs(item);
 
+    // check if required parts are set and display confirmation dialog depending on what should be deleted
     if (typeof parts["bucket"] !== "undefined" && typeof parts["prefix"] !== "undefined") {
         var url = window.location.href;
         if (url.includes("?")) {
             url = url.split("?")[0];
         }
+        // Confirm delete dialog for single object 
         if (typeof parts["object"] !== "undefined" && parts["object"] != "") {
             confirmDelete = confirm("Are you sure you want to delete " + decodeURI(parts["object"]) + " ?");
             if (!confirmDelete) {
                 return;
             }
         }
+        // Confirm delete dialog for prefix (recursively delete objects)
         else {
             var prefixParts = decodeURI(parts["prefix"]).split('/');
             var name = prefixParts[prefixParts.length - 1];
@@ -121,6 +124,9 @@ deleteItem = function (item) {
                                 switch (code) {
                                     case 403:
                                         error = "Access Denied";
+                                        break;
+                                    case 404:
+                                        error = "File not found";
                                         break;
                                     default:
                                         error = "Unexpected Error";
@@ -185,6 +191,9 @@ itemInfo = function (item) {
                             case 403:
                                 error = "Access Denied";
                                 break;
+                            case 404:
+                                error = "File not found";
+                                break;
                             default:
                                 error = "Unexpected Error";
                         }
@@ -201,14 +210,15 @@ itemInfo = function (item) {
 
 }
 
-handleFiles = function (files) {
+handleFiles = async function (files) {
     for (var i = 0; i < files.length; i++) {
-        var file = files.item(i);
-        upload(file);
+        var file = files[i];
+        await upload(file, i, files.length);
     }
+    window.location.reload();
 }
 
-upload = function (file) {
+upload = async function (file, current, total) {
     var formdata = new FormData();
     formdata.set("file", file);
     // TODO: handle correctly if this doesn't exist
@@ -231,7 +241,30 @@ upload = function (file) {
         formdata.set("object", parts[2].split("=")[1]);
     }
 
-    $.ajax({
+    await $.ajax({
+        //see https://stackoverflow.com/questions/15410265/file-upload-progress-bar-with-jquery/22987941#22987941
+        xhr: function () {
+            var xhr = new window.XMLHttpRequest();
+            current = current + 1;
+            // add progress bar and change listeners for upload
+            if ($(".progress-files").length) {
+                $(".progress-files").css("width", "0%");
+                $(".upload-files").text('Uploading file: ' + file.name + ' (' + current + ' of ' + total + ')');
+            }
+            else {
+                $(".actions").append('<div class="upload-files">Uploading file: ' + file.name + ' (' + current + ' of ' + total + ')</div><div class="ul-frame"><div class="progress-files" style="width:0%"></div></div>');
+            }
+            xhr.upload.addEventListener("progress", function (event) {
+                if (event.lengthComputable) {
+                    var progress = parseFloat(event.loaded / event.total * 100);
+                    if (progress >= 95) {
+                        progress = 95.0;
+                    }
+                    $(".progress-files").css("width", "" + progress + "%");
+                }
+            }, false);
+            return xhr;
+        },
         type: 'POST',
         url: endpoint,
         data: formdata,
@@ -258,7 +291,7 @@ upload = function (file) {
                     return;
                 }
             }
-            $("progress").trigger("change");
+            $(".progress-files").css("width", "100%");
         }
     });
 }
@@ -271,12 +304,11 @@ HUB.Plugins.ObjectStorage = {
         if ($("form").length > 0) {
             $("form")[0].reset();
         }
-        $("#bucket-creation").submit(function(event){
+        $("#bucket-creation").submit(function (event) {
             event.preventDefault();
             var bucket = $("#bucket-name")[0].value;
             createBucket(bucket);
         });
-
         // attach functionality to buttons
         $("#upload").click(this.prepareFileUpload);
         $("#uploadFiles").on("change", function () {
@@ -300,30 +332,12 @@ HUB.Plugins.ObjectStorage = {
     prepareFileUpload: function (e) {
         // collect input for files and folder upload, both a FileList
         var files = $("input[name=uploadFiles]").prop("files");
-        var folder = $("input[name=uploadFolder]").prop("files");
+        var folderFiles = $("input[name=uploadFolder]").prop("files");
 
-        var total = 0;
-        if (typeof files !== 'undefined') {
-            total += files.length;
-        }
-        if (typeof folder !== 'undefined') {
-            total += folder.length;
-        }
 
-        if (total > 0) {
-            // add progress bar and change listeners for upload
-            $(".actions").append('<label for="file">Upload progress:</label><progress value="0">0</progress>');
-            $("progress").on("change", function () {
-                var progress = 1 / total + parseFloat($("progress").attr("value"));
-                $("progress").attr("value", progress);
-                $("progress").text(progress + " %");
-                if (0.99 <= progress && progress <= 1.01) {
-                    // reload page
-                    setTimeout(function () { window.location.reload() }, 500);
-                }
-            });
-        }
-        if (typeof files !== 'undefined') {
+        files = Array.from(files).concat(Array.from(folderFiles));
+        if (files.length) {
+            files.sort((a, b) => a.size - b.size);
             handleFiles(files);
         }
         if (typeof folder !== 'undefined') {
