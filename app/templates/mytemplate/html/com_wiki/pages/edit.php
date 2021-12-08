@@ -90,7 +90,7 @@ $authors = implode(', ', $authors);
 				<?php } ?>
 
 				<?php
-				if ($this->page->exists() && !$this->page->access('modify')) {
+				if ($this->page->exists() && !$this->page->access('edit')) {
 					if ($this->page->param('allow_changes') == 1) { ?>
                         <p class="warning"><?php echo Lang::txt('COM_WIKI_WARNING_NOT_AUTH_EDITOR_SUGGESTED'); ?></p>
 					<?php } else { ?>
@@ -260,7 +260,7 @@ $authors = implode(', ', $authors);
 									$cls .= ' hide';
 								}
 
-								if (!$this->page->exists() || $this->page->get('created_by') == User::get('id') || $this->page->access('manage')) { ?>
+								if (!$this->page->exists() || $this->page->get('created_by') == User::get('id') || $this->page->isAuthor() || $this->page->access('manage')) { ?>
                                     <div class="form-group">
                                         <label for="params_mode">
 											<?php echo Lang::txt('COM_WIKI_FIELD_MODE'); ?>: <span class="required"><?php echo Lang::txt('COM_WIKI_REQUIRED'); ?></span>

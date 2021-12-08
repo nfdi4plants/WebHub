@@ -73,9 +73,19 @@ if ($this->getTitle() != Config::get('sitename'))
 
 							<h1>
 								<a href="<?php echo Request::root(); ?>" title="<?php echo Config::get('sitename'); ?>">
-									<span><img src="/img/logo.png" height=31rem alt="logo" /></span>
+									<span><img src="/img/logo.svg" height=48px alt="logo" /></span>
 								</a>
 							</h1>
+
+
+							<nav id="nav" class="main-navigation" aria-label="<?php echo Lang::txt('TPL_MYTEMPLATE_MAINMENU'); ?>">
+								<jdoc:include type="modules" name="user3" />
+							</nav>
+							<?php if ($this->countModules('logos')) { ?>
+								<nav id="logos">
+									<jdoc:include type="modules" name="logos" />
+								</nav>
+							<?php } ?>
 
 							<nav id="account" class="account-navigation">
 								<ul>
@@ -122,9 +132,6 @@ if ($this->getTitle() != Config::get('sitename'))
 								</ul>
 							</nav>
 
-							<nav id="nav" class="main-navigation" aria-label="<?php echo Lang::txt('TPL_MYTEMPLATE_MAINMENU'); ?>">
-								<jdoc:include type="modules" name="user3" />
-							</nav>
 						</header>
 
 						<div id="sub-masthead">
@@ -137,9 +144,7 @@ if ($this->getTitle() != Config::get('sitename'))
 							<?php endif; ?>
 
 							<div id="trail">
-								<?php if ($menu->getActive() == $menu->getDefault()) : ?>
-									<span class="pathway"><?php echo Lang::txt('TPL_MYTEMPLATE_TAGLINE'); ?></span>
-								<?php else: ?>
+								<?php if ($menu->getActive() != $menu->getDefault()) : ?>
 									<jdoc:include type="modules" name="breadcrumbs" />
 								<?php endif; ?>
 							</div>
@@ -159,41 +164,45 @@ if ($this->getTitle() != Config::get('sitename'))
 			</div><!-- / #top -->
 
 			<div id="wrap">
-				<main id="content" class="<?php echo Request::getCmd('option', ''); ?>">
-					<div class="inner<?php if ($this->countModules('left or right')) { echo ' withmenu'; } ?>">
-					<?php if ($this->countModules('left or right')) : ?>
-						<section class="main section">
-							<div class="section-inner">
-					<?php endif; ?>
+				<?php if ($this->countModules('landing')) { ?>
+					<jdoc:include type="module" name="landing" />
+				<?php } else { ?>
+					<main id="content" class="<?php echo Request::getCmd('option', ''); ?>">
+						<div class="inner<?php if ($this->countModules('left or right')) { echo ' withmenu'; } ?>">
+						<?php if ($this->countModules('left or right')) : ?>
+							<section class="main section">
+								<div class="section-inner">
+						<?php endif; ?>
 
-					<?php if ($this->countModules('left')) : ?>
+						<?php if ($this->countModules('left')) : ?>
 							<aside class="aside">
 								<jdoc:include type="modules" name="left" />
 							</aside><!-- / .aside -->
-					<?php endif; ?>
-					<?php if ($this->countModules('left or right')) : ?>
+						<?php endif; ?>
+						<?php if ($this->countModules('left or right')) : ?>
 							<div class="subject">
-					<?php endif; ?>
+						<?php endif; ?>
 
 								<!-- start component output -->
 								<jdoc:include type="component" />
 								<!-- end component output -->
 
-					<?php if ($this->countModules('left or right')) : ?>
+						<?php if ($this->countModules('left or right')) : ?>
 							</div><!-- / .subject -->
-					<?php endif; ?>
-					<?php if ($this->countModules('right')) : ?>
+						<?php endif; ?>
+						<?php if ($this->countModules('right')) : ?>
 							<aside class="aside">
 								<jdoc:include type="modules" name="right" />
 							</aside><!-- / .aside -->
-					<?php endif; ?>
+						<?php endif; ?>
 
-					<?php if ($this->countModules('left or right')) : ?>
-							</div>
-						</section><!-- / .main section -->
-					<?php endif; ?>
+						<?php if ($this->countModules('left or right')) : ?>
+								</div>
+							</section><!-- / .main section -->
+						<?php endif; ?>
 					</div><!-- / .inner -->
-				</main>
+					</main>
+				<?php } ?>
 
 				<footer id="footer">
 					<jdoc:include type="modules" name="footer" />

@@ -1,0 +1,84 @@
+/**
+* Styling for News and Job articles
+* Will also be applied to all other category blog leading items, thus might need some changes if additional content of this type is implemented
+**/
+
+.items-leading>[class^="leading-"] {
+    background   : #eee;
+    padding-top  : .1em;
+    padding-left : 1em;
+    padding-right: 1em;
+    margin-bottom: .8em;
+    border-radius: .5em;
+    margin-left  : auto;
+    margin-right : auto;
+    overflow     : auto;
+}
+
+@media (max-width: 500px) {
+
+    .blog>.pagination,
+    .inner .contentpaneopen>* {
+        width: 100%;
+    }
+
+    .items-leading>[class^="leading-"] {
+        width: 100%;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 1000px) {
+
+    .blog>.pagination,
+    .inner:not(.withmenu) .contentpaneopen>* {
+        width       : ~"calc(100% - 0.6 * (100vw - 500px))";
+        margin-left : auto;
+        margin-right: auto;
+    }
+
+    .inner.withmenu .contentpaneopen>* {
+        width       : ~"calc(100% - 0.6 * (100vw - 500px))";
+        margin-right: auto;
+    }
+
+    .items-leading>[class^="leading-"] {
+        width: ~"calc(100% - 0.6 * (100vw - 500px))";
+    }
+}
+
+@media (min-width: 1001px) {
+
+    .blog>.pagination,
+    .inner:not(.withmenu) .contentpaneopen>* {
+        width       : 66%;
+        margin-left : auto;
+        margin-right: auto;
+    }
+
+    .inner.withmenu .contentpaneopen>* {
+        width       : 66%;
+        margin-right: auto;
+    }
+
+    .items-leading>[class^="leading-"] {
+        width: 66%;
+    }
+}
+
+
+.inner.withmenu {
+
+    .logo-list,
+    table {
+        width: 100% !important;
+    }
+}
+
+#content-header,
+.content-header {
+    display: none;
+}
+
+#content.com_content .withmenu {
+    padding-top: 0;
+}

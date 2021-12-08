@@ -50,6 +50,25 @@ $rows = $pages->rows();
 			<?php
 			if ($rows->count())
 			{
+				$page_ids = array();
+				foreach ($rows as $row)
+				{	
+					// Don't show unwanted pages
+					if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor() && $row->param('mode') == 'knol')
+					{
+						$page_ids[] = $row->get('id');
+					}
+				}
+				$filters['id'] = $page_ids;
+			}
+			$pages = $this->book->pages($filters);
+			if (!Request::getInt('force_fix', 0))
+			{
+				$pages->whereEquals('version_id', 0);
+			}
+			$rows = $pages->rows();
+			if ($rows->count())
+			{
 				foreach ($rows as $row)
 				{
 					$version = $row->versions()

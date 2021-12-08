@@ -34,6 +34,7 @@ class Articles extends SiteController
 	 */
 	public function displayTask()
 	{
+		$db = App::get('db');
 		$params = App::get('menu.params');
 
 		$filters = array();
@@ -46,11 +47,23 @@ class Articles extends SiteController
 		$idx = count(Request::segments());
 		$id_or_alias = Request::segment($idx);
 
+		// HUBzero does not require a unique alias, try to limit scope by category id
+		$category_id = Request::segment($idx - 1);
+		if (!is_numeric($category_id)){
+			$query = 'SELECT id FROM `#__categories` WHERE alias = ' .$db->Quote(urldecode($category_id));
+			$db->setQuery($query);
+			$category = $db->loadObject();
+			// Category with given name exists? Retrieve id
+			if (isset($category))
+			{
+				$category_id = $category->id;
+			}
+		}
+
 		// Try resolving by alias
 		// $idx > 0 required to resolve landing page correctly
 		if ($idx > 0 && !is_numeric($id_or_alias))
 		{
-			$db = App::get('db');
 			$query = 'SELECT id FROM `#__content` WHERE alias = ' . $db->Quote(urldecode($id_or_alias)) . ' AND state > 0';
 			$db->setQuery($query);
 			$article = $db->loadObject();
@@ -61,19 +74,6 @@ class Articles extends SiteController
 			}
 			else
 			{
-				// HUBzero does not require a unique alias, try to limit scope by category id
-				$category_id = Request::segment($idx - 1);
-				if (!is_numeric($category_id)){
-					$query = 'SELECT id FROM `#__categories` WHERE alias = ' .$db->Quote(urldecode($category_id));
-					$db->setQuery($query);
-					$category = $db->loadObject();
-
-					if (isset($category))
-					{
-						$category_id = $category->id;
-					}
-				}
-
 				// check again to see if id was retrieved correctly for given alias
 				if (is_numeric($category_id))
 				{
@@ -87,6 +87,12 @@ class Articles extends SiteController
 					}
 				}
 			}
+		}
+
+		// filter article by category
+		if (is_numeric($category_id))
+		{
+			$filters['category_id'] = $category_id;
 		}
 
 		// Filter by published state.

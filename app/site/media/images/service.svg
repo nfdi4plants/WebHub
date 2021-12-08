@@ -108,5 +108,7 @@
 <polygon class="st3" points="91.8,177.8 104.8,177.8 104.8,174.5 111.4,181 104.8,187.6 104.8,184.3 91.8,184.3 "/>
 <polygon class="st4" points="232.2,180 246.4,180 246.4,176.7 252.9,183.2 246.4,189.8 246.4,186.5 232.2,186.5 "/>
 <polygon class="st3" points="232.2,180 246.4,180 246.4,176.7 252.9,183.2 246.4,189.8 246.4,186.5 232.2,186.5 "/>
-<text transform="matrix(1 0 0 1 71.6342 26.693)" class="st13 st14 st15">on-site personnel assistance</text>
+<text xmlns="http://www.w3.org/2000/svg" class="st13 st14 st15" transform="matrix(1 0 0 1 71.6342 26.693)">on</text>
+<text xmlns="http://www.w3.org/2000/svg" class="st13 st14 st15" transform="matrix(1 0 0 1 84.6342 31.0)">-</text>
+<text xmlns="http://www.w3.org/2000/svg" class="st13 st14 st15" transform="matrix(1 0 0 1 90.634 26.693)">site personnel assistance</text>
 </svg>

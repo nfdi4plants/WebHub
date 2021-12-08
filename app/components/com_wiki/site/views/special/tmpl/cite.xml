@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Special: Citation instructions">
+		<message>
+			<![CDATA[Special: Citation instructions]]>
+		</message>
+	</layout>
+	<state>
+		<name>Special: Citation instructions</name>
+		<description>Special: Citation instructions</description>
+		<params>
+	 		<param name="page" type="text" label="Page" description="Page to display instructions for" />
+		</params>
+	</state>
+</metadata>

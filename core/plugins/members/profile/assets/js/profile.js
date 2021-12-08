@@ -84,13 +84,13 @@ HUB.Members.Profile = {
 					event.preventDefault();
 				})
 				.on("click", ".section-edit-submit", function(event) {
-					HUB.Members.Profile.editSubmitForm( $(this) );
+					HUB.Members.Profile.submitAccept( $(this) );
 					event.preventDefault();
 				});
 
 			$("body")
 				.on("click", ".fancybox-wrap .section-edit-submit", function(event) {
-					HUB.Members.Profile.editSubmitForm( $(this) );
+					HUB.Members.Profile.submitAccept( $(this) );
 					event.preventDefault();
 				})
 				.on("click", ".fancybox-wrap .usage-agreement-do-not-agree", function(event) {
@@ -114,7 +114,7 @@ HUB.Members.Profile = {
 					event.preventDefault();
 				})
 				.on("click", ".fancybox-wrap .usage-agreement-dont-accept", function(event) {
-					HUB.Members.Profile.editSubmitForm( $(this) );
+					HUB.Members.Profile.submitDecline( $(this) );
 					event.preventDefault();
 				});
 		}
@@ -152,12 +152,12 @@ HUB.Members.Profile = {
 
 	//-------------------------------------------------------------
 
-	editSubmitForm: function( submit_button )
+	submitAccept: function( submit_button )
 	{
 		var $ = this.jQuery;
 
 		//get the needed vars
-		var form = submit_button.parents("form"),
+		var form = submit_button.closest("form"),
 			registration_field = form.attr("data-section-registation"),
 			profile_field = form.attr("data-section-profile");
 
@@ -175,12 +175,9 @@ HUB.Members.Profile = {
 			data: form.serialize(),
 			success: function(data, status, xhr)
 			{
-				var returned = JSON.parse(data);
-
-				console.log(data);
 				submit_button.attr("disabled", false);
 
-				if(returned.success)
+				if(status === 'success')
 				{
 					switch(profile_field)
 					{
@@ -192,7 +189,46 @@ HUB.Members.Profile = {
 							HUB.Members.Profile.editReloadSections();
 					}
 				}
-				else if(returned.loggedout)
+				else
+				{
+					HUB.Members.Profile.editValidationHandling(form, returned, registration_field);
+				}
+			},
+			error: function(xhr, status, error)
+			{
+				console.log("An error occured while trying to save your profile.");
+			},
+			complete: function(xhr, status) {}
+		});
+	},
+
+		//-------------------------------------------------------------
+
+	submitDecline: function( submit_button )
+	{
+		var $ = this.jQuery;
+
+		//get the needed vars
+		var form = submit_button.closest("form"),
+			registration_field = form.attr("data-section-registation"),
+			profile_field = form.attr("data-section-profile");
+
+		//disable submit button and show saving graphic
+		submit_button.attr("disabled", true);
+		//form.children(".section-edit-cancel").after("<div class=\"section-edit-saving\" />");
+
+		//auto convert any wykiwygs editors before submitting
+		HUB.Members.Profile.editBiographyConvert();
+
+		//run ajax request
+		$.ajax({
+			type: 'POST',
+			url: form.attr("action"),
+			data: form.serialize(),
+			success: function(data, status, xhr)
+			{
+				submit_button.attr("disabled", false);
+				if(status === 'success')
 				{
 					HUB.Members.Profile.editRedirect("/");
 				}

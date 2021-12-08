@@ -1,0 +1,45 @@
+.primary:active {
+	box-shadow: none;
+}
+
+.shibboleth.account {
+	background: inherit;
+	max-height: 20em;
+	height    : auto;
+	overflow  : hidden;
+}
+
+.shibboleth.account:hover {
+	box-shadow: 0 0 transparent;
+}
+
+.shibboleth.account:after {
+	content: '';
+}
+
+.shibboleth.account button {
+	display           : block;
+	border            : 0;
+	margin-left       : auto;
+	margin-right      : auto;
+	text-shadow       : none;
+	background        : inherit;
+	-webkit-box-shadow: none;
+	-moz-box-shadow   : none;
+	box-shadow        : none;
+}
+
+.shibboleth.account button>img {
+	background: unset;
+}
+
+.sub-section-content.auth .shibboleth.account button {
+	display     : unset;
+	margin-left : unset;
+	margin-right: unset;
+}
+
+.shibboleth.account button:hover {
+	color     : none;
+	background: none;
+}

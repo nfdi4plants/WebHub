@@ -50,6 +50,11 @@ $rows = $query
 			{
 				foreach ($rows as $row)
 				{
+					// Don't show unwanted pages
+					if(!in_array($row->get('access'), User::getAuthorisedViewLevels()) && !($row->isAuthor() && $row->param('mode') == 'knol') )
+					{
+						continue;
+					}
 					$row->set('length', strlen($row->get('pagetext')));
 					$row->save();
 					?>

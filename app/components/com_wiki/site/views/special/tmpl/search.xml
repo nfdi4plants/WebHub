@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+@package      hubzero-cms
+@copyright    Copyright 2005-2019 HUBzero Foundation, LLC.
+@license      http://opensource.org/licenses/MIT MIT
+-->
+
+<metadata>
+	<layout title="Special: Search pages">
+		<message>
+			<![CDATA[Special: Search pages]]>
+		</message>
+	</layout>
+	<state>
+		<name>Special: Search pages</name>
+		<description>Special: Search pages</description>
+	</state>
+</metadata>

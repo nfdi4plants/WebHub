@@ -1,0 +1,248 @@
+.description {
+    font-size: large;
+}
+
+li::marker {
+    content: "";
+}
+
+.main-section {
+    display       : flex;
+    flex-direction: row;
+}
+
+#file-panel {
+    flex-grow: .7;
+}
+
+#file-panel>div {
+    margin-bottom: 2em;
+}
+
+.item-title {
+    display       : flex;
+    flex-direction: row;
+    background    : rgb(102, 102, 102);
+    color         : #fff;
+    border        : 1px solid rgb(204, 204, 204);
+    border-radius : .5em;
+}
+
+.item-title>.description {
+    margin-left: 2em;
+    flex-grow  : .7;
+}
+
+.item-title>.toggle-visibility {
+    text-align  : right;
+    margin-right: 2em;
+    font-size   : medium;
+    flex-grow   : .3;
+}
+
+.file-list {
+    margin-top : 1em;
+    border-left: 2em;
+}
+
+.file-list>li {
+    border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+.actions {
+    margin-left: .9em;
+}
+
+#settings {
+    flex-grow  : .15;
+    margin-left: 2em;
+    font-size  : medium;
+}
+
+#settings>.description {
+    text-align    : center;
+    padding-top   : 1em;
+    padding-bottom: 1em;
+    background    : rgb(102, 102, 102);
+    color         : #fff;
+    border-radius : .5em;
+}
+
+.item {
+    width          : auto;
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    border         : transparent;
+    cursor         : pointer;
+    margin-right   : 1em;
+}
+
+.item:hover :not(.buttons, button),
+#up:hover {
+    border-radius   : 5px;
+    background-color: rgb(192, 192, 192);
+}
+
+.item>a {
+    flex: 1 1 75%;
+}
+
+.item>a,
+.item button,
+#up {
+    padding    : 1em;
+    line-height: 2.5em;
+}
+
+#up {
+    margin-left: 2em;
+    width      : 42em;
+}
+
+.item>a::before,
+#up::before {
+    margin-right: .7em;
+}
+
+.item>a:hover,
+#up:hover {
+    border-bottom: none;
+}
+
+.item button {
+    border-radius   : 5px;
+    background-color: #ddd;
+    margin          : 1px;
+    margin-left     : .2em;
+    margin-bottom   : .2em;
+}
+
+
+.item button:hover {
+    background-color: #ff1d1d;
+}
+
+.item#up {
+    justify-content: flex-start;
+}
+
+.buttons {
+    display  : flex;
+    flex     : 1 0 20%;
+    flex-wrap: nowrap;
+}
+
+.fileUpload {
+    display: flex;
+}
+
+#filebrowser {
+    height    : 55em;
+    width     : auto;
+    min-width : 30em;
+    max-width : 45em;
+    overflow-y: auto;
+}
+
+ul li {
+    margin-top   : 0;
+    margin-bottom: 0;
+}
+
+.hide-input {
+    width   : 0.1px;
+    height  : 0.1px;
+    opacity : 0;
+    overflow: hidden;
+    position: absolute;
+    z-index : -1;
+}
+
+.hide-input+label {
+    text-align      : center;
+    margin-right    : 0.4em;
+    padding-top     : 0.6em;
+    background-color: #ddd;
+}
+
+.hide-input:focus+label,
+.hide-input+label:hover,
+#s3-upload>button:hover,
+#s3-upload>button:focus,
+.settings:hover,
+.settings:focus {
+    color           : #fff;
+    background-color: #ff1d1d;
+}
+
+#s3-upload {
+    display: flex;
+}
+
+#s3-upload>button,
+#s3-upload label {
+    width        : 10em;
+    height       : 3em;
+    border       : 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+
+#s3-settings {
+    width: 25em;
+}
+
+#s3-settings>input {
+    border-radius: 4px;
+}
+
+.location {
+    margin-left: 1em;
+    font-weight: bold;
+}
+
+.settings {
+    float           : right;
+    font-size       : medium;
+    background-color: #ddd;
+    padding         : .5em;
+    border          : solid rgba(0, 0, 0, 0.15) 1px;
+    border-radius   : .5em;
+}
+
+#updated,
+#no-buckets {
+    font-weight: bold;
+}
+
+#bucket-creation {
+    display: flex;
+    width  : 30em;
+}
+
+#bucket-name,
+#create-bucket {
+    border-radius: .5em;
+}
+
+#create-bucket {
+    flex-basis : 40%;
+    margin-left: 0.25em;
+}
+
+#apply-settings {
+    margin-right: 14.9em;
+}
+
+.ul-frame {
+    width           : 31em;
+    height          : 1em;
+    background-color: #ccc;
+    border-radius   : 1em;
+}
+
+div[class*="progress-"] {
+    height          : 100%;
+    background-color: #2add00;
+    border-radius   : 1em;
+}

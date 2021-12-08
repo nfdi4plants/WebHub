@@ -806,6 +806,7 @@ class Page extends Relational
 	 */
 	public function access($action='view', $item='page')
 	{
+
 		if (!$this->config('access-check-done', false))
 		{
 			$this->config()->set('access-page-view', true);
@@ -814,17 +815,11 @@ class Page extends Relational
 			$this->config()->set('access-page-create', false);
 			$this->config()->set('access-page-delete', false);
 			$this->config()->set('access-page-edit', false);
-			$this->config()->set('access-page-modify', false);
 
 			$this->config()->set('access-comment-view', false);
 			$this->config()->set('access-comment-create', false);
 			$this->config()->set('access-comment-delete', false);
 			$this->config()->set('access-comment-edit', false);
-
-			if ($this->get('scope') == 'site' && $this->get('access') && !in_array($this->get('access'), User::getAuthorisedViewLevels()))
-			{
-				$this->config()->set('access-page-view', false);
-			}
 
 			// Check if they are logged in
 			if (User::isGuest())
@@ -850,7 +845,6 @@ class Page extends Relational
 					$this->config()->set('access-page-create', true);
 					$this->config()->set('access-page-delete', true);
 					$this->config()->set('access-page-edit', true);
-					$this->config()->set('access-page-modify', true);
 
 					$this->config()->set('access-comment-view', true);
 					$this->config()->set('access-comment-create', true);
@@ -873,13 +867,10 @@ class Page extends Relational
 							if ($this->get('created_by') == User::get('id')
 							 || $this->isAuthor(User::get('id')))
 							{
+								$this->config()->set('access-page-admin', true);
+								$this->config()->set('access-page-manage', true);
 								$this->config()->set('access-page-delete', true);
 								$this->config()->set('access-page-edit', true);
-								$this->config()->set('access-page-modify', true);
-							}
-							else if ($this->param('allow_changes'))
-							{
-								$this->config()->set('access-page-modify', true); // This allows users to suggest changes
 							}
 
 							if ($this->param('allow_comments'))
@@ -893,23 +884,34 @@ class Page extends Relational
 						default:
 							if (!$this->isLocked())
 							{
-								$this->config()->set('access-page-delete', User::authorise('core.delete', $option));
+								$canDelete = $this->get('created_by') == User::get('id') 
+									&& User::authorise('core.edit.own', $option) 
+									|| User::authorise('core.delete', $option);
+								$this->config()->set('access-page-delete', $canDelete);
 								// Check if article created by user and allowed to edit own,
 								// else check if is allowed to edit in general
 								$canEdit = $this->get('created_by') == User::get('id')
 									&& User::authorise('core.edit.own', $option)
 									|| User::authorise('core.edit', $option);
 								$this->config()->set('access-page-edit', $canEdit);
-								$this->config()->set('access-page-modify', true);
 							}
 							$this->config()->set('access-comment-view', true);
 							$this->config()->set('access-comment-create', true);
 						break;
 					}
 				}
-				//print_r($this->config());
 				$this->config()->set('access-check-done', true);
 			}
+		}
+
+		// Check for correct view levels on site wiki
+		$noView = $this->get('scope') == 'site' 
+				&& $this->get('access') 
+				&& !in_array($this->get('access'), User::getAuthorisedViewLevels())
+				&& !($this->isAuthor() && $this->param('mode') == 'knol');
+		if ($noView)
+		{
+			$this->config()->set('access-page-view', false);
 		}
 
 		return $this->config('access-' . (string) $item . '-' . strtolower($action));

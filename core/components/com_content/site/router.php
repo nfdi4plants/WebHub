@@ -171,9 +171,16 @@ class Router extends Base
 			}
 
 			$categories = \Components\Categories\Helpers\Categories::getInstance('Content');
-			$category   = $categories->get($catid);
+			if (isset($mCatid))
+			{
+					$category   = $categories->get($mCatid);
+			}
+			else if (isset($catid))
+			{
+					$category   = $categories->get($catid);
+			}
 
-			if (!$category)
+			if (!isset($category))
 			{
 				// we couldn't find the category we were given.  Bail.
 				return array();

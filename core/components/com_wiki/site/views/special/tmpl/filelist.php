@@ -8,6 +8,8 @@
 // No direct access.
 defined('_HZEXEC_') or die();
 
+use Components\Wiki\Models\Page;
+
 Pathway::append(
 	Lang::txt('COM_WIKI_SPECIAL_FILE_LIST'),
 	$this->page->link()
@@ -39,7 +41,6 @@ $rows = \Components\Wiki\Models\Attachment::all()
 	->whereEquals($pages . '.scope', $this->book->get('scope'))
 	->whereEquals($pages . '.scope_id', $this->book->get('scope_id'))
 	->whereEquals($pages . '.state', '1')
-	->paginated()
 	->rows();
 
 $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
@@ -82,6 +83,47 @@ $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
 			</thead>
 			<tbody>
 			<?php
+			if ($rows->count())
+			{
+				$page_ids = array();
+				foreach ($rows as $row)
+				{	
+					$page = Page::one($row->get('page_id'));
+					// Don't show unwanted pages
+					if(in_array($page->get('access'), User::getAuthorisedViewLevels()) || $page->isAuthor() && $page->param('mode') == 'knol')
+					{
+						$page_ids[] = $row->get('id');
+					}
+				}
+				$rows = \Components\Wiki\Models\Attachment::all()
+				->select($attach . '.*')
+				->select($pages . '.pagename')
+				->select($pages . '.path')
+				->select($pages . '.scope')
+				->select($pages . '.scope_id')
+				->join($pages, $pages . '.id', $attach . '.page_id')
+				->whereIn($pages . '.id', $page_ids)
+				->whereEquals($pages . '.scope', $this->book->get('scope'))
+				->whereEquals($pages . '.scope_id', $this->book->get('scope_id'))
+				->whereEquals($pages . '.state', '1')
+				->paginated()
+				->rows();
+			}
+			else
+			{
+				$rows = \Components\Wiki\Models\Attachment::all()
+				->select($attach . '.*')
+				->select($pages . '.pagename')
+				->select($pages . '.path')
+				->select($pages . '.scope')
+				->select($pages . '.scope_id')
+				->join($pages, $pages . '.id', $attach . '.page_id')
+				->whereEquals($pages . '.scope', $this->book->get('scope'))
+				->whereEquals($pages . '.scope_id', $this->book->get('scope_id'))
+				->whereEquals($pages . '.state', '1')
+				->paginated()
+				->rows();
+			}
 			if ($rows->count())
 			{
 				foreach ($rows as $row)

@@ -9,50 +9,58 @@
 // --------------------------------------------------
 
 #masthead {
-	background: #fff;
-	color: #444;
-	margin: 0;
-	padding: 0;
-	z-index: 999;
+	display        : flex;
+	flex-direction : row;
+	flex-wrap      : wrap;
+	justify-content: space-between;
+	background     : #2D3E50;
+	color          : #444;
+	margin         : 0;
+	padding        : 0;
+	z-index        : 999;
 	.transition(all 0.3s ease);
 	.clearfix();
-	border: none;
+	border  : none;
 	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
+	top     : 0;
+	left    : 0;
+	right   : 0;
 
 	h1 {
-		margin: 0;
-		padding: 0 @spacing;
-		float: left;
-		line-height: 1;
+		flex-grow     : 2;
+		margin        : 0;
+		padding       : 0 @spacing;
+		float         : left;
+		line-height   : 1;
 		text-transform: lowercase;
-		font-family: "Kaushan Script", "BlackJack", cursive;
-		font-weight: normal;
-		font-style: normal;
-		font-size: 2em;
+		font-family   : "Kaushan Script", "BlackJack", cursive;
+		font-weight   : normal;
+		font-style    : normal;
 
 		a {
-			position: relative;
-			display: block;
-			background: transparent;
-			border: none;
+			position   : relative;
+			display    : block;
+			background : transparent;
+			border     : none;
 			font-weight: normal;
-			font-style: normal;
-			padding: 0.5em 0;
-			color: #444;
+			font-style : normal;
+			padding    : 0.5em 0;
+			color      : #444;
 			.transition(all 0.3s ease);
 
 			&:hover {
 				text-decoration: none;
-				border: none;
+				border         : none;
 			}
 		}
 	}
 }
 
-@media (min-width: 50em) {
+#logos {
+	list-style: none;
+}
+
+@media (min-width: 40em) {
 	#masthead {
 		position: fixed;
 
@@ -60,13 +68,58 @@
 			.box-shadow(~"0 4px 0 rgba(0, 0, 0, 0.08)");
 		}
 	}
+
+	#logos {
+		flex-grow: 2;
+	}
 }
 
-/*@media (min-width: 70em) {
-	#masthead h1 {
-		padding-left: @gutter;
+@media (max-width: 32.99em) {
+
+	h1 {
+		display        : flex;
+		justify-content: center;
+		order          : 1;
+		flex-basis     : 100%;
 	}
-}*/
+
+	#logos {
+		display        : flex;
+		justify-content: center;
+		order          : 2;
+		flex-basis     : 100%;
+	}
+
+	#nav {
+		margin-left: 1.5em !important;
+		order      : 3;
+	}
+
+	#account {
+		order: 4;
+	}
+}
+
+@media (min-width: 33em) and (max-width: 39.99em) {
+	h1 {
+		flex-basis: 50%;
+		order     : 1;
+	}
+
+	#logos {
+		order: 2;
+	}
+
+	#nav {
+		margin-left: 1.5em !important;
+		flex-basis : 60%;
+		order      : 3;
+	}
+
+	#account {
+		order: 4;
+	}
+}
 
 //
 // Prime Nav
@@ -74,102 +127,104 @@
 .icon-login:before {
 	content: "\f007";
 }
+
 .icon-logout:before {
 	content: "\f011";
 }
+
 .icon-register:before {
 	content: "\270D";
 }
 
 #account {
-	float: right;
 	list-style: none;
-	margin: 0 @spacing 0 0;
-	padding: 0;
-	position: relative;
-	z-index: 798;
+	margin    : 0 @spacing 0 0;
+	padding   : 0;
+	position  : relative;
+	z-index   : 798;
 
 	&.loggedin {
 		cursor: pointer;
 	}
 
 	a:hover,
-	a:focus { 
+	a:focus {
 		color: #111;
 	}
 
 	img {
-		margin: 0;
+		margin : 0;
 		padding: 0;
-		border: 2px solid rgba(0, 0, 0, 0.4);
+		border : 2px solid rgba(0, 0, 0, 0.4);
 		.border-radius(50%);
 	}
+
 	.admin img {
 		border-color: #f8d201;
 	}
 
 	li {
-		list-style: none;
-		margin: 0 0 0 .5em;
-		padding: 0;
-		float: left;
+		list-style : none;
+		margin     : 0 0 0 .5em;
+		padding    : 0;
+		float      : left;
 		line-height: 1;
 
 		&>a {
-			display: block;
-			border: none;
-			color: #666;
-			line-height: 2.85;
-			font-size: 1.4em;
-			width: 2em;
-			padding: 0 0 0 1em;
-			overflow: hidden;
+			display    : block;
+			border     : none;
+			color      : rgba(255, 255, 255, 0.75);
+			line-height: 64px;
+			font-size  : 1.6em;
+			width      : 2em;
+			padding    : 0 0 0 1em;
+			overflow   : hidden;
 			white-space: nowrap;
 
 			&:before {
 				margin-right: 0.5em;
-				font-size: 1em;
+				font-size   : 1em;
 			}
 
 			&:hover,
 			&:focus {
-				color: #222;
+				color: #4FB3D9;
 			}
 		}
 
 		.user-account-badge {
-			position: absolute;
-			top: 1.3em;
-			left: 105%;
-			overflow: hidden;
-			width: 1.5em;
-			height: 1.5em;
-			color: #f8d201;
+			position   : absolute;
+			top        : 1.3em;
+			left       : 105%;
+			overflow   : hidden;
+			width      : 1.5em;
+			height     : 1.5em;
+			color      : #f8d201;
 			line-height: 1;
-			padding: 0.2em 0.3em;
-			border: none;
+			padding    : 0.2em 0.3em;
+			border     : none;
 
 			&:before {
 				margin-right: 1em;
 			}
+
 			&:hover {
 				border: none;
 			}
 		}
 
 		.user-account-options {
-			position: absolute;
+			position  : absolute;
 			visibility: hidden;
-			width: 200px;
-			right: 0;
-			top: 100%;
+			width     : 200px;
+			right     : 0;
+			top       : 100%;
 			background: #222;
 			background: rgba(0, 0, 0, 0.9);
-			border-top: 2px solid #ccc;
-			color: #bbb;
+			color     : #bbb;
 
 			.user-account-details {
-				padding: 1em;
+				padding      : 1em;
 				border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
 				span {
@@ -178,30 +233,30 @@
 				}
 
 				.user-account-email {
-					color: #999;
+					color    : #999;
 					font-size: 0.85em;
 				}
 			}
 
 			ul {
 				list-style: none;
-				margin: 0;
+				margin    : 0;
 
 				li {
-					float: none;
+					float : none;
 					border: none;
 					margin: 0;
 
 					a {
-						display: block;
-						color: #bbb;
-						color: rgba(255, 255, 255, 0.6);
-						position: relative;
-						font-size: 1em;
-						width: auto;
+						display    : block;
+						color      : #bbb;
+						color      : rgba(255, 255, 255, 0.6);
+						position   : relative;
+						font-size  : 1em;
+						width      : auto;
 						line-height: 1;
-						border: none;
-						padding: 0.8em 1em;
+						border     : none;
+						padding    : 0.8em 1em;
 						.transition(color 0.3s ease);
 
 						&:hover,
@@ -217,12 +272,12 @@
 			display: none;
 		}
 
-		&:hover > .user-account-options,
-		&:focus > .user-account-options,
-		&:hover > form,
-		&:focus > form {
+		&:hover>.user-account-options,
+		&:focus>.user-account-options,
+		&:hover>form,
+		&:focus>form {
 			visibility: visible;
-			display: block;
+			display   : block;
 		}
 
 		&:hover img,
@@ -240,9 +295,3 @@
 		}
 	}
 }
-
-/*@media (min-width: 70em) {
-	#account {
-		margin: 0 @gutter 0 0;
-	}
-}*/

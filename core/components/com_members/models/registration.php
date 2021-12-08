@@ -187,9 +187,10 @@ class Registration
 		$this->_registration['usageAgreement'] = Request::getString('usageAgreement', null, 'post');
 		$this->_registration['sendEmail'] = Request::getString('sendEmail', '0', 'post');
 
-		if ($this->_registration['usageAgreement'] !== null)
+		// parse check box content
+		if($this->_registration['usageAgreement'] === 'on')
 		{
-			$this->_registration['usageAgreement'] = ($this->_registration['usageAgreement'] === 'unset') ? false : true;
+			$this->_registration['usageAgreement'] = '1';
 		}
 
 		// Incoming profile edits

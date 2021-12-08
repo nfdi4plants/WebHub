@@ -8,6 +8,7 @@
 // No direct access.
 defined('_HZEXEC_') or die();
 
+
 Pathway::append(
 	Lang::txt('COM_WIKI_SPECIAL_NEW_PAGES'),
 	$this->page->link()
@@ -48,7 +49,6 @@ $rows = $this->book->pages($filters)
 		}
 	])
 	->order('created', $dir)
-	->paginated()
 	->rows();
 
 $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
@@ -85,6 +85,35 @@ $altdir = ($dir == 'ASC') ? 'DESC' : 'ASC';
 			</thead>
 			<tbody>
 			<?php
+			if ($rows)
+			{
+				$page_ids = array();
+				foreach ($rows as $row)
+				{	
+					// Don't show unwanted pages
+					if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor() && $row->param('mode') == 'knol')
+					{
+						$page_ids[] = $row->get('id');
+					}
+				}
+				$filters['id'] = $page_ids;
+			}
+			$rows = $this->book->pages($filters)
+			->including([
+				'versions',
+				function ($version)
+				{
+					$version
+					->select('id')
+					->select('page_id')
+					->select('version')
+					->select('created_by')
+					->select('summary');
+				}
+			])
+			->order('created', $dir)
+			->paginated()
+			->rows();
 			if ($rows)
 			{
 				foreach ($rows as $row)

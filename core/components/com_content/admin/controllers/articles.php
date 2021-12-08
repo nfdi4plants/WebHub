@@ -199,6 +199,20 @@ class Articles extends AdminController
 		$articles->including('accessLevel')
 				 ->including('category')
 				 ->including('author');
+				 
+        // Differently named sorting options are passed in the admin interface and db table, crashing the article view. Rename here (Thomas Zajac)
+        // remove table alias prefix
+        $separatorPos = strpos($filters['sort'], '.');
+        if ($separatorPos !== false)
+        {
+            $filters['sort'] = substr($filters['sort'], $separatorPos + 1);
+        }
+        // Rename to correct table coloumn
+        if($filters['sort'] == 'access_level')
+        {
+            $filters['sort'] = 'access';
+        }
+
 		if (strtolower($filters['sort']) == 'ordering')
 		{
 			$articles->order('catid', 'asc');

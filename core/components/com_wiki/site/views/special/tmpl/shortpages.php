@@ -28,7 +28,6 @@ $rows = $this->book->pages($filters)
 	->join($versions, $versions . '.id', $pages . '.version_id')
 	->order('length', 'asc')
 	->ordered()
-	->paginated()
 	->rows();
 ?>
 <form method="get" action="<?php echo Route::url($this->page->link()); ?>">
@@ -55,6 +54,28 @@ $rows = $this->book->pages($filters)
 			</thead>
 			<tbody>
 			<?php
+			if ($rows)
+			{
+				$page_ids = array();
+				foreach ($rows as $row)
+				{	
+					// Don't show unwanted pages
+					if(in_array($row->get('access'), User::getAuthorisedViewLevels()) || $row->isAuthor() && $row->param('mode') == 'knol')
+					{
+						$page_ids[] = $row->get('id');
+					}
+				}
+				$filters['id'] = $page_ids;
+			}
+			$rows = $this->book->pages($filters)
+			->select($pages . '.*')
+			->select($versions . '.created_by')
+			->select($versions . '.length')
+			->join($versions, $versions . '.id', $pages . '.version_id')
+			->order('length', 'asc')
+			->ordered()
+			->paginated()
+			->rows();
 			if ($rows)
 			{
 				foreach ($rows as $row)

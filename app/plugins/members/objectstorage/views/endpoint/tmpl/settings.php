@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @package    hubzero-cms
+ * @copyright  Copyright 2005-2019 HUBzero Foundation, LLC.
+ * @license    http://opensource.org/licenses/MIT MIT
+ */
+
+// No direct access
+defined('_HZEXEC_') or die('Restricted access');
+
+$base = $this->member->link() . '/' . $this->name;
+
+$this->css()
+	->js();
+?>
+
+<form id="s3-settings" method="POST">
+	<label for="access-key"> de.NBI S3 Access Key:</label>
+	<?php if (empty($this->access_key))
+	{
+		echo '<input type="text" id="access-key" name="access-key" placeholder="Please Provide an Access Key" minlength="32" maxlength="32">';
+	}
+	else
+	{
+		echo '<input type="text" id="access-key" name="access-key" value="' . $this->access_key . '" minlength="32" maxlength="32">';
+	}
+	?>
+	<label for="secret-key"> de.NBI S3 Secret Key:</label>
+	<?php if (empty($this->secret_key))
+	{
+		echo '<input type="text" id="secret-key" name="secret-key" placeholder="Please Provide a Secret Key" minlength="32" maxlength="32">';
+	}
+	else
+	{
+		echo '<input type="password" id="secret-key" name="secret-key" value="' . $this->secret_key . '" minlength="32" maxlength="32">';
+	}
+	?>
+	<button id="apply-settings" type="submit">Submit</button>
+	<?php if (!empty($_SERVER['HTTP_REFERER'] && !$this->updated)) { ?>
+		<button type="button" onclick="window.location.assign('<?php echo $_SERVER['HTTP_REFERER']; ?>')">Back</button>
+	<?php } else if ($this->updated) { ?>
+		<button type="button" onclick="window.location.assign('<?php echo $base; ?>')">Back</button>
+	<?php } ?>
+	<?php if($this->updated)
+	{
+		echo '<p id="updated">Updated S3 key settings successfully.</p>';
+	}
+	?>
+</form>

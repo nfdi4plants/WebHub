@@ -98,6 +98,12 @@ class Pages extends SiteController
 		}
 
 		$this->page = $this->book->page();
+		
+		// We don't want guests viewing the site wiki
+		if($this->page->get('scope') == 'site' && User::isGuest())
+		{
+			App::abort(403, Lang::txt('ALERTNOTAUTH'));
+		}
 
 		if (in_array($this->page->getNamespace(), array('image', 'file')))
 		{
@@ -121,6 +127,7 @@ class Pages extends SiteController
 	 */
 	public function displayTask()
 	{
+
 		// Set the page's <title> tag
 		if ($this->page->get('scope') == 'site')
 		{
@@ -311,23 +318,11 @@ class Pages extends SiteController
 		}
 
 		// Check if the page is locked and the user is authorized
-		if ($this->page->isLocked() && !$this->page->access('manage'))
-		{
-			App::redirect(
-				Route::url($this->page->link()),
-				Lang::txt('COM_WIKI_WARNING_NOT_AUTH_EDITOR'),
-				'warning'
-			);
-		}
+		$has_access = $this->page->access('manage') || $this->page->access('edit') && !$this->page->isLocked() || $this->page->access('create') && !$this->page->exists();
 
-		// Check if the page is restricted and the user is authorized
-		if (!$this->page->access('edit') && !$this->page->access('modify'))
+		if (!$has_access)
 		{
-			App::redirect(
-				Route::url($this->page->link()),
-				Lang::txt('COM_WIKI_WARNING_NOT_AUTH_EDITOR'),
-				'warning'
-			);
+			App::abort(403, Lang::txt('COM_WIKI_WARNING_NOT_AUTH_EDITOR'));
 		}
 
 		// Load the page

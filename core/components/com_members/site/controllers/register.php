@@ -104,7 +104,7 @@ class Register extends SiteController
 		if (Request::getString('edit', '', 'post'))
 		{
 			// Load POSTed data
-			$xregistration->loadPOST();
+			$xregistration->loadPost();
 		}
 		else
 		{
@@ -1021,7 +1021,7 @@ class Register extends SiteController
 
 		if ($task == 'update')
 		{
-			if (empty($this->view->xregistration->login))
+			if (empty($xregistration->get('login')))
 			{
 				$this->view->registrationUsername = Field::STATE_REQUIRED;
 			}
